@@ -80,3 +80,9 @@ You're an AI cofounder. Given a one-line idea ("dog-walker scheduling for NYC"),
 ## Why this works on instanode.dev
 
 Spawning a startup needs the whole bundle in one move — DB + storage + events + deploy. Anywhere else, you're juggling four signups, four billing setups, four IAM trees. Here it's four curls, all returning real resources, all wired together by the same token. The cofounder agent's TTHW (time-to-Hello-World) drops from a workday to seconds.
+
+## Related cases
+
+- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend.md) — the human-driven version of the same end-to-end ship flow
+- [Pre-launch waitlist store](/use-cases/pre-launch-waitlist-store.md) — the landing-page-and-emails piece the founder agent generates
+- [Side-project container deploy](/use-cases/side-project-container-deploy.md) — the bare-deploy primitive the cofounder agent calls under the hood

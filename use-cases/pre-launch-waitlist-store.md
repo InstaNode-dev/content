@@ -87,3 +87,9 @@ For our pre-launch landing page, set up a waitlist capture. Provision a webhook 
 ## Why this works on instanode.dev
 
 Two curls replace a Mailchimp signup + a Zap + a Google Sheet, and your data lives in real Postgres so the nurture campaign queries are SQL instead of CSV exports. The webhook tolerates traffic spikes from HN frontpage without a single 503.
+
+## Related cases
+
+- [Stripe-event entitlements](/use-cases/stripe-event-entitlements.md) — the post-launch payments side of the same indie-founder funnel
+- [AI cofounder spawns a startup](/use-cases/ai-cofounder-spawns-a-startup.md) — agent-driven generator of the landing page this waitlist sits on
+- [Solo-founder analytics warehouse](/use-cases/solo-founder-analytics-warehouse.md) — downstream Postgres where waitlist UTMs end up for analysis

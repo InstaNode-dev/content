@@ -84,3 +84,9 @@ We've got 10,000 Workers-runtime edge agents each with a local SQLite. Every min
 ## Why this works on instanode.dev
 
 The webhook receiver flattens 10k devices into a single buffered ingestion point, so the drain worker controls Postgres concurrency. Version-aware upserts make the sync idempotent across retries.
+
+## Related cases
+
+- [Geo-sharded chat-agent fleet](/use-cases/geo-sharded-chat-agent-fleet.md) — region-scoped variant of the same edge-to-central sync idea
+- [Federated-learning aggregator](/use-cases/federated-learning-aggregator.md) — edge-fleet sibling that syncs gradients instead of SQLite deltas
+- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest.md) — similar webhook-batch ingestion at agent-fleet scale

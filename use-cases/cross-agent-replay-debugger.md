@@ -65,3 +65,9 @@ Build me a replay debugger. Claim MinIO + Mongo on instanode.dev. On every LLM c
 ## Why this works on instanode.dev
 
 MinIO stores cheap, fat payload blobs; Mongo carries the cheap, fast lookup graph. The split avoids paying Postgres prices for blob storage and Mongo prices for binary data. Both come from the same anonymous token, so debug infra is one provisioning step — not an IAM ticket and a managed-Mongo trial.
+
+## Related cases
+
+- [Agent-run lineage store](/use-cases/agent-run-lineage-store.md) — the parent/child relation graph this debugger walks
+- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest.md) — OTel collector that ingests the spans being replayed
+- [Trajectory diff regression harness](/use-cases/trajectory-diff-regression-harness.md) — diffs cached replays of the same kind across versions

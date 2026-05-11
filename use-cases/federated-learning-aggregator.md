@@ -65,3 +65,9 @@ Build a federated-learning aggregator. Claim a webhook receiver, a MinIO bucket,
 ## Why this works on instanode.dev
 
 Edge devices can't open inbound ports — they have to POST out. instanode's webhook URLs are real internet endpoints, accepting from anywhere, so phones in 50 countries can contribute gradients without VPN. Postgres holds the canonical small global state; MinIO swallows the large per-round artifacts. Three services, one token, no AWS bill to predict.
+
+## Related cases
+
+- [Per-device edge-agent state sync](/use-cases/per-device-edge-agent-state-sync.md) — edge-fleet sibling that syncs SQLite deltas instead of gradients
+- [Geo-sharded chat-agent fleet](/use-cases/geo-sharded-chat-agent-fleet.md) — another partial-state-leaves-the-edge replication pattern
+- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest.md) — similar webhook+Postgres+MinIO ingestion at agent scale

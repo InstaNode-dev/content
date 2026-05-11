@@ -69,3 +69,9 @@ Orchestrator: for every inbound GitHub issue, spawn a fresh Devin-style worker. 
 ## Why this works on instanode.dev
 
 Per-worker isolation is the whole game with Devin-style fleets: a buggy worker can't corrupt another's database. instanode gives you 3 isolated resources per worker in 3 curls, with auto-reap on the anonymous tier as a safety net if your reaper is buggy. Preview URLs are real DNS, so PR comments can include a clickable link without any Vercel/Netlify glue.
+
+## Related cases
+
+- [High-volume PR-review pipeline](/use-cases/high-volume-pr-review-pipeline.md) — queue-based equivalent at thousands-of-PRs scale
+- [Cursor background-agent worktree](/use-cases/cursor-background-agent-worktree.md) — IDE-side counterpart that owns a worktree per branch
+- [Sandbox-per-PR preview deployment](/use-cases/sandbox-per-pr-preview-deployment.md) — the preview-env primitive this PR-bot fleet calls into

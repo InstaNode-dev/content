@@ -80,3 +80,9 @@ Use the OpenAI Agents SDK to wire a triage agent that hands off to refund, shipp
 ## Why this works on instanode.dev
 
 Postgres' `jsonb || jsonb` makes per-thread message appending atomic, and Redis NX locks stop the same handoff from being claimed twice when the triage agent retries. Two curls, both in the same token, no per-environment config drift.
+
+## Related cases
+
+- [CrewAI parallel-process crew](/use-cases/crewai-parallel-process-crew.md) — framework-equivalent specialist-agent fan-out
+- [Cross-framework A2A gateway](/use-cases/cross-framework-a2a-gateway.md) — translates OpenAI SDK handoffs into other frameworks
+- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents.md) — graph-shaped alternative to a flat handoff mesh

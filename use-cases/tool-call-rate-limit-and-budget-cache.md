@@ -67,3 +67,9 @@ Provision Redis via instanode.dev. Use it as a coordination layer so parallel su
 ## Why this works on instanode.dev
 
 Redis EVAL is the canonical "compare-and-decrement atomically" primitive for shared budgets — without it parallel sub-agents will overspend by exactly N-1 calls. `/cache/new` ships a Redis with ACL-scoped credentials so the agent's budget keys can't be touched by anything else.
+
+## Related cases
+
+- [Per-agent rate-limited API key vault](/use-cases/per-agent-rate-limited-api-key-vault.md) — vault that mints the keys this budget cache governs
+- [Token-cost ledger per sub-agent](/use-cases/token-cost-ledger-per-sub-agent.md) — Postgres rollup that this Redis cache feeds
+- [Contract redline cache](/use-cases/contract-redline-cache.md) — another Redis-fronted reuse cache that saves model spend

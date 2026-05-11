@@ -78,3 +78,9 @@ Every failed tool call across the swarm publishes to a NATS DLQ subject. Build a
 ## Why this works on instanode.dev
 
 JetStream's durable pull-consumers let the investigator fall behind during a failure storm without losing messages. Mongo's update-with-upsert collapses thousands of failures into a top-N cluster list with one query.
+
+## Related cases
+
+- [Durable agent task queue](/use-cases/durable-agent-task-queue.md) — the main queue whose failures feed this DLQ
+- [Live agent status broadcast](/use-cases/live-agent-status-broadcast.md) — complementary live-success-side view of the same swarm
+- [Agent-resilience chaos lab](/use-cases/agent-resilience-chaos-lab.md) — produces the failures the DLQ inspector ends up clustering

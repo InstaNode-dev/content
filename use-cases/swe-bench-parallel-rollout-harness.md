@@ -71,3 +71,9 @@ Run SWE-bench-Verified end-to-end on 500 tasks in parallel. For each task: provi
 ## Why this works on instanode.dev
 
 500 separate Postgres scratches + 500 isolated deploys would take hours to set up on a cloud account. Here it's three loops of curl. The pro tier gives the connection ceiling and per-resource isolation that prevents one task's flaky migration from poisoning another.
+
+## Related cases
+
+- [GAIA tournament bracket](/use-cases/gaia-tournament-bracket.md) — tournament-scoring variant of the same parallel eval fleet
+- [Terminal-Bench shell sandbox grid](/use-cases/terminal-bench-shell-sandbox-grid.md) — shell-task sibling at fleet scale with webhook pass/fail
+- [Trajectory diff regression harness](/use-cases/trajectory-diff-regression-harness.md) — per-PR regression cousin of running the full benchmark

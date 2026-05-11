@@ -76,3 +76,9 @@ Build an on-call agent that receives PagerDuty webhooks, runs the matching runbo
 ## Why this works on instanode.dev
 
 The webhook receiver buffers alerts during a paging storm, so the agent processes the queue rather than hammering your runbook tooling in parallel. Action logs in Postgres give post-incident retros a clean audit trail without standing up a separate logging stack.
+
+## Related cases
+
+- [Deploy-status MCP server](/use-cases/deploy-status-mcp-server.md) — live status the on-call agent reads while running a runbook
+- [Slack/Discord async bot factory](/use-cases/slack-discord-async-bot-factory.md) — another webhook-driven durable bot pattern
+- [CI flake-tracker](/use-cases/ci-flake-tracker.md) — consumes the alerts that flaky-test detection often generates

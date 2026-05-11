@@ -66,3 +66,9 @@ You're filling a 200-field government form via browser automation. Claim a Mongo
 ## Why this works on instanode.dev
 
 Mongo's per-field atomic `$set` is exactly right for incremental state-machine progress — no need to serialize a giant JSON blob on every keystroke. The connection URL is reachable from any browser-automation runner (Browserbase, your own Playwright pods, anything), so a session that started on a laptop can resume in headless cloud. AES-256 encryption at rest matters here because government forms carry PII.
+
+## Related cases
+
+- [Browser-session cookie store](/use-cases/browser-session-cookie-store.md) — the auth-state cache that lets the form session resume
+- [Accessibility-tree selector cache](/use-cases/accessibility-tree-selector-cache.md) — the selector layer this state machine fills against
+- [LangGraph state checkpoints](/use-cases/langgraph-state-checkpoints.md) — framework-level version of the same crash-resumable pattern

@@ -75,3 +75,9 @@ Build an x402 micropayment hub. Provision Postgres via instanode.dev. Every time
 ## Why this works on instanode.dev
 
 Postgres transactions guarantee debit + credit land atomically; the UNIQUE constraint makes settlement idempotent under retry. One curl and the agent-payment economy has a real ledger — no Stripe, no custodian.
+
+## Related cases
+
+- [x402 micropayment per tool call](/use-cases/x402-micropayment-per-tool-call.md) — the per-call settlement layer this ledger reconciles
+- [Agent-marketplace escrow](/use-cases/agent-marketplace-escrow.md) — job-level escrow that complements x402's per-call billing
+- [Agent reputation log](/use-cases/agent-reputation-log.md) — trust signal that often gates access to paid endpoints

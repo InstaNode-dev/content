@@ -70,3 +70,9 @@ You're my journal agent. Claim Postgres + Redis on instanode.dev. Each day at en
 ## Why this works on instanode.dev
 
 Pgvector lives in the same Postgres as your journal — no separate vector DB, no dual writes, no consistency drift. The cache makes "what was I doing Monday" feel instant from a phone keyboard. Both URLs are durable: 365 days from now your "January 2026" search still works because the data is sitting on real disk, not in an LLM's context.
+
+## Related cases
+
+- [CRM for one person](/use-cases/crm-for-one-person.md) — complementary personal-AI store keyed by contact
+- [Obsidian-vault embedding sync](/use-cases/obsidian-vault-embedding-sync.md) — the long-form-notes counterpart to short daily entries
+- [Shared episodic memory store](/use-cases/shared-episodic-memory-store.md) — team-scoped variant of the same episodic-memory pattern

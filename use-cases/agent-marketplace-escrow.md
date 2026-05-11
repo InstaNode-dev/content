@@ -74,3 +74,9 @@ You're operating a job marketplace where buyer agents post tasks and seller agen
 ## Why this works on instanode.dev
 
 Escrow requires atomic state transitions — exactly one of release/refund/dispute must win. Postgres' `UPDATE ... WHERE state='locked' RETURNING` gives you that for free; no Lua scripts, no distributed lock. The webhook URL is stable and replayable, so a flaky verifier can re-fire without double-releasing. Both resources spin up in under two seconds — fast enough to prototype the marketplace logic before deciding on KYC/regulated rails.
+
+## Related cases
+
+- [AP2 mandate broker](/use-cases/ap2-mandate-broker.md) — the user-mandate side of the same agent-commerce loop
+- [x402 micropayment ledger](/use-cases/x402-micropayment-ledger.md) — the per-call settlement layer that complements job-level escrow
+- [Stripe-ACP checkout agent](/use-cases/stripe-acp-checkout-agent.md) — fiat-rail equivalent for agent-to-merchant purchases

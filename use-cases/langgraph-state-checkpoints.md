@@ -70,3 +70,9 @@ Wire LangGraph's PostgresSaver checkpointer so our research workflow survives cr
 ## Why this works on instanode.dev
 
 LangGraph's PostgresSaver only needs a working DSN, which the `/db/new` response gives you in one call. There is no separate checkpoint service to run, and the same DB row-stores your run history, so debugging a stuck thread is one SQL query away.
+
+## Related cases
+
+- [Form-fill state machine](/use-cases/form-fill-state-machine.md) — domain-specific instance of the same crash-resume pattern
+- [Restate-style durable sidecar](/use-cases/restate-style-durable-sidecar.md) — out-of-process alternative to in-graph checkpoints
+- [Long-horizon Temporal agent workflow](/use-cases/long-horizon-temporal-agent-workflow.md) — scales the checkpoint idea to 14-day workflows

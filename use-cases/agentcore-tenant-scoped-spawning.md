@@ -74,3 +74,9 @@ You're operating an AWS-AgentCore-style multi-tenant runtime. When a new custome
 ## Why this works on instanode.dev
 
 Multi-tenant agent runtimes need real per-tenant isolation — shared schemas with row-level security only get you so far when a noisy neighbor blows your connection pool. `POST /db/new` returns a fresh database per call (not a schema, an actual database), so each tenant is bulkheaded. Signup latency is one round-trip; no Terraform reconcile, no AWS quota request.
+
+## Related cases
+
+- [Per-tenant chatbot factory at signup](/use-cases/per-tenant-chatbot-factory-at-signup.md) — the same tenant-isolation pattern with a deploy slot per tenant
+- [Cloudflare sub-agent factory per user](/use-cases/cloudflare-sub-agent-factory-per-user.md) — Durable-Object-style variant that mints per-user (not per-org) runtimes
+- [Smithery one-MCP-per-skill mint](/use-cases/smithery-one-mcp-per-skill-mint.md) — spawns MCP servers per skill rather than per tenant

@@ -79,3 +79,9 @@ Build a model bake-off router. The router publishes the same prompt to GPT, Clau
 ## Why this works on instanode.dev
 
 NATS' first-reply-wins pattern falls out of the request/wait primitive without extra plumbing, and Redis keeps the "wasted" generations productive by feeding the next request. Both resources are one curl each.
+
+## Related cases
+
+- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch.md) — same race-and-collect shape, but across tools instead of models
+- [Speculative agent rollout race](/use-cases/speculative-agent-rollout-race.md) — races temperatures of one model instead of three providers
+- [LLM-as-judge consensus pool](/use-cases/llm-as-judge-consensus-pool.md) — judge variant when you want consensus instead of first-to-win

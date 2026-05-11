@@ -67,3 +67,9 @@ I want my assistant's chat history to follow me from phone to laptop to watch. C
 ## Why this works on instanode.dev
 
 The Mongo URL is public-internet reachable, so a watch on cell data or a laptop on hotel Wi-Fi both connect with the same string. Mongo's flexible schema means you can evolve message format (add tool_calls, attachments, citations) without an ALTER. AES-256-GCM means a leaked URL on a device is recoverable: rotate via the API and the old credentials die.
+
+## Related cases
+
+- [AutoGen group-chat history](/use-cases/autogen-group-chat-history.md) — the multi-agent equivalent of this per-user Mongo log
+- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory.md) — adjacent personal-AI Postgres+Redis recall pattern
+- [Conversation transcript archive](/use-cases/conversation-transcript-archive.md) — the team-wide append-only sibling of cross-device history

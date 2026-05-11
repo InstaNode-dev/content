@@ -68,3 +68,9 @@ Set up a 50-sandbox Daytona warm pool. For each sandbox, pre-claim a Redis names
 ## Why this works on instanode.dev
 
 Per-sandbox Redis namespaces mean noisy neighbors can't poison each other's resolver cache. Provisioning is fast enough (~600ms) that pool refill at scale stays under 30s for 50 sandboxes. The deploy slot for the base image lives at a `*.instanode.dev` URL, so Daytona pulls it without authenticating to a private registry. No infrastructure to maintain beyond the agent code itself.
+
+## Related cases
+
+- [E2B microVM sandbox per agent turn](/use-cases/e2b-microvm-sandbox-per-agent-turn.md) — per-turn cold-start alternative to a kept-warm pool
+- [Sandboxed test runner per task](/use-cases/sandboxed-test-runner-per-task.md) — the test-runner equivalent of the same pool idea
+- [Pyodide notebook cell agent farm](/use-cases/pyodide-notebook-cell-agent-farm.md) — another pool of ready-to-run Python workers

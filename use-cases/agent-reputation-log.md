@@ -78,3 +78,9 @@ You operate a reputation ledger. Buyer agents POST ratings (1-5) on seller agent
 ## Why this works on instanode.dev
 
 Reputation has two access patterns — append-only audit log (Postgres) and read-heavy aggregate (Redis) — and trying to do both in one store kills you. Two curls, two real services, both encrypted at rest. Hourly recon from Postgres means a Redis flush doesn't lose any rating, just rebuilds the cache.
+
+## Related cases
+
+- [A2A agent-card registry](/use-cases/a2a-agent-card-registry.md) — the directory those ratings annotate
+- [Token-cost ledger per sub-agent](/use-cases/token-cost-ledger-per-sub-agent.md) — another rollup pattern, but on spend instead of reputation
+- [x402 micropayment ledger](/use-cases/x402-micropayment-ledger.md) — reputation tends to gate access to higher-trust paid endpoints

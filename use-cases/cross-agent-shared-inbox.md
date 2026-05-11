@@ -64,3 +64,9 @@ Two agents need to negotiate asynchronously. Claim a NATS JetStream on instanode
 ## Why this works on instanode.dev
 
 JetStream is a real durable stream — messages survive broker restarts, agent crashes, and overnight disconnects — provisioned in one curl. Neither agent needs to host an SMTP server, run a poller against email, or coordinate timezones; the inbox is the broker. For the Internet-of-AI case where agents speak across vendors, instanode's URL is reachable from anywhere and authenticated by token, no peering required.
+
+## Related cases
+
+- [Cross-framework A2A gateway](/use-cases/cross-framework-a2a-gateway.md) — promotes the inbox into a protocol-translating bus
+- [Durable agent task queue](/use-cases/durable-agent-task-queue.md) — same JetStream durability primitive for jobs instead of conversations
+- [A2A agent-card registry](/use-cases/a2a-agent-card-registry.md) — directory that tells agents which inbox to negotiate on

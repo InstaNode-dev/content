@@ -71,3 +71,9 @@ On every Stripe webhook (customer.subscription.created, updated, deleted), updat
 ## Why this works on instanode.dev
 
 The webhook resource gives you Stripe-signature-verified replay history out of the box, so a brief downtime won't lose entitlement changes — drain on recovery. Postgres + Redis on one platform means one network hop and one auth model for both.
+
+## Related cases
+
+- [Pre-launch waitlist store](/use-cases/pre-launch-waitlist-store.md) — the pre-paid signup half of the same indie-founder funnel
+- [Solo-founder analytics warehouse](/use-cases/solo-founder-analytics-warehouse.md) — downstream warehouse that consumes plan-tier events
+- [Stripe-ACP checkout agent](/use-cases/stripe-acp-checkout-agent.md) — upstream agent-checkout flow that fires these webhooks

@@ -63,3 +63,9 @@ You're my research agent. Subscribe to arXiv + RSS bridges via a webhook URL. On
 ## Why this works on instanode.dev
 
 Personal-research agents shouldn't need a server. A webhook URL is the inbox, Redis SET-NX is the dedupe primitive, MinIO is the PDF archive — three curls, no Lambda, no DynamoDB GSI. The webhook receive endpoint is queryable via HTTP so the agent can pull on its own cadence instead of running a 24/7 listener.
+
+## Related cases
+
+- [Obsidian-vault embedding sync](/use-cases/obsidian-vault-embedding-sync.md) — downstream sink that indexes the papers this feed pulls in
+- [Voice-memo capture pipeline](/use-cases/voice-memo-capture-pipeline.md) — another personal-AI ingestion pipeline with audio instead of papers
+- [Overnight dossier fleet](/use-cases/overnight-dossier-fleet.md) — consumes the same kind of feed to generate scheduled briefings

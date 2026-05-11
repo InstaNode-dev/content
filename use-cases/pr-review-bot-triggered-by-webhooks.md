@@ -76,3 +76,9 @@ Wire a GitHub PR-review agent. Provision a webhook to receive pull_request and p
 ## Why this works on instanode.dev
 
 The webhook receiver shields you from GitHub's retry storms when a deploy fails — events queue up rather than getting dropped. The Redis diff cache keeps repeat reviews on the same SHA cheap, which matters when a busy PR gets 5 force-pushes in an hour.
+
+## Related cases
+
+- [High-volume PR-review pipeline](/use-cases/high-volume-pr-review-pipeline.md) — the at-scale queue-and-MinIO version of the same bot
+- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet.md) — per-issue ephemeral-worker variant with a scratch Postgres
+- [CI flake-tracker](/use-cases/ci-flake-tracker.md) — consumes the same GitHub webhook stream from a different angle

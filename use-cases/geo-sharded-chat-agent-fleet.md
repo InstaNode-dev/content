@@ -69,3 +69,9 @@ Build a geo-sharded chat fleet. In each region (US/EU/APAC), claim a local Redis
 ## Why this works on instanode.dev
 
 Region-pinned Redis keeps per-session reads on the same continent as the user — chat latency stays under 50ms. The shared Postgres carries only consented, dense memories, so cross-region replication bandwidth is bounded by user choice, not by chat volume. One control plane for all four resources; one token model; no AWS region toggling, no Aurora Global setup.
+
+## Related cases
+
+- [Per-device edge-agent state sync](/use-cases/per-device-edge-agent-state-sync.md) — device-scale variant of the same regional-sync pattern
+- [Federated-learning aggregator](/use-cases/federated-learning-aggregator.md) — another partial-state-leaves-the-edge replication shape
+- [Cross-device chat history](/use-cases/cross-device-chat-history.md) — the single-user equivalent of regional chat agents

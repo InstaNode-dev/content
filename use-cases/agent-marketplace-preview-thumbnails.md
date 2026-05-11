@@ -76,3 +76,9 @@ You're indexing an agent marketplace. For every listed agent, capture a screensh
 ## Why this works on instanode.dev
 
 Marketplace thumbnails are write-once, read-many, and you don't want to pay R2/S3 egress on every card hover. MinIO is S3-API-compatible, so boto3 and any image CDN drop in without code changes. Provisioning is one curl and the bucket starts empty — no IAM policy JSON, no CORS preamble, no per-bucket pricing tier to choose.
+
+## Related cases
+
+- [A2A agent-card registry](/use-cases/a2a-agent-card-registry.md) — the structured-metadata half of the same marketplace listing
+- [Screenshot evidence archive](/use-cases/screenshot-evidence-archive.md) — the same MinIO-keyed-by-id pattern for QA screenshots
+- [Agent reputation log](/use-cases/agent-reputation-log.md) — ratings that surface next to the thumbnails in the listing UI

@@ -74,3 +74,9 @@ Every LLM call across the agent fleet POSTs token usage to a webhook provisioned
 ## Why this works on instanode.dev
 
 The webhook captures every call even if the ledger consumer is briefly down — replay drains on restart. Redis `INCRBY` is atomic so concurrent sub-agents can't race past the threshold. Postgres holds the audit trail for invoicing.
+
+## Related cases
+
+- [Per-agent rate-limited API key vault](/use-cases/per-agent-rate-limited-api-key-vault.md) — the vault that emits the spend events this ledger ingests
+- [Tool-call rate-limit and budget cache](/use-cases/tool-call-rate-limit-and-budget-cache.md) — in-agent budget cache the ledger throttles back against
+- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest.md) — trace-collector view over the same per-call firehose

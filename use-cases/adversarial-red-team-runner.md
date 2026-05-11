@@ -74,3 +74,9 @@ You run a LangWatch-Scenario-style red-team. Spawn 50 attacker agents that probe
 ## Why this works on instanode.dev
 
 Red-team transcripts are bursty, unstructured, and need cheap append-only writes — exactly what Mongo's good at. Pairing it with a webhook means your incident pipeline doesn't need a polling worker; successful jailbreaks push themselves to wherever the on-call lives. Both resources are real (not mocks), so the same setup works for nightly CI runs and one-off ad-hoc probes.
+
+## Related cases
+
+- [LLM-as-judge consensus pool](/use-cases/llm-as-judge-consensus-pool.md) — the eval-time counterpart that scores agent outputs instead of attacking them
+- [GAIA tournament bracket](/use-cases/gaia-tournament-bracket.md) — another parallel-evaluator pattern with leaderboard scoring
+- [Pre-commit skill-scanner webhook](/use-cases/pre-commit-skill-scanner-webhook.md) — the static-analysis cousin that blocks malicious skills before push

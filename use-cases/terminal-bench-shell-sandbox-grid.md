@@ -67,3 +67,9 @@ Spin up 100 ephemeral shell sandboxes, one per Terminal-Bench task, each with it
 ## Why this works on instanode.dev
 
 Terminal-Bench needs strict per-task isolation — one shell escaping into another invalidates the benchmark. `/deploy/new` per task plus `/db/new` per task gives that without managing 100 namespaces yourself. The webhook acts as a serverless results aggregator.
+
+## Related cases
+
+- [SWE-bench parallel rollout harness](/use-cases/swe-bench-parallel-rollout-harness.md) — code-task sibling at the same fleet scale
+- [Sandboxed test runner per task](/use-cases/sandboxed-test-runner-per-task.md) — single-sandbox primitive this grid replicates 100x
+- [E2B microVM sandbox per agent turn](/use-cases/e2b-microvm-sandbox-per-agent-turn.md) — lighter-weight per-turn sandboxing alternative

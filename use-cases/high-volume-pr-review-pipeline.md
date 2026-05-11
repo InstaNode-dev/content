@@ -70,3 +70,9 @@ Set up the backend for our AI PR-review bot that handles 3k MRs/day. Provision a
 ## Why this works on instanode.dev
 
 JetStream gives you at-least-once delivery and durable consumers without standing up a broker, and MinIO is wire-compatible with the AWS CLI you already use. Both resources are claimed under the same token, so when traffic grows past the hobby tier you upgrade once and every consumer keeps its URL.
+
+## Related cases
+
+- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet.md) — per-issue ephemeral-worker shape of the same review fleet
+- [CI flake-tracker](/use-cases/ci-flake-tracker.md) — consumes the same CI webhook stream this pipeline reviews
+- [PR-review bot triggered by webhooks](/use-cases/pr-review-bot-triggered-by-webhooks.md) — single-bot version of this thousands-of-PRs pipeline

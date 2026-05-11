@@ -79,3 +79,9 @@ You operate a Cloudflare-Durable-Object-style sub-agent factory. When an end-use
 ## Why this works on instanode.dev
 
 Per-user isolation done right needs per-user resources, not per-user schemas inside one giant DB. `POST /db/new` + `POST /deploy/new` per first-time user gives the same isolation guarantee Durable Objects provide, without writing a Workers-runtime port. The control-plane Postgres maps user_id to (db, deploy) in one row; subsequent requests skip provisioning entirely. Cold-start spawn is two curls, ~2 seconds.
+
+## Related cases
+
+- [AgentCore tenant-scoped spawning](/use-cases/agentcore-tenant-scoped-spawning.md) — tenant-org-scoped variant of the same factory pattern
+- [Per-tenant chatbot factory at signup](/use-cases/per-tenant-chatbot-factory-at-signup.md) — B2B SaaS sibling that adds Mongo+Redis per tenant
+- [Smithery one-MCP-per-skill mint](/use-cases/smithery-one-mcp-per-skill-mint.md) — factory variant that mints one runtime per skill, not per user

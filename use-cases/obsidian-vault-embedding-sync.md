@@ -77,3 +77,9 @@ Set up nightly Obsidian-vault embedding into pgvector on instanode. Provision Po
 ## Why this works on instanode.dev
 
 pgvector ships in the Postgres you provision, so there is no separate vector store to operate. HNSW handles years of notes at low latency, and the same DB powers both your personal agent's RAG and any future search UI.
+
+## Related cases
+
+- [Coding-agent cross-session memory](/use-cases/coding-agent-cross-session-memory.md) — same pgvector recall pattern over code instead of notes
+- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory.md) — short-form personal counterpart to the long-form vault
+- [arXiv-and-RSS research feed](/use-cases/arxiv-and-rss-research-feed.md) — an upstream ingestion source that feeds into the vault

@@ -68,3 +68,9 @@ Receiver side of x402: provision Redis + Postgres + webhook via instanode.dev. T
 ## Why this works on instanode.dev
 
 Redis `DECR`/`INCR` is atomic so concurrent calls can't double-spend a single payment. The webhook gives the chain indexer a verified-payload sink that the receiver can drain on its own schedule, and Postgres makes the per-tool revenue trail queryable from day one.
+
+## Related cases
+
+- [x402 micropayment ledger](/use-cases/x402-micropayment-ledger.md) — the principal-balance reconciliation layer above per-call x402
+- [Per-agent rate-limited API key vault](/use-cases/per-agent-rate-limited-api-key-vault.md) — rate-limited alternative to payment-gated tool access
+- [Agent-marketplace escrow](/use-cases/agent-marketplace-escrow.md) — job-level commitment layer above per-call settlement

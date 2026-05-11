@@ -76,3 +76,9 @@ Set up a pre-commit MCP-skill security scanner. Provision a webhook endpoint; co
 ## Why this works on instanode.dev
 
 The webhook receiver gives the scanner a single ingress URL that every dev's hook can POST to, with no per-developer auth setup. Rules run server-side so your scanner improvements ship instantly without each developer running `pip install --upgrade`.
+
+## Related cases
+
+- [Adversarial red-team runner](/use-cases/adversarial-red-team-runner.md) — runtime attack-surface counterpart to this static scanner
+- [PR-review bot triggered by webhooks](/use-cases/pr-review-bot-triggered-by-webhooks.md) — another webhook-triggered code-quality bot
+- [SARIF scan-result store](/use-cases/sarif-scan-result-store.md) — Postgres warehouse where scanner findings can land for trends

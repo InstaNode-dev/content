@@ -80,3 +80,9 @@ You're an adaptive math tutor. For each student, track concept-level mastery in 
 ## Why this works on instanode.dev
 
 Adaptive tutoring needs real SQL for the ranking query (ORDER BY two columns with NULLS FIRST) and ACID guarantees so a double-tap doesn't double-update EWMA. Firebase can't express the "weakest, due, not seen in 6h" query; DynamoDB needs three GSIs. One curl, one schema, real Postgres — and the same DB scales from 5 pilot students to 50k without re-architecture.
+
+## Related cases
+
+- [Classroom-per-student sandbox](/use-cases/classroom-per-student-sandbox.md) — the same per-student isolation idea applied to SQL homework
+- [CRM for one person](/use-cases/crm-for-one-person.md) — another Postgres-only per-user model with personalized recall
+- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory.md) — persistent per-user state with sub-second history retrieval

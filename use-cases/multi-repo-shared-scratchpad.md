@@ -74,3 +74,9 @@ Spin up a shared Mongo scratchpad so the four coding agents working across our m
 ## Why this works on instanode.dev
 
 Mongo's schemaless collections fit agent notes that drift in shape across repos, and the branch-keyed index makes cross-agent reads cheap. One curl produces a working URL — no Atlas account, no IP allowlist.
+
+## Related cases
+
+- [Claude Code agent-teams scratchpad](/use-cases/claude-code-agent-teams-scratchpad.md) — Postgres-table version of the same coordination idea
+- [Coding-agent cross-session memory](/use-cases/coding-agent-cross-session-memory.md) — long-horizon memory across days, not just across repos
+- [Shared episodic memory store](/use-cases/shared-episodic-memory-store.md) — generalizes the scratchpad to non-coding agent pairs

@@ -77,3 +77,9 @@ Every nightly run of Semgrep and CodeQL on the main branch should POST its SARIF
 ## Why this works on instanode.dev
 
 A real Postgres on one curl removes the awkward step where security tools store results in a CI artifact and you can never query history. JSONB columns also handle the raw SARIF payload for downstream tooling that needs the original.
+
+## Related cases
+
+- [CI flake-tracker](/use-cases/ci-flake-tracker.md) — another CI-side Postgres warehouse for tracking drift
+- [Pre-commit skill-scanner webhook](/use-cases/pre-commit-skill-scanner-webhook.md) — the inbound scanner that fills a SARIF store
+- [Repo-wide code dependency graph](/use-cases/repo-wide-code-dependency-graph.md) — blast-radius context for findings stored in SARIF

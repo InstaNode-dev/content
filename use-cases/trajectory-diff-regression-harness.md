@@ -65,3 +65,9 @@ On every PR to the agent repo, replay 1000 cached trajectories in parallel again
 ## Why this works on instanode.dev
 
 A real S3-API bucket makes trajectory caching across CI runs trivial — no "did anyone clean the artifact cache" surprises. Postgres stores the structured per-PR rollup so trend dashboards can show "are diffs growing PR-over-PR" without re-parsing diff bodies.
+
+## Related cases
+
+- [SWE-bench parallel rollout harness](/use-cases/swe-bench-parallel-rollout-harness.md) — full-benchmark sibling of this per-PR regression check
+- [Cross-agent replay debugger](/use-cases/cross-agent-replay-debugger.md) — manual-replay UI built on the same cached-trajectory pattern
+- [Agent-run lineage store](/use-cases/agent-run-lineage-store.md) — lineage anchor used to attribute diffs to specific runs

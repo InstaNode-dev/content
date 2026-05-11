@@ -71,3 +71,9 @@ Probe 12 candidate query rewrites in parallel against a forked Postgres. Each pr
 ## Why this works on instanode.dev
 
 Spinning up a throwaway Postgres for plan probing used to take an RDS dashboard tour; here it's one curl that returns a connection string in a second. Redis caches plan decisions so a hot query shape is probed once an hour, not once a request.
+
+## Related cases
+
+- [Copy-on-write Postgres for agent migrations](/use-cases/copy-on-write-postgres-for-agent-migrations.md) — the forking primitive this probe runs EXPLAINs against
+- [Ephemeral test database for a risky migration](/use-cases/ephemeral-test-database-for-a-risky-migration.md) — single-clone alternative when you only need one probe
+- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch.md) — same fan-out-and-pick-best shape, applied to model tools

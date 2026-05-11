@@ -64,3 +64,9 @@ Give me a full dev backend in one go. Claim Postgres, Redis, and MongoDB on inst
 ## Why this works on instanode.dev
 
 This is the canonical instanode flow: no Docker daemon, no `docker compose up`, no port collisions, no localhost binds. The same URLs work from your laptop, a teammate's laptop, a CI runner, or a deployed container — because they're public endpoints with token auth. Three real production-grade services in three seconds, zero setup, zero account.
+
+## Related cases
+
+- [24-hour hackathon backend](/use-cases/24-hour-hackathon-backend.md) — hackathon-flavored variant of the same anonymous-bundle idea
+- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend.md) — paid-tier extension that adds deploy on top
+- [Agent-resilience chaos lab](/use-cases/agent-resilience-chaos-lab.md) — same bundle plus chaos injection for resilience testing

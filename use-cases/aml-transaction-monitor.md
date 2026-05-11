@@ -78,3 +78,9 @@ You're an AML compliance agent. Consume transaction events from NATS, score them
 ## Why this works on instanode.dev
 
 AML demands two things: durable audit trail (Postgres ACID) and back-pressure-tolerant event stream (NATS JetStream). The decision row carries its full reasoning JSON so a regulator's "explain this flag" query is one SELECT. Both services are real (not mocks), which matters because compliance teams will literally subpoena your event log.
+
+## Related cases
+
+- [SARIF scan-result store](/use-cases/sarif-scan-result-store.md) — another compliance-trail pattern with longitudinal trend drift
+- [Stripe-event entitlements](/use-cases/stripe-event-entitlements.md) — consumes the payment-event stream the AML monitor watches
+- [Personal-injury demand letters](/use-cases/personal-injury-demand-letters.md) — another vertical-AI agent with auditable per-case history

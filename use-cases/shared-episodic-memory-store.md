@@ -70,3 +70,9 @@ Set up a shared episodic memory between planner and researcher agents. Provision
 ## Why this works on instanode.dev
 
 pgvector is preinstalled on instanode Postgres, so two agents sharing memory needs zero extra infra beyond one curl. The hobby tier's 5 connection limit comfortably handles a planner + researcher + one reflection job; pro gives 20 for larger crews.
+
+## Related cases
+
+- [Claude Code agent-teams scratchpad](/use-cases/claude-code-agent-teams-scratchpad.md) — coding-team variant of the same shared memory table
+- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory.md) — single-user variant of episodic memory recall
+- [Multi-repo shared scratchpad](/use-cases/multi-repo-shared-scratchpad.md) — Mongo-document version of the same coordination idea

@@ -66,3 +66,9 @@ Wire a CrewAI crew with a NATS message bus from instanode.dev. Planner publishes
 ## Why this works on instanode.dev
 
 NATS JetStream is a single-curl provision, not a cluster you operate. The server is reachable from anywhere — laptops, k8s pods, Vercel functions — so a heterogeneous crew running across different runtimes shares the same bus. Token-scoped credentials mean each crew gets its own isolated subject namespace; there's no risk of crews stomping on each other.
+
+## Related cases
+
+- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents.md) — framework-equivalent fan-out pattern with a Postgres reducer
+- [Cross-framework A2A gateway](/use-cases/cross-framework-a2a-gateway.md) — translates CrewAI subjects into other frameworks' protocols
+- [Durable agent task queue](/use-cases/durable-agent-task-queue.md) — the durability-with-retry primitive these CrewAI subjects need

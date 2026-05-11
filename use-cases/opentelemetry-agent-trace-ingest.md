@@ -81,3 +81,9 @@ Build a Langfuse-style OTel ingestor for our 200-agent swarm. Spans arrive on a 
 ## Why this works on instanode.dev
 
 The webhook absorbs bursts when 200 agents flush at once; MinIO keeps Postgres rows skinny by holding the 50KB prompt bodies; the trace dashboard joins them on demand. One claimed token, three resources, zero observability vendor lock-in.
+
+## Related cases
+
+- [Agent-run lineage store](/use-cases/agent-run-lineage-store.md) — uses these spans to build the parent/child run graph
+- [Cross-agent replay debugger](/use-cases/cross-agent-replay-debugger.md) — replays branches of the trace stream this collector ingests
+- [Token-cost ledger per sub-agent](/use-cases/token-cost-ledger-per-sub-agent.md) — spend-aggregation view over the same span firehose

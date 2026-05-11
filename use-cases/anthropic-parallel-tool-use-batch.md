@@ -73,3 +73,9 @@ A Claude turn just returned 8 tool_use blocks in parallel. Fan them out to 8 NAT
 ## Why this works on instanode.dev
 
 Anthropic's parallel tool_use only pays off if your collection layer is faster than your tools. Redis MGET pulls 8 values in one round-trip (~1ms); NATS fan-out is sub-millisecond. Both provisioned in two curls, no Lambda cold-start, no SQS visibility-timeout gymnastics. Drop-in replacement when you outgrow in-process asyncio.gather.
+
+## Related cases
+
+- [Multi-model bake-off router](/use-cases/multi-model-bake-off-router.md) — the same race-and-collect pattern across models instead of tools
+- [Scatter-gather price comparison swarm](/use-cases/scatter-gather-price-comparison-swarm.md) — scatter/gather with first-N-wins instead of all-blocks
+- [Browser-agent action pool](/use-cases/browser-agent-action-pool.md) — the same fan-out, but actions land on browser tabs

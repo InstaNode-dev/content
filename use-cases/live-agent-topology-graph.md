@@ -82,3 +82,9 @@ Build a live topology graph of our agent fleet. Every spawn or handoff publishes
 ## Why this works on instanode.dev
 
 NATS gives the swarm a single event bus that any spawning library can publish to with one line. Postgres' recursive CTEs render the tree without an extra graph DB, and both resources live under one token so the topology service deploys with two curls.
+
+## Related cases
+
+- [Live agent status broadcast](/use-cases/live-agent-status-broadcast.md) — the heartbeat source this topology graph subscribes to
+- [Agent-run lineage store](/use-cases/agent-run-lineage-store.md) — persistent-history counterpart to the live spawn graph
+- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest.md) — OTel-spans variant of the same span/edge ingestion

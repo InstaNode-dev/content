@@ -69,3 +69,9 @@ On every PR opened against this repo, provision an isolated Postgres + MinIO buc
 ## Why this works on instanode.dev
 
 One token per resource means GitHub Actions can pass three opaque strings instead of three sets of credentials. `/storage/new` and `/db/new` complete in a single second each, so the preview is ready before CI finishes its first test.
+
+## Related cases
+
+- [Cursor background-agent worktree](/use-cases/cursor-background-agent-worktree.md) — IDE-side counterpart that owns the worktree for the same PR
+- [Replit-Agent preview backend](/use-cases/replit-agent-preview-backend.md) — share-link variant of the same disposable-preview pattern
+- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet.md) — agent worker that lands changes inside this preview env

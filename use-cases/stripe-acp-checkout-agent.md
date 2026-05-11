@@ -69,3 +69,9 @@ Implement the merchant side of Stripe + OpenAI's Agentic Commerce Protocol. Prov
 ## Why this works on instanode.dev
 
 The webhook resource captures every ACP event with a queryable history (requests endpoint), so the merchant agent never silently drops an order even on a crash. MongoDB's document model fits the variable shape of cart line items without a normalized schema.
+
+## Related cases
+
+- [Agent-marketplace escrow](/use-cases/agent-marketplace-escrow.md) — escrow-rail alternative to direct ACP checkout
+- [AP2 mandate broker](/use-cases/ap2-mandate-broker.md) — AP2-spec equivalent to ACP for agent commerce
+- [Stripe-event entitlements](/use-cases/stripe-event-entitlements.md) — downstream entitlement update after ACP fires its webhook

@@ -79,3 +79,9 @@ Set up a Temporal-backed 14-day procurement negotiation agent. Each negotiation 
 ## Why this works on instanode.dev
 
 Temporal handles the 14-day timer; Postgres holds the negotiation audit trail; NATS carries human interjections. All three are provisioned in two curls, and the same Postgres can host Temporal's persistence backend if you want to consolidate further.
+
+## Related cases
+
+- [Restate-style durable sidecar](/use-cases/restate-style-durable-sidecar.md) — lighter-weight durability sidecar without a Temporal engine
+- [LangGraph state checkpoints](/use-cases/langgraph-state-checkpoints.md) — in-process checkpoint version of the same resume idea
+- [Magentic-One DAG executor](/use-cases/magentic-one-dag-executor.md) — DAG-shaped orchestration over a shorter horizon

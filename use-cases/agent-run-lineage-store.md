@@ -75,3 +75,9 @@ You're building an evaluation lineage UI. Every agent run has a parent_run_id, a
 ## Why this works on instanode.dev
 
 Lineage is fundamentally relational — recursive CTEs are the right primitive, and embedding 100KB transcripts inline destroys query speed. Two curls give you the right tool for each half: Postgres for the graph, MinIO for the heavy JSON. Fetch the chain in one query, then presigned-URL the transcripts only when the UI expands a node.
+
+## Related cases
+
+- [Cross-agent replay debugger](/use-cases/cross-agent-replay-debugger.md) — the same Postgres-index-plus-MinIO-payload pattern for replay
+- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest.md) — OTel collector that the lineage UI can sit on top of
+- [Trajectory diff regression harness](/use-cases/trajectory-diff-regression-harness.md) — uses lineage edges to anchor diffs across runs

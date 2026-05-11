@@ -78,3 +78,9 @@ I want to ship a paid SaaS by tonight. From inside Claude Code, provision Postgr
 ## Why this works on instanode.dev
 
 Three curls replace three cloud signups, three IAM dashboards, and the entire Docker-image-push dance. By dinnertime you have a real domain, a working DB, a cache, and a paid checkout flow — and the same claimed token bills as one $9 line item.
+
+## Related cases
+
+- [Full dev backend in one curl](/use-cases/full-dev-backend-in-one-curl.md) — the no-deploy precursor to this paid-by-evening ship flow
+- [Side-project container deploy](/use-cases/side-project-container-deploy.md) — bare deploy primitive this MVP flow calls into
+- [AI cofounder spawns a startup](/use-cases/ai-cofounder-spawns-a-startup.md) — agent-driven variant where the founder is an AI

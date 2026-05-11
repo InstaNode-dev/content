@@ -68,3 +68,9 @@ Run a 16-agent GAIA tournament. Claim Mongo + MinIO + Redis on instanode.dev. Pa
 ## Why this works on instanode.dev
 
 Each service maps to exactly its strength: Mongo's flexible schema for bracket structure, MinIO for fat transcripts (avg ~2MB), Redis sorted sets for the live leaderboard. Provisioning all three with the same anonymous token means the tournament runner has no IAM glue to write. If a result is contested, the MinIO object is the source of truth — replay it deterministically.
+
+## Related cases
+
+- [SWE-bench parallel rollout harness](/use-cases/swe-bench-parallel-rollout-harness.md) — code-eval cousin that scales to 500 isolated tasks
+- [LLM-as-judge consensus pool](/use-cases/llm-as-judge-consensus-pool.md) — judge layer that picks winners between bracket pairs
+- [Adversarial red-team runner](/use-cases/adversarial-red-team-runner.md) — parallel-attacker variant of the same eval-fleet pattern

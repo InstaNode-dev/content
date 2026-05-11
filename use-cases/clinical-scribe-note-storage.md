@@ -76,3 +76,9 @@ You're a clinical-scribe agent transcribing doctor-patient visits. For each visi
 ## Why this works on instanode.dev
 
 Clinical data needs strict auditability — every edit visible, raw artifacts untouched. Versioned PG rows + immutable MinIO objects give that without a custom CDC pipeline. Both resources encrypt at rest by default. Two curls; the same setup that's HIPAA-shaped on day one scales without a re-platform when you go from one clinic pilot to a real deployment.
+
+## Related cases
+
+- [Personal-injury demand letters](/use-cases/personal-injury-demand-letters.md) — another vertical-AI workflow with auditable versioned documents
+- [Voice-memo capture pipeline](/use-cases/voice-memo-capture-pipeline.md) — the audio-capture front end that feeds into structured notes
+- [EHR appointment webhook fan-in](/use-cases/ehr-appointment-webhook-fan-in.md) — the upstream event source that triggers a scribe session

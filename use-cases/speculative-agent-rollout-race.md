@@ -69,3 +69,9 @@ Run the same task three times in parallel at temperatures 0.2/0.7/1.0. Use NATS 
 ## Why this works on instanode.dev
 
 NATS request/reply gives synchronous-feeling fan-out across N workers — exactly the abstraction speculative decoding needs at the agent level. Recording trajectories in Postgres lets you mine the dataset later for "when does high-temperature actually win" without re-running.
+
+## Related cases
+
+- [Multi-model bake-off router](/use-cases/multi-model-bake-off-router.md) — races across providers instead of temperatures
+- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch.md) — the same race-and-pick shape at the tool level
+- [LLM-as-judge consensus pool](/use-cases/llm-as-judge-consensus-pool.md) — verifier variant that picks via consensus, not first-to-finish

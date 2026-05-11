@@ -65,3 +65,9 @@ I have a migration that does ALTER TABLE orders DROP COLUMN customer_email; it t
 ## Why this works on instanode.dev
 
 A real Postgres with CREATE EXTENSION, REINDEX, ALTER, COPY, EXPLAIN — not a SQLite stand-in or a Docker image you have to build. Sub-second provisioning means the agent doesn't wait around; the migration is tested before the coffee is poured. Auto-expiry means a forgotten test DB never accrues cost.
+
+## Related cases
+
+- [Copy-on-write Postgres for agent migrations](/use-cases/copy-on-write-postgres-for-agent-migrations.md) — the faster-fork variant of the same throwaway-Postgres pattern
+- [Classroom-per-student sandbox](/use-cases/classroom-per-student-sandbox.md) — per-student version of the same ephemeral-Postgres idea
+- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet.md) — wraps this throwaway DB in a per-issue agent worker

@@ -70,3 +70,9 @@ You're scaffolding a 24-hour hackathon project. Provision a Postgres for users +
 ## Why this works on instanode.dev
 
 Hackathons die from cleanup debt — nobody remembers to tear down the RDS instance after Saturday night. The anonymous tier hands you real Postgres, Mongo, and S3 in one second each, then garbage-collects itself after 24 hours. Three curl calls replace three signup flows, three credit cards, and three Terraform configs.
+
+## Related cases
+
+- [Full dev backend in one curl](/use-cases/full-dev-backend-in-one-curl.md) — the same anonymous-bundle pattern without the 24h hard expiry
+- [Agent-resilience chaos lab](/use-cases/agent-resilience-chaos-lab.md) — another hackathon-flavored stack that adds NATS for chaos tests
+- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend.md) — the paid-tier version of the same ship-by-evening flow

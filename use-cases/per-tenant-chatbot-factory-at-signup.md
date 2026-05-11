@@ -71,3 +71,9 @@ When a B2B tenant clicks "Add AI assistant," call /nosql/new for their chat hist
 ## Why this works on instanode.dev
 
 Three resources per tenant, claimed under your factory's token, deploy in seconds — no Kubernetes namespace creation, no per-tenant Helm chart. Each assistant is isolated at the URL and DB level, which is the only isolation B2B buyers actually verify.
+
+## Related cases
+
+- [AgentCore tenant-scoped spawning](/use-cases/agentcore-tenant-scoped-spawning.md) — lighter-weight tenant runtime without the chatbot UI
+- [Cloudflare sub-agent factory per user](/use-cases/cloudflare-sub-agent-factory-per-user.md) — per-user variant of the same factory pattern
+- [Inbox-zero agent fleet](/use-cases/inbox-zero-agent-fleet.md) — per-user durable-agent shape adjacent to per-tenant

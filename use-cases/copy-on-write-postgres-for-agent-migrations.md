@@ -66,3 +66,9 @@ You're an Ardent-style migration agent. Take a snapshot of prod Postgres, fork a
 ## Why this works on instanode.dev
 
 Provisioning is synchronous and sub-second — the agent gets a usable database in the same request, not a pending status it has to poll. Ephemeral anonymous resources auto-reap at 24h, so a forgotten clone has bounded blast radius. Pair it with a destroy call after a green run, and you get the safety properties of a real fork without standing up pg_basebackup infrastructure.
+
+## Related cases
+
+- [Ephemeral test database for a risky migration](/use-cases/ephemeral-test-database-for-a-risky-migration.md) — the slower-fork baseline this CoW pattern accelerates
+- [Parallel SQL-plan probe](/use-cases/parallel-sql-plan-probe.md) — uses forked Postgres clones in parallel for EXPLAIN probing
+- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet.md) — wraps this clone-and-test loop in a per-issue agent worker

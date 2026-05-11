@@ -76,3 +76,9 @@ Implement a LangGraph planner that decomposes a research question into 12 sub-qu
 ## Why this works on instanode.dev
 
 The same token gives the planner, the workers, and the reducer a shared queue and store with no broker config. JetStream's per-subject filtering lets the reducer key its wait on `run_id`, so concurrent research runs do not block each other.
+
+## Related cases
+
+- [CrewAI parallel-process crew](/use-cases/crewai-parallel-process-crew.md) — framework-equivalent parallel-research pattern
+- [Magentic-One DAG executor](/use-cases/magentic-one-dag-executor.md) — explicit DAG version of fan-out research
+- [Scatter-gather price comparison swarm](/use-cases/scatter-gather-price-comparison-swarm.md) — first-N-wins variant of the same fan-out idea

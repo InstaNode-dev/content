@@ -64,3 +64,9 @@ Persist every coding session as a JSONL transcript to MinIO on instanode.dev. On
 ## Why this works on instanode.dev
 
 MinIO speaks the S3 API verbatim — every existing tool (aws-cli, boto3, rclone, duckdb httpfs) works unchanged. You get a real bucket with a real IAM user scoped to your token, not a stub. No AWS account, no IAM policy authoring, no bucket-name uniqueness collision; the bucket is provisioned and ready in ~600ms.
+
+## Related cases
+
+- [AutoGen group-chat history](/use-cases/autogen-group-chat-history.md) — the Mongo-backed online-replay alternative to JSONL archives
+- [Cross-device chat history](/use-cases/cross-device-chat-history.md) — live-state version of the same transcript record
+- [Cross-agent replay debugger](/use-cases/cross-agent-replay-debugger.md) — indexes transcripts like these for deterministic branch replay

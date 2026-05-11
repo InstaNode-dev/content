@@ -80,3 +80,9 @@ You're a Google-AP2-style mandate broker. Users register shopping mandates in Po
 ## Why this works on instanode.dev
 
 Mandate brokers live or die on atomic budget checks — concurrent buyer agents racing to spend can't double-debit. Postgres' conditional UPDATE solves it in one statement. The webhook URL is a stable, replayable endpoint that the merchant can subscribe to, so you don't need Pub/Sub or SNS. Two curls, full AP2-shaped flow.
+
+## Related cases
+
+- [AP2 mandate audit trail](/use-cases/ap2-mandate-audit-trail.md) — the archival half of this live broker
+- [Agent-marketplace escrow](/use-cases/agent-marketplace-escrow.md) — complementary commitment layer for buyer-seller flows
+- [Stripe-ACP checkout agent](/use-cases/stripe-acp-checkout-agent.md) — the Stripe-rail alternative to the AP2 spec

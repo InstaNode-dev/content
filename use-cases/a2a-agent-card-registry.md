@@ -78,3 +78,9 @@ You're building an A2A discovery service. Provision a Postgres on instanode.dev,
 ## Why this works on instanode.dev
 
 A2A registries need real relational filtering across array columns — KV stores can't express "skills contains X AND pricing.per_call_usd < Y". You get a real Postgres in one curl, GIN-indexed for the only access pattern that matters, with no per-row registry fees and no vendor lock-in to a proprietary directory service.
+
+## Related cases
+
+- [Cross-framework A2A gateway](/use-cases/cross-framework-a2a-gateway.md) — consumes these agent cards to route messages between frameworks
+- [Agent reputation log](/use-cases/agent-reputation-log.md) — adds buyer-side ratings on top of the same agent directory
+- [Agent-marketplace preview thumbnails](/use-cases/agent-marketplace-preview-thumbnails.md) — stores the screenshots that the card registry points to

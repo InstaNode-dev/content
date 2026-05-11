@@ -67,3 +67,9 @@ Build an intake aggregator. Claim a webhook receiver and a NATS stream on instan
 ## Why this works on instanode.dev
 
 The webhook URL is HIPAA-grade only after a BAA, but for staging or PHI-scrubbed pilots, the public HTTPS endpoint means EHR vendors can register your URL without you owning a load balancer. NATS gives the downstream a buffered, replayable feed instead of synchronous failure under EHR push spikes. Both resources are token-isolated; no shared queue with another tenant.
+
+## Related cases
+
+- [Clinical-scribe note storage](/use-cases/clinical-scribe-note-storage.md) — downstream agent that picks up after these appointments fire
+- [PR-review bot triggered by webhooks](/use-cases/pr-review-bot-triggered-by-webhooks.md) — another webhook-into-NATS fan-in pattern in a different domain
+- [Slack/Discord async bot factory](/use-cases/slack-discord-async-bot-factory.md) — similar webhook-batching + nightly-rollup shape

@@ -77,3 +77,9 @@ You operate an agentic-commerce gateway. Every user mandate ("buy this SKU up to
 ## Why this works on instanode.dev
 
 AP2 mandates need both fast metadata queries (Postgres) and tamper-proof raw-blob retention (object storage). Splitting them keeps the hot path indexed and the cold blobs cheap. Two curls, both real services, both encrypted at rest — exactly the shape a compliance auditor expects to see, without an AWS-Organizations setup project.
+
+## Related cases
+
+- [AP2 mandate broker](/use-cases/ap2-mandate-broker.md) — the live-broker counterpart to this audit-only store
+- [Agent-marketplace escrow](/use-cases/agent-marketplace-escrow.md) — another signed-commitment ledger for agent commerce
+- [x402 micropayment ledger](/use-cases/x402-micropayment-ledger.md) — the micropayment counterpart that this mandate authorizes

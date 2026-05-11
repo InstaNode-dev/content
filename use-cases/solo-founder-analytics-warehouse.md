@@ -75,3 +75,9 @@ I'm a solo founder. Provision a Postgres on instanode.dev, wire my Next.js app t
 ## Why this works on instanode.dev
 
 A solo founder doesn't need PostHog, Mixpanel, and Snowflake; they need one place to ask SQL questions and a real Postgres on `MCP-Postgres` answers everything. `gin` index on the props JSONB makes "filter by any nested key" cheap without a star schema.
+
+## Related cases
+
+- [Pre-launch waitlist store](/use-cases/pre-launch-waitlist-store.md) — an upstream funnel source that lands in this warehouse
+- [Stripe-event entitlements](/use-cases/stripe-event-entitlements.md) — subscription-state source for cohort analysis in the warehouse
+- [Scraped product-price history](/use-cases/scraped-product-price-history.md) — another time-series Postgres workload for indie founders

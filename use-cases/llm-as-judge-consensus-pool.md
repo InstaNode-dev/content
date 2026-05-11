@@ -78,3 +78,9 @@ Build a five-judge consensus pool. Each judge agent subscribes to a NATS request
 ## Why this works on instanode.dev
 
 NATS request/reply with a queue group load-balances across judges without you writing a router, and Postgres gives you the analytical layer for spread analysis in the same store. One token, two curls, full consensus pool.
+
+## Related cases
+
+- [Adversarial red-team runner](/use-cases/adversarial-red-team-runner.md) — complementary parallel-evaluators pattern from the attacker side
+- [GAIA tournament bracket](/use-cases/gaia-tournament-bracket.md) — judges plug into this bracket as the pairing arbiter
+- [Multi-model bake-off router](/use-cases/multi-model-bake-off-router.md) — race-and-pick alternative that doesn't bother with consensus

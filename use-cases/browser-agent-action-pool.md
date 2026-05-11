@@ -72,3 +72,9 @@ You're a Skyvern-style planner. After analyzing a target page, you emit 20 actio
 ## Why this works on instanode.dev
 
 20 browser tabs in parallel is the hard part; the easy parts shouldn't slow you down. NATS subjects route actions to worker pools without an in-process scheduler; Mongo's keyed write is idempotent on step_id. Two curls and the data-plane disappears as a concern, leaving you to focus on the actual hard problem of recovering when a tab hits a CAPTCHA.
+
+## Related cases
+
+- [Accessibility-tree selector cache](/use-cases/accessibility-tree-selector-cache.md) — the selector-resolution layer underneath these parallel actions
+- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch.md) — the same fan-out idea applied to model tool_use blocks
+- [Browser job queue with retries](/use-cases/browser-job-queue-with-retries.md) — single-worker queue equivalent for navigation tasks

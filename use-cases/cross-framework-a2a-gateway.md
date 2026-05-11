@@ -70,3 +70,9 @@ Build an A2A gateway. Claim NATS + Postgres on instanode.dev. NATS carries the m
 ## Why this works on instanode.dev
 
 A gateway is exactly the kind of "stateless service connecting two stateful systems" that benefits most from one-curl infra. You don't want to manage NATS clustering or Postgres backups when the gateway itself is the interesting part. Both services are reachable from any cloud, so the LangGraph crew on AWS and the CrewAI crew on Modal both connect with no VPC peering.
+
+## Related cases
+
+- [A2A agent-card registry](/use-cases/a2a-agent-card-registry.md) — the discovery layer this gateway routes to
+- [Cross-agent shared inbox](/use-cases/cross-agent-shared-inbox.md) — the durable-subject primitive the gateway sits on
+- [OpenAI Agents SDK handoff mesh](/use-cases/openai-agents-sdk-handoff-mesh.md) — one of the framework dialects this gateway bridges

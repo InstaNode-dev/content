@@ -68,3 +68,9 @@ I have a Dockerized Go app in this repo. Ship it to a public subdomain via insta
 ## Why this works on instanode.dev
 
 No cloud account, no DNS records, no TLS cert dance. The platform issues a `*.instanode.dev` subdomain with HTTPS at deploy time. Hobby tier ($9/mo) gives one small app with persistent disk; pro lifts it to five.
+
+## Related cases
+
+- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend.md) — the same deploy primitive paired with Postgres + Redis
+- [Replit-Agent preview backend](/use-cases/replit-agent-preview-backend.md) — ephemeral-preview variant of the same deploy primitive
+- [Sandboxed test runner per task](/use-cases/sandboxed-test-runner-per-task.md) — deploy primitive applied to per-task test containers

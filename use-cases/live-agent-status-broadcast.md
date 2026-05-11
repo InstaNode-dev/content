@@ -73,3 +73,9 @@ Build a heartbeat fabric for our worker swarm. Each agent publishes a status hea
 ## Why this works on instanode.dev
 
 NATS fanout is sub-millisecond, so the dashboard reflects the swarm in real time even at thousands of agents. Redis TTLs do the "is it alive" check for free, and both resources sit behind one token so the heartbeat fabric is provisioned in two curls.
+
+## Related cases
+
+- [Live agent-topology graph](/use-cases/live-agent-topology-graph.md) — consumes these heartbeats to draw the parent/child graph
+- [Deploy-status MCP server](/use-cases/deploy-status-mcp-server.md) — broadcast-via-NATS pattern, applied to deploys instead of agents
+- [Per-agent dead-letter inspection queue](/use-cases/per-agent-dead-letter-inspection-queue.md) — complementary failure-side view of the same swarm

@@ -72,3 +72,9 @@ You are a scraping agent that walks a11y trees. Each page costs ~400ms to re-sna
 ## Why this works on instanode.dev
 
 You don't want to spin up ElastiCache for a 25MB working set. The free anonymous Redis gives you a real instance — pipelining, EXPIRE, HSET, all of it — over the public internet with p99 well under 10ms from most regions. Snapshot cache hits go from 400ms (re-parse the DOM) to ~2ms (one HGET), which compounds fast across a 1000-URL crawl.
+
+## Related cases
+
+- [Browser-session cookie store](/use-cases/browser-session-cookie-store.md) — another Redis cache that keeps a browser agent's per-site state warm
+- [Browser-agent action pool](/use-cases/browser-agent-action-pool.md) — consumes cached selectors when fanning out browser actions
+- [Form-fill state machine](/use-cases/form-fill-state-machine.md) — uses the same selector cache to resume long-running form fills

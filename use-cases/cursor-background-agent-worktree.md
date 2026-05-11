@@ -66,3 +66,9 @@ For each branch the background agent works on, claim a Redis cache, a webhook re
 ## Why this works on instanode.dev
 
 Per-branch isolation is what makes background-agent worktrees safe; instanode's per-token resource model means each branch's cache, deploy, and webhook URL are first-class citizens with no IAM ceremony. The deploy URL is a real `*.instanode.dev` subdomain — Cursor can open the preview directly. Reap on branch delete with one DELETE per resource.
+
+## Related cases
+
+- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet.md) — another per-branch ephemeral-worker pattern with PR webhooks
+- [Sandbox-per-PR preview deployment](/use-cases/sandbox-per-pr-preview-deployment.md) — preview-environment sibling tied to PR lifecycle
+- [Sandboxed test runner per task](/use-cases/sandboxed-test-runner-per-task.md) — the isolated test container the worktree calls into

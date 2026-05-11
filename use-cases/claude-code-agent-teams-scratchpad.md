@@ -79,3 +79,9 @@ You're the lead Claude Code session orchestrating 6 worker sessions, each owning
 ## Why this works on instanode.dev
 
 Multi-agent Claude Code sessions need cheap shared state without standing up a service. Postgres for ordered durable notes, Redis for sub-second file locks — the two primitives that solve "who's editing what" cleanly. Two curls, both real, both visible from any of the 6 worker shells via psql/redis-cli for live debugging.
+
+## Related cases
+
+- [Multi-repo shared scratchpad](/use-cases/multi-repo-shared-scratchpad.md) — the Mongo-document version of the same shared-coordination idea
+- [Coding-agent cross-session memory](/use-cases/coding-agent-cross-session-memory.md) — longer-horizon memory that survives across sessions, not just teams
+- [Shared episodic memory store](/use-cases/shared-episodic-memory-store.md) — generalizes the scratchpad table beyond coding agents

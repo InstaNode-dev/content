@@ -67,3 +67,9 @@ Split notebook.ipynb across 30 Pyodide workers. Each worker should pull its cell
 ## Why this works on instanode.dev
 
 NATS JetStream is queue + durable log in one — workers can rejoin mid-run and replay missed cell assignments. MinIO is S3-API so the same `boto3` / `fsspec` code works in browser Pyodide and Node, and the bucket is provisioned in under a second with zero account setup.
+
+## Related cases
+
+- [Daytona warm-pool data workspace](/use-cases/daytona-warm-pool-data-workspace.md) — another warm-pool of Python sandboxes for analyst agents
+- [Browser-agent action pool](/use-cases/browser-agent-action-pool.md) — same fan-out shape with browser tabs instead of notebook cells
+- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents.md) — fan-out planner+reducer pattern at the research level

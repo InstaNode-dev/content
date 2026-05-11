@@ -72,3 +72,9 @@ Every Playwright test in this suite should snapshot before-action and after-acti
 ## Why this works on instanode.dev
 
 MinIO speaks the S3 API so every Playwright-Python-Go-Rust S3 client just works. `/storage/new` mints a scoped IAM user limited to one bucket — the reviewer's signed URL can't leak into a neighbor's evidence.
+
+## Related cases
+
+- [Agent-marketplace preview thumbnails](/use-cases/agent-marketplace-preview-thumbnails.md) — same MinIO-keyed-by-id pattern for marketplace screenshots
+- [Trajectory diff regression harness](/use-cases/trajectory-diff-regression-harness.md) — diff-on-PR sibling that stores artifacts in MinIO
+- [Overnight dossier fleet](/use-cases/overnight-dossier-fleet.md) — another MinIO-as-artifact-store async-fleet pattern

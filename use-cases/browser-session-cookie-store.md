@@ -75,3 +75,9 @@ You're a browser agent that targets 8 different sites. Each site needs its own l
 ## Why this works on instanode.dev
 
 Cookie state is small (~10KB per site), hot (read at every run start), and ephemeral (7-day TTL is a feature, not a bug). Redis is the right shape, but spinning up ElastiCache for this is overkill. One curl, real Redis, EXPIRE built-in. Across 8 sites you avoid 8 re-auth flows per agent run — that's minutes saved per session.
+
+## Related cases
+
+- [Accessibility-tree selector cache](/use-cases/accessibility-tree-selector-cache.md) — complementary Redis cache that speeds up the same browser agent
+- [Form-fill state machine](/use-cases/form-fill-state-machine.md) — auth state these cookies provide is what lets form-fill resume
+- [Per-agent rate-limited API key vault](/use-cases/per-agent-rate-limited-api-key-vault.md) — another secrets-in-Redis pattern with scoped access

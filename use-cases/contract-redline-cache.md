@@ -71,3 +71,9 @@ You're reviewing a 200-page MSA. Claim Postgres + Redis on instanode.dev. Chunk 
 ## Why this works on instanode.dev
 
 Same-token provisioning means Postgres and Redis share the same anonymous JWT — no two-service signup, no IAM. Both URLs are AES-256 encrypted at rest. The second pass over the same MSA hits Redis 100% of the time and skips $40 of GPT-4 calls. When the deal closes, claim the token and the resources upgrade to a permanent hobby plan without re-provisioning.
+
+## Related cases
+
+- [Accessibility-tree selector cache](/use-cases/accessibility-tree-selector-cache.md) — another Redis-fronted embedding/snapshot cache for fast re-runs
+- [Tool-call rate-limit and budget cache](/use-cases/tool-call-rate-limit-and-budget-cache.md) — Redis cache that protects the token budget those redlines burn
+- [Personal-injury demand letters](/use-cases/personal-injury-demand-letters.md) — adjacent legal-AI workflow that benefits from clause caching

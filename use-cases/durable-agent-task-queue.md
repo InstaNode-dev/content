@@ -68,3 +68,9 @@ Supervisor: claim a NATS JetStream on instanode.dev. Enqueue sub-tasks to "tasks
 ## Why this works on instanode.dev
 
 JetStream gives true at-least-once with durable consumers — failed messages survive worker crashes and pod restarts. No SQS, no Lambda glue, no AWS account; one curl gives the supervisor a real queue reachable from anywhere. max_deliver caps blast radius for poison messages, and the DLQ subject keeps the main queue clean.
+
+## Related cases
+
+- [Browser job queue with retries](/use-cases/browser-job-queue-with-retries.md) — concrete browser-domain instance of the same retry queue
+- [Per-agent dead-letter inspection queue](/use-cases/per-agent-dead-letter-inspection-queue.md) — DLQ side of the same JetStream backoff pattern
+- [CrewAI message bus fan-out](/use-cases/crewai-message-bus-fan-out.md) — uses this kind of durable queue under a CrewAI crew

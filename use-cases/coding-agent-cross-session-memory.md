@@ -69,3 +69,9 @@ You're my terminal coding agent. Claim a Postgres on instanode.dev for our long-
 ## Why this works on instanode.dev
 
 Pgvector is enabled out of the box on every provisioned Postgres, so there's no extension install dance. The connection URL is a real, persistent database — not a sandbox that resets — and survives across terminal sessions, IDE restarts, and machine reboots. Claim it once, and the same JWT lets the agent recover the URL on any new device.
+
+## Related cases
+
+- [Claude Code agent-teams scratchpad](/use-cases/claude-code-agent-teams-scratchpad.md) — the across-siblings counterpart to across-sessions memory
+- [Multi-repo shared scratchpad](/use-cases/multi-repo-shared-scratchpad.md) — scratchpad that spans repos instead of time
+- [Obsidian-vault embedding sync](/use-cases/obsidian-vault-embedding-sync.md) — same pgvector recall pattern over personal notes

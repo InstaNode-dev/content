@@ -77,3 +77,9 @@ Build a per-user durable email-triage agent. For each user, provision a MinIO bu
 ## Why this works on instanode.dev
 
 The webhook receiver buffers inbound mail for you, so the triage agent can fall behind during a spike without losing messages. Postgres and MinIO live under the same token, which means one billing relationship and one upgrade path when a user's fleet grows past the hobby quota.
+
+## Related cases
+
+- [Slack/Discord async bot factory](/use-cases/slack-discord-async-bot-factory.md) — chat-platform sibling of this per-user durable-agent pattern
+- [Overnight dossier fleet](/use-cases/overnight-dossier-fleet.md) — another async fleet writing Mongo + MinIO artifacts
+- [Per-tenant chatbot factory at signup](/use-cases/per-tenant-chatbot-factory-at-signup.md) — tenant-spawning variant of the same per-user idea

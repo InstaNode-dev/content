@@ -71,3 +71,9 @@ Provision a NATS JetStream and Redis via instanode.dev. Publish "shop.query" wit
 ## Why this works on instanode.dev
 
 JetStream gives you wildcard subscribe (`shop.reply.*`) and at-least-once delivery so a slow shopper agent doesn't lose its message just because the consumer was already done. Redis handles the 15-minute price cache so repeated queries don't re-fan out across 40 agents.
+
+## Related cases
+
+- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch.md) — first-N-wins fan-out at the model-tool level
+- [Multi-model bake-off router](/use-cases/multi-model-bake-off-router.md) — race-and-pick variant across models instead of retailers
+- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents.md) — research-flavored fan-out that waits for all (not first 5)

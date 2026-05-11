@@ -77,3 +77,9 @@ You're running a fleet of 30 Playwright workers. Pull navigation jobs (url, acti
 ## Why this works on instanode.dev
 
 JetStream gives you real durable queues with per-consumer cursors — exactly-once-ish semantics for browser jobs that take 30s each. Compared to SQS, no visibility-timeout tuning hell; compared to Sidekiq, no Redis-cluster setup. One curl, one stream, 30 workers pulling concurrently with zero coordination code.
+
+## Related cases
+
+- [Durable agent task queue](/use-cases/durable-agent-task-queue.md) — the same NATS-with-backoff pattern at the supervisor level
+- [Browser-agent action pool](/use-cases/browser-agent-action-pool.md) — fans these queued jobs out across parallel tabs
+- [Cron-scheduled scraping swarm](/use-cases/cron-scheduled-scraping-swarm.md) — scheduled producer for the kind of jobs this queue runs

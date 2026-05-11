@@ -70,3 +70,9 @@ For each task in tasks.jsonl, deploy a throwaway container via instanode.dev /de
 ## Why this works on instanode.dev
 
 `/deploy/new` returns in under a second and the deploy is fully isolated per token — no shared kernel state between tasks. Anonymous-tier deploys auto-expire in 24h, so a forgotten teardown won't leak a runner forever.
+
+## Related cases
+
+- [E2B microVM sandbox per agent turn](/use-cases/e2b-microvm-sandbox-per-agent-turn.md) — per-turn variant of the same throwaway-container idea
+- [Daytona warm-pool data workspace](/use-cases/daytona-warm-pool-data-workspace.md) — warm-pool alternative when cold-start cost matters
+- [Terminal-Bench shell sandbox grid](/use-cases/terminal-bench-shell-sandbox-grid.md) — fleet-scale version with 100 parallel sandboxes

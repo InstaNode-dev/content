@@ -68,3 +68,9 @@ You're a CS professor running a SQL assignment for 40 students. Provision one ep
 ## Why this works on instanode.dev
 
 40 fresh Postgres instances for one assignment is comically expensive on RDS and operationally annoying on shared schemas (students nuke each other's tables). Per-student isolated databases via one curl each — total provisioning cost: zero, total teardown cost: zero. Students can also `DROP DATABASE` in their own without affecting peers.
+
+## Related cases
+
+- [24-hour hackathon backend](/use-cases/24-hour-hackathon-backend.md) — another education-flavored ephemeral provisioning pattern
+- [Ephemeral test database for a risky migration](/use-cases/ephemeral-test-database-for-a-risky-migration.md) — the per-task version of the same throwaway-Postgres pattern
+- [Adaptive-tutoring student model](/use-cases/adaptive-tutoring-student-model.md) — pairs naturally as the tutoring layer over per-student sandboxes

@@ -77,3 +77,9 @@ Build me a personal CRM. Claim Postgres on instanode.dev. Create contacts(name, 
 ## Why this works on instanode.dev
 
 Claim the token once and the same Postgres URL works from your laptop, phone (via Termux), and a Raspberry Pi sitting at home — no need to expose a personal DB to the internet yourself. AES-256-GCM at rest plus a unique random password means a leaked URL is recoverable: rotate via the API, and your old URL stops working without losing data.
+
+## Related cases
+
+- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory.md) — complementary personal-AI store keyed by day instead of person
+- [Obsidian-vault embedding sync](/use-cases/obsidian-vault-embedding-sync.md) — another single-user Postgres knowledge base
+- [Voice-memo capture pipeline](/use-cases/voice-memo-capture-pipeline.md) — an input pipeline that can feed contact notes into the CRM

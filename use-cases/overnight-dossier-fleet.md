@@ -72,3 +72,9 @@ Spin up an overnight research fleet: queue 400 dossier jobs at 11pm, each worker
 ## Why this works on instanode.dev
 
 Mongo's flexible docs hold the intermediate findings even when sub-agents return wildly different shapes, and MinIO holds the final PDFs cheaply. One token claims both; the morning manifest is a single `find()` away.
+
+## Related cases
+
+- [Cron-scheduled scraping swarm](/use-cases/cron-scheduled-scraping-swarm.md) — scheduled producer of the same kind of background research jobs
+- [Inbox-zero agent fleet](/use-cases/inbox-zero-agent-fleet.md) — another async fleet writing Mongo + MinIO outputs per user
+- [arXiv-and-RSS research feed](/use-cases/arxiv-and-rss-research-feed.md) — an upstream input source for dossier topics

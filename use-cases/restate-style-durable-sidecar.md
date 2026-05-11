@@ -68,3 +68,9 @@ Stand up a Restate-style durable sidecar in front of this agent. Every outbound 
 ## Why this works on instanode.dev
 
 Postgres provisioning in one curl makes the durable-sidecar pattern trivially deployable per-agent, not per-fleet. `ON CONFLICT DO NOTHING` plus the composite `(run_id, step_id)` key gives at-most-once semantics for every tool call — exactly the Restate guarantee — without running a separate workflow engine.
+
+## Related cases
+
+- [LangGraph state checkpoints](/use-cases/langgraph-state-checkpoints.md) — in-graph alternative to this out-of-process sidecar
+- [Long-horizon Temporal agent workflow](/use-cases/long-horizon-temporal-agent-workflow.md) — Temporal-engine alternative when workflows last weeks
+- [Form-fill state machine](/use-cases/form-fill-state-machine.md) — concrete browser-agent instance of the same crash-resume idea

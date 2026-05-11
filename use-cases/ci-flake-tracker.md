@@ -80,3 +80,9 @@ You're a CI flakiness tracker. Receive GitHub Actions / CircleCI webhooks on eve
 ## Why this works on instanode.dev
 
 Flake tracking is two pieces: an HTTP sink for CI to POST to, and SQL to compute pass/fail variance. The webhook URL is already a public endpoint with stored history — your CI doesn't need to know about your DB. The SQL is bog-standard but needs real indexes (the HAVING DISTINCT trick is slow on a non-indexed test_name column). Two curls, no Datadog bill.
+
+## Related cases
+
+- [SARIF scan-result store](/use-cases/sarif-scan-result-store.md) — another CI-side Postgres warehouse for tracking drift over time
+- [PR-review bot triggered by webhooks](/use-cases/pr-review-bot-triggered-by-webhooks.md) — consumes the same kind of GitHub webhook firehose
+- [High-volume PR-review pipeline](/use-cases/high-volume-pr-review-pipeline.md) — the at-scale version of the same CI-feedback loop

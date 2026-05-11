@@ -64,3 +64,9 @@ Build an MCP server that exposes deploy_status across staging/prod. Use NATS for
 ## Why this works on instanode.dev
 
 NATS gives you push semantics — the chat agent finds out about a failed deploy without polling — while Redis is the canonical "current state" that survives restarts. Both provisioned anonymously means devs can spin this up before approving a paid plan, then claim and convert when the team wants it permanent.
+
+## Related cases
+
+- [On-call incident-response agent](/use-cases/on-call-incident-response-agent.md) — consumes the status pings this MCP exposes during incidents
+- [Live agent status broadcast](/use-cases/live-agent-status-broadcast.md) — the agent-fleet variant of the same heartbeat-over-NATS pattern
+- [Pre-commit skill-scanner webhook](/use-cases/pre-commit-skill-scanner-webhook.md) — another developer-tooling webhook surface for MCP-side tooling

@@ -85,3 +85,9 @@ Build a vault that mints scoped, rate-limited API keys for child agents on deman
 ## Why this works on instanode.dev
 
 Redis' sorted-set sliding windows are the canonical agent-rate-limit primitive, and Postgres keeps the immutable charge trail your finance system reconciles against. Two curls, no separate gateway service.
+
+## Related cases
+
+- [Tool-call rate-limit and budget cache](/use-cases/tool-call-rate-limit-and-budget-cache.md) — the in-agent budget cache this vault rolls up into
+- [Token-cost ledger per sub-agent](/use-cases/token-cost-ledger-per-sub-agent.md) — consumes the vault's billing events for tenant-spend rollups
+- [x402 micropayment per tool call](/use-cases/x402-micropayment-per-tool-call.md) — payment-rail alternative to rate-limited keys for paid tools
