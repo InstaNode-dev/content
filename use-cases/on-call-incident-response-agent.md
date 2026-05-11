@@ -4,3 +4,57 @@ category: F. Developer tooling
 services: ["webhook", "pg"]
 scenario: An on-call agent listens for alert webhooks, executes a runbook, and posts the action log back into the incident ticket.
 ---
+
+## Sample agent prompt
+
+```
+Build an on-call agent that receives PagerDuty webhooks, runs the matching runbook (kubectl describe, fetch error logs, restart deployment if safe), and posts the full action log back to the incident ticket. Provision a webhook receiver and Postgres to store action logs per incident.
+```
+
+## Steps to follow
+
+- **Step 1: Provision the webhook and DB.**
+
+  ```bash
+  curl -s -X POST https://api.instanode.dev/webhook/new | tee /tmp/wh.json
+  curl -s -X POST https://api.instanode.dev/db/new
+  ```
+
+- **Step 2: Tell PagerDuty the receiver URL** from the response.
+
+  ```bash
+  jq -r .receive_url /tmp/wh.json
+  # paste into PagerDuty -> Integrations -> Webhooks V3
+  ```
+
+- **Step 3: Action-log schema.**
+
+  ```sql
+  CREATE TABLE actions (
+    incident_id text, step int, command text, output text, exit_code int,
+    at timestamptz DEFAULT now(),
+    PRIMARY KEY (incident_id, step)
+  );
+  ```
+
+- **Step 4: Poller fetches buffered alerts and runs the runbook.**
+
+  ```python
+  for alert in fetch_buffered(WH_URL):
+      runbook = pick_runbook(alert["service"], alert["summary"])
+      for i, cmd in enumerate(runbook):
+          out = run_safely(cmd, allowlist=["kubectl", "stern"])
+          pg.execute("INSERT INTO actions VALUES (%s,%s,%s,%s,%s)",
+                     alert["incident_id"], i, cmd, out.text, out.code)
+  ```
+
+- **Step 5: Post the log back to the ticket.**
+
+  ```python
+  log = pg.fetch("SELECT step,command,output FROM actions WHERE incident_id=%s ORDER BY step", inc)
+  pagerduty.notes.create(incident_id=inc, content=render_md(log))
+  ```
+
+## Why this works on instanode.dev
+
+The webhook receiver buffers alerts during a paging storm, so the agent processes the queue rather than hammering your runbook tooling in parallel. Action logs in Postgres give post-incident retros a clean audit trail without standing up a separate logging stack.

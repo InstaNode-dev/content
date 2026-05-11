@@ -4,3 +4,59 @@ category: N. Multi-agent observability
 services: ["nats", "mongo"]
 scenario: Every failed tool call from a swarm is republished to a NATS DLQ; an investigator agent pulls them in batches, classifies the failure mode, and persists clusters in Mongo for the operator UI.
 ---
+
+## Sample agent prompt
+
+```
+Every failed tool call across the swarm publishes to a NATS DLQ subject. Build an investigator agent that consumes the DLQ in batches of 50, classifies the failure (rate-limit, auth, timeout, schema-mismatch), and writes clusters to Mongo for the operator UI. Provision NATS and Mongo.
+```
+
+## Steps to follow
+
+- **Step 1: Provision queue and store.**
+
+  ```bash
+  curl -s -X POST https://api.instanode.dev/queue/new -d '{"stream":"dlq"}' -H 'Content-Type: application/json'
+  curl -s -X POST https://api.instanode.dev/nosql/new
+  ```
+
+- **Step 2: Workers publish failures to the DLQ.**
+
+  ```python
+  except Exception as e:
+      await js.publish("dlq.tool", json.dumps({
+          "agent": agent_id, "tool": tool, "args": args, "err": str(e),
+          "stack": traceback.format_exc(), "at": time.time()
+      }).encode())
+  ```
+
+- **Step 3: Investigator pulls in batches.**
+
+  ```python
+  sub = await js.pull_subscribe("dlq.tool", durable="inspector")
+  while True:
+      batch = await sub.fetch(50, timeout=30)
+      classify_and_cluster([json.loads(m.data) for m in batch])
+      for m in batch: await m.ack()
+  ```
+
+- **Step 4: Cluster docs in Mongo.**
+
+  ```python
+  m["clusters"].update_one(
+      {"signature": sig},
+      {"$inc": {"count": 1}, "$push": {"examples": {"$each": [example], "$slice": -20}},
+       "$set": {"last_seen": datetime.utcnow()}},
+      upsert=True
+  )
+  ```
+
+- **Step 5: Operator UI query.**
+
+  ```javascript
+  db.clusters.find().sort({count: -1}).limit(20)
+  ```
+
+## Why this works on instanode.dev
+
+JetStream's durable pull-consumers let the investigator fall behind during a failure storm without losing messages. Mongo's update-with-upsert collapses thousands of failures into a top-N cluster list with one query.

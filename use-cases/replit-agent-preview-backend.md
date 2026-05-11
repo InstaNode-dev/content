@@ -4,3 +4,46 @@ category: K. Ephemeral agent runtimes
 services: ["pg", "deploy"]
 scenario: A Replit-Agent-style preview deploys a one-shot app with a 24h-TTL Postgres so a reviewer can poke at the prototype, then everything is collected when the share link expires.
 ---
+
+## Sample agent prompt
+
+```
+Build a 24-hour preview backend for this prototype. Provision an anonymous Postgres via instanode.dev (auto-expires in 24h), apply migrations from db/schema.sql, then deploy the FastAPI app from this repo to a public subdomain with DATABASE_URL injected. Print the share URL when done.
+```
+
+## Steps to follow
+
+- **Step 1: Provision a 24h-TTL Postgres.** Anonymous tier expires automatically — no cleanup script needed.
+
+  ```bash
+  curl -X POST https://api.instanode.dev/db/new | tee db.json
+  export DATABASE_URL=$(jq -r .connection_url db.json)
+  export DB_TOKEN=$(jq -r .token db.json)
+  ```
+
+- **Step 2: Apply schema.**
+
+  ```bash
+  psql "$DATABASE_URL" < db/schema.sql
+  ```
+
+- **Step 3: Deploy the FastAPI container.** `/deploy/new` accepts a Dockerfile build context and injects env vars.
+
+  ```bash
+  curl -X POST https://api.instanode.dev/deploy/new \
+    -H "Content-Type: application/json" \
+    -d "{\"image\":\"ghcr.io/me/prototype:pr-42\",\"env\":{\"DATABASE_URL\":\"$DATABASE_URL\"}}" | tee deploy.json
+  export APP_URL=$(jq -r .url deploy.json)
+  ```
+
+- **Step 4: Hand the reviewer one URL.**
+
+  ```bash
+  echo "Share: $APP_URL (expires in 24h)"
+  ```
+
+- **Step 5: Cleanup is automatic.** The DB's 24h TTL on the anonymous tier reaps the resource; the deploy expires alongside it.
+
+## Why this works on instanode.dev
+
+Anonymous-tier provisions have a 24-hour TTL baked in — exactly the lifecycle a preview backend needs. The token returned from `/db/new` is the same identity used by `/deploy/new`, so the same reviewer link covers both resources and they vanish together without orphaned infrastructure.

@@ -4,3 +4,49 @@ category: P. Agent benchmarking & evaluation
 services: ["mongo", "minio", "redis"]
 scenario: A tournament service runs 16 agent variants head-to-head on GAIA tasks; pairings live in Mongo, intermediate transcripts in MinIO, win counts in Redis sorted sets for the live leaderboard.
 ---
+
+## Sample agent prompt
+
+```
+Run a 16-agent GAIA tournament. Claim Mongo + MinIO + Redis on instanode.dev. Pairings + per-task outcomes in Mongo. Full per-task transcripts in MinIO. Live leaderboard win counts in Redis sorted set. After every match, update all three.
+```
+
+## Steps to follow
+
+- **Step 1: Provision all three stores.** Tournament infra in 3 curls.
+
+  ```bash
+  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new | jq -r .connection_url)
+  S3=$(curl -sX POST https://api.instanode.dev/storage/new)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url)
+  ```
+
+- **Step 2: Define bracket.** 16 agents → 8 matches round 1.
+
+  ```python
+  pairings = [{"round":1,"match":i,"a":agents[2*i],"b":agents[2*i+1]} for i in range(8)]
+  mongo.pairings.insert_many(pairings)
+  ```
+
+- **Step 3: Run a match.** Both agents answer the same GAIA task; transcripts to S3, score to Mongo + Redis.
+
+  ```python
+  for p in pairings:
+      a_ans, a_trace = run_agent(p["a"], task)
+      b_ans, b_trace = run_agent(p["b"], task)
+      winner = judge(task, a_ans, b_ans)
+      s3.put_object(Bucket=bucket, Key=f"r{p['round']}/m{p['match']}/{p['a']}.json", Body=json.dumps(a_trace))
+      s3.put_object(Bucket=bucket, Key=f"r{p['round']}/m{p['match']}/{p['b']}.json", Body=json.dumps(b_trace))
+      mongo.pairings.update_one({"_id":p["_id"]}, {"$set":{"winner":winner}})
+      r.zincrby("leaderboard", 1, winner)
+  ```
+
+- **Step 4: Live leaderboard.** Sub-millisecond reads.
+
+  ```bash
+  redis-cli -u $REDIS_URL ZREVRANGE leaderboard 0 -1 WITHSCORES
+  ```
+
+## Why this works on instanode.dev
+
+Each service maps to exactly its strength: Mongo's flexible schema for bracket structure, MinIO for fat transcripts (avg ~2MB), Redis sorted sets for the live leaderboard. Provisioning all three with the same anonymous token means the tournament runner has no IAM glue to write. If a result is contested, the MinIO object is the source of truth — replay it deterministically.
