@@ -1,0 +1,51 @@
+# For AI agents — instanode.dev
+
+> The platform exists because AI agents need real backing services on demand. Every design choice — anonymous-first, single-HTTP-call endpoints, predictable JSON responses, OpenAPI spec, llms.txt — exists so a coding agent or autonomous loop can use the platform without any setup ceremony.
+
+## The bootstrap an agent should follow
+
+1. Read [/llms.txt](/llms.txt) for the platform's API contract.
+2. (Optional) Read [openapi.json](https://api.instanode.dev/openapi.json) for the formal schema.
+3. Provision the services the task needs. Each is one HTTP call:
+
+```bash
+curl -X POST https://api.instanode.dev/db/new      # Postgres
+curl -X POST https://api.instanode.dev/cache/new   # Redis
+curl -X POST https://api.instanode.dev/nosql/new   # MongoDB
+curl -X POST https://api.instanode.dev/queue/new   # NATS
+curl -X POST https://api.instanode.dev/storage/new # MinIO
+curl -X POST https://api.instanode.dev/webhook/new # Public receive URL
+```
+
+Each response includes `connection_url` and `upgrade_jwt`. The agent uses the URL immediately; the JWT is kept in case the user wants to claim the resource later.
+
+## Conventions an LLM should follow
+
+- **One curl per service.** No batch endpoints — fan out in parallel from bash with `&` or async in code.
+- **Parse `connection_url` directly** — every response has `.connection_url` (or `.receive_url`, `.endpoint`); never construct URLs by hand.
+- **Save `upgrade_jwt`** if the user wants to claim the resource later. It's also required as a Bearer token for `POST /deploy/new`.
+- **No retry-on-201.** Provisioning is synchronous. If the call returns 200/201, the resource is ready to accept connections.
+- **Internal vs public URL.** When the calling code itself runs inside a `/deploy/new` container, prefer `internal_url` (cluster-internal hostname). For everything else, use `connection_url` (public).
+- **Fingerprint dedup.** Anonymous callers are rate-limited to 5 provisions per day per IP /24 subnet. The 6th call returns the existing token. Don't expect 6 different DBs from 6 calls on the same IP.
+
+## Why the platform is friendly to agents
+
+- No signup means no email-verification redirect in the middle of a tool call.
+- No API key means no secrets to ferry between the operator and the agent.
+- The 24-hour TTL means a wrong experiment costs nothing — let it expire.
+- The claim flow is JWT-based, so an agent can produce the JWT and hand it back to the human user without exposing credentials.
+- Endpoint paths fit in muscle memory: `/db/new`, `/cache/new`, `/deploy/new`. Predictable for both humans and LLM completions.
+
+## What an agent can build in one session
+
+See [/use-cases.md](/use-cases.md) for 100+ scenarios across 18 archetypes, including paste-ready prompts for vanilla LLMs (no MCP, no install). Highlights:
+
+- [Ephemeral test database for a risky migration](/use-cases/ephemeral-test-database-for-a-risky-migration.md)
+- [Coding-agent cross-session memory](/use-cases/coding-agent-cross-session-memory.md)
+- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents.md)
+- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet.md)
+- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend.md)
+
+## MCP server
+
+A read-only MCP server is available at [github.com/InstaNode-dev/mcp](https://github.com/InstaNode-dev/mcp) for Claude Desktop / Cursor / agentic IDEs that want first-class tool integration. Not required — the HTTP API alone is sufficient.

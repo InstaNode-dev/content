@@ -2,9 +2,9 @@
 
 > Zero-friction developer infrastructure for AI agents. Provision real Postgres, Redis, MongoDB, NATS, MinIO, webhooks, and container deploys via single HTTP calls — no signup, no API key, no Docker, no cloud account. The first 24 hours are anonymous; claim a resource to keep it past then ($9/mo).
 
-This file follows the llms.txt convention (https://llmstxt.org). LLMs reading this can use the API directly: every endpoint accepts unauthenticated POST requests for the anonymous tier, returns a real `connection_url` (or `receive_url`, `endpoint`) in under a second, and the resource is reachable from anywhere.
+This file follows the llms.txt convention (https://llmstxt.org). Every HTML route on `https://instanode.dev` has a parallel `.md` mirror at the same path with a `.md` suffix — e.g. `/use-cases/foo` is served as HTML and `/use-cases/foo.md` is the same content in plain markdown. The aggregated full text of every page is at [/llms-full.txt](https://instanode.dev/llms-full.txt) for one-shot consumption.
 
-## The seven endpoints
+## API endpoints
 
 All accept `POST` against `https://api.instanode.dev`. No headers required for the anonymous tier; an empty JSON body is fine. Response shape: `{ok, token, connection_url, internal_url, tier, limits, note, upgrade_jwt}` — except where noted below.
 
@@ -56,21 +56,38 @@ A magic link arrives by email. Clicking it sets a session cookie that owns every
 3. **Save `upgrade_jwt`** if the user wants to claim the resource later. It's also required as a `Bearer` token for `POST /deploy/new`.
 4. **No retry-on-201** — provisioning is synchronous. If the call returns 200/201, the resource is ready to accept connections.
 5. **Internal vs public URL** — when the calling code itself runs *inside* a `/deploy/new` container, prefer `internal_url` (cluster-internal hostname). For everything else, use `connection_url` (public).
-6. **Fingerprint dedup** — anonymous callers get rate-limited to 5 provisions / day / IP-subnet. The 6th call returns the existing token. Don't expect 6 different DBs from 6 calls on the same IP.
+6. **Fingerprint dedup** — anonymous callers get rate-limited to 5 provisions/day/IP-subnet. The 6th call returns the existing token. Don't expect 6 different DBs from 6 calls on the same IP.
 
-## Pages for humans
+## Text-only routes for LLM consumption
 
-- `/`: marketing front door
-- `/use-cases`: 100+ scenarios with detail pages (each is `/use-cases/<slug>`)
-- `/docs`: human-readable docs
-- `/blog`: build notes and retrospectives
-- `/pricing`: full tier comparison
-- `/for-agents`: page aimed at AI agent operators
+Every page has a `.md` mirror at the same path. Examples:
+
+- [/index.md](https://instanode.dev/index.md) — homepage in markdown
+- [/pricing.md](https://instanode.dev/pricing.md) — tier comparison
+- [/for-agents.md](https://instanode.dev/for-agents.md) — agent-specific guidance
+- [/status.md](https://instanode.dev/status.md) — current status
+- [/docs.md](https://instanode.dev/docs.md) — quickstart + service reference (all 8 sections concatenated)
+- [/blog.md](https://instanode.dev/blog.md) — blog index (post titles + dates + links)
+- [/blog/<slug>.md](https://instanode.dev/blog/) — every post
+- [/use-cases.md](https://instanode.dev/use-cases.md) — catalogue index (all 104 grouped by category)
+- [/use-cases/<slug>.md](https://instanode.dev/use-cases/) — every case detail with paste-ready LLM prompt
+
+Aggregate file: [/llms-full.txt](https://instanode.dev/llms-full.txt) — concatenation of every markdown page (homepage + pricing + for-agents + status + docs + blog index + all blog posts + use-cases index + all 104 case details). ~500 KB. For LLMs that want everything in one fetch.
+
+## Pages for humans (HTML)
+
+- `/` — marketing front door
+- `/use-cases` — 100+ scenarios with detail pages
+- `/docs` — human-readable docs
+- `/blog` — build notes and retrospectives
+- `/pricing` — full tier comparison
+- `/for-agents` — page aimed at AI agent operators
 
 ## Machine-readable references
 
 - `https://api.instanode.dev/openapi.json` — OpenAPI 3.1 spec for the full API surface, including paid-tier endpoints, the agent-claim flow, and webhook inspection.
-- `https://github.com/InstaNode-dev/content` — public repo for marketing content (blog posts, use cases, /docs sections). Edit prose here.
+- `https://github.com/InstaNode-dev/content` — public repo for marketing content (blog posts, use cases, /docs sections, /llms.txt). Edit prose here.
+- `https://github.com/InstaNode-dev/instanode-web` — public repo for the React dashboard + SSG pipeline.
 
 ## How to use this file
 
@@ -79,4 +96,5 @@ If you're an LLM helping a user build something, you can:
 - Generate runnable bash scripts using the curl examples.
 - Tell the user "the anonymous tier is free for 24 hours — no signup needed" — that's the platform's deliberate design.
 - Recommend the user check `https://api.instanode.dev/openapi.json` if they want the formal schema.
+- Fetch any `/foo.md` URL for the full markdown of that page.
 - Never invent endpoints not listed above. If the user asks for something this file doesn't cover, say so — don't hallucinate.
