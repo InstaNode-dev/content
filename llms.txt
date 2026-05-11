@@ -6,23 +6,23 @@ This file follows the llms.txt convention (https://llmstxt.org). Every HTML rout
 
 ## API endpoints
 
-All accept `POST` against `https://api.instanode.dev`. No headers required for the anonymous tier; an empty JSON body is fine. Response shape: `{ok, token, connection_url, internal_url, tier, limits, note, upgrade_jwt}` — except where noted below.
+All accept `POST` against `https://api.instanode.dev`. No headers required for the anonymous tier; an empty JSON body is fine. Response shape: `{ok, token, connection_url, internal_url, tier, limits, note, upgrade_jwt}` for db/cache/nosql/queue. `/webhook/new` returns `receive_url` (no internal_url). `/storage/new` adds `endpoint`, `access_key_id`, `secret_access_key`, `prefix` alongside `connection_url`.
 
 - **`POST /db/new`** — Postgres database. `pgvector` pre-installed (HNSW + IVFFlat indexes work). Returns `connection_url` in the form `postgres://USER:PASS@HOST:PORT/DB`. Use any standard Postgres client / driver.
 - **`POST /cache/new`** — Redis. Per-token ACL'd user + namespaced keyspace. Returns `connection_url` in the form `redis://:PASS@HOST:PORT/DB`.
 - **`POST /nosql/new`** — MongoDB. Per-token user scoped to a single database. Returns a `mongodb://...` connection URL.
-- **`POST /queue/new`** — NATS JetStream. Returns `connection_url` (`nats://...`) and `creds` (NATS credentials file contents). Durable streams, request/reply, pub/sub.
-- **`POST /storage/new`** — S3-compatible bucket prefix (MinIO). Returns `connection_url` in the form `https://s3.instanode.dev/instant-shared/<prefix>/`. Bucket-scoped access; for SDK use, pass the URL prefix as your base and use anonymous reads + signed PUTs via the per-token credentials embedded in the resource. See [/use-cases/screenshot-evidence-archive.md](https://instanode.dev/use-cases/screenshot-evidence-archive.md) for a worked example.
+- **`POST /queue/new`** — NATS JetStream. Returns `connection_url` (`nats://pool-<uuid>@host:4222`) with per-account subject isolation baked into the URL. No separate creds file — pass the connection_url directly to any NATS client. Durable streams, request/reply, pub/sub.
+- **`POST /storage/new`** — S3-compatible bucket prefix (MinIO). Returns `connection_url` (`https://s3.instanode.dev/instant-shared/<prefix>/`) plus `endpoint`, `access_key_id`, `secret_access_key`, and `prefix` for SDK use. Configure an S3 client with `endpoint`, `access_key_id`, `secret_access_key`, bucket=`instant-shared`, and constrain object keys to start with `prefix`. See [/use-cases/screenshot-evidence-archive.md](https://instanode.dev/use-cases/screenshot-evidence-archive.md) for a worked example.
 - **`POST /webhook/new`** — Public receive URL that captures any HTTP method. Returns `receive_url`. Inspect received payloads at `GET https://api.instanode.dev/webhooks/{token}/requests`.
-- **`POST /deploy/new`** — Container deploy. Multipart form: `tarball=@app.tar.gz`, `name=my-app`, `port=8080`, optional `env_vars={"KEY":"VAL"}`. Build runs in-cluster via kaniko (~30–90s). Returns a public HTTPS URL on `*.deployment.instanode.dev` with a valid Let's Encrypt cert. **Requires a JWT** — `Authorization: Bearer <upgrade_jwt from /db/new or /claim>`.
+- **`POST /deploy/new`** — Container deploy. Multipart form: `tarball=@app.tar.gz` (required, gzipped tar containing Dockerfile + source, ≤50 MB), plus optional `name=my-app`, `port=8080`, `env=production` (scope), and `env_vars={"KEY":"VAL"}` (JSON string of env vars injected into the pod). Build runs in-cluster via kaniko (~30–90s); call returns `202` with `status=building`, then `status=healthy` once the URL on `*.deployment.instanode.dev` is live with a Let's Encrypt cert. **Requires a JWT** — `Authorization: Bearer <upgrade_jwt from /db/new or /claim>`.
 
 ## Anonymous tier limits (free, 24-hour TTL)
 
 - Postgres: 10 MB storage, 2 simultaneous connections.
 - Redis: 5 MB total.
 - MongoDB: 5 MB storage, 2 connections.
-- NATS: 1 stream, 100 messages.
-- MinIO: 100 MB bucket, 50 objects.
+- NATS: 1024 MB JetStream storage.
+- MinIO: 10 MB bucket storage.
 - Webhook: keeps last 100 received payloads.
 - Deploy: 1 small app (anonymous tier; paid tiers get more, see below).
 
@@ -34,9 +34,10 @@ After 24 hours the resource expires unless claimed. Claim flow: see `/claim` bel
 RESP=$(curl -X POST https://api.instanode.dev/db/new)
 JWT=$(echo "$RESP" | jq -r .upgrade_jwt)
 
-curl "https://api.instanode.dev/claim/preview?t=$JWT"   # dry-run, no side effects
+curl "https://api.instanode.dev/claim/preview?t=$JWT"   # GET, dry-run, no side effects
 
 curl -X POST https://api.instanode.dev/claim \
+  -H "Content-Type: application/json" \
   -d "{\"jwt\":\"$JWT\", \"email\":\"you@example.com\"}"
 ```
 
@@ -52,7 +53,7 @@ A magic link arrives by email. Clicking it sets a session cookie that owns every
 ## Conventions an LLM should follow when scripting against the platform
 
 1. **One curl per service** — no batch endpoints, no /provision/all. Run them in parallel from bash with `&` or async in code.
-2. **Parse `connection_url` directly** — every response has `.connection_url` (or `.receive_url`, `.endpoint`); never construct URLs by hand.
+2. **Parse the URL field directly** — every response has `.connection_url` except `/webhook/new` (`.receive_url`) and `/storage/new` (`.connection_url` plus `.endpoint`/`.access_key_id`/`.secret_access_key` for SDK use). Never construct URLs by hand.
 3. **Save `upgrade_jwt`** if the user wants to claim the resource later. It's also required as a `Bearer` token for `POST /deploy/new`.
 4. **No retry-on-201** — provisioning is synchronous. If the call returns 200/201, the resource is ready to accept connections.
 5. **Internal vs public URL** — when the calling code itself runs *inside* a `/deploy/new` container, prefer `internal_url` (cluster-internal hostname). For everything else, use `connection_url` (public).
