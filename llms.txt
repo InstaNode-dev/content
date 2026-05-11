@@ -12,7 +12,7 @@ All accept `POST` against `https://api.instanode.dev`. No headers required for t
 - **`POST /cache/new`** — Redis. Per-token ACL'd user + namespaced keyspace. Returns `connection_url` in the form `redis://:PASS@HOST:PORT/DB`.
 - **`POST /nosql/new`** — MongoDB. Per-token user scoped to a single database. Returns a `mongodb://...` connection URL.
 - **`POST /queue/new`** — NATS JetStream. Returns `connection_url` (`nats://...`) and `creds` (NATS credentials file contents). Durable streams, request/reply, pub/sub.
-- **`POST /storage/new`** — S3-compatible bucket (MinIO). Returns `endpoint` (`https://...`), `access_key_id`, `secret_access_key`, and `bucket`. Use any AWS S3 SDK with these values.
+- **`POST /storage/new`** — S3-compatible bucket prefix (MinIO). Returns `connection_url` in the form `https://s3.instanode.dev/instant-shared/<prefix>/`. Bucket-scoped access; for SDK use, pass the URL prefix as your base and use anonymous reads + signed PUTs via the per-token credentials embedded in the resource. See [/use-cases/screenshot-evidence-archive.md](https://instanode.dev/use-cases/screenshot-evidence-archive.md) for a worked example.
 - **`POST /webhook/new`** — Public receive URL that captures any HTTP method. Returns `receive_url`. Inspect received payloads at `GET https://api.instanode.dev/webhooks/{token}/requests`.
 - **`POST /deploy/new`** — Container deploy. Multipart form: `tarball=@app.tar.gz`, `name=my-app`, `port=8080`, optional `env_vars={"KEY":"VAL"}`. Build runs in-cluster via kaniko (~30–90s). Returns a public HTTPS URL on `*.deployment.instanode.dev` with a valid Let's Encrypt cert. **Requires a JWT** — `Authorization: Bearer <upgrade_jwt from /db/new or /claim>`.
 
