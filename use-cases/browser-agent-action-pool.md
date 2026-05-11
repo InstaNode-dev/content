@@ -5,6 +5,24 @@ services: ["mongo", "nats"]
 scenario: A Skyvern-style planner emits 20 actions (fill, click, scroll) that fan out across 20 Browserbase tabs simultaneously; results aggregate in Mongo keyed by step_id.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: a Skyvern-style planner emits 20 actions (fill, click, scroll) that fan out across 20 Browserbase tabs simultaneously; results aggregate in Mongo keyed by step_id.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (MongoDB + NATS JetStream) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

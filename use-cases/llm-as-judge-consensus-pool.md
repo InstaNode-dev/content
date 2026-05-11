@@ -5,6 +5,24 @@ services: ["pg", "nats"]
 scenario: Five judge agents score the same agent output in parallel; their verdicts converge in Postgres and a tiebreaker rolls in only on disagreement, all coordinated through a NATS request/reply.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: five judge agents score the same agent output in parallel; their verdicts converge in Postgres and a tiebreaker rolls in only on disagreement, all coordinated through a NATS request/reply.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (Postgres + NATS JetStream) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

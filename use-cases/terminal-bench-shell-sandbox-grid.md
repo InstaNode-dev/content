@@ -5,6 +5,24 @@ services: ["pg", "webhook", "deploy"]
 scenario: A grid runner deploys 100 ephemeral shell sandboxes, each running a Terminal-Bench task with its own ephemeral DB; pass/fail webhooks aggregate to a Postgres results table.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: a grid runner deploys 100 ephemeral shell sandboxes, each running a Terminal-Bench task with its own ephemeral DB; pass/fail webhooks aggregate to a Postgres results table.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (Postgres + webhook receiver + container deploy) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

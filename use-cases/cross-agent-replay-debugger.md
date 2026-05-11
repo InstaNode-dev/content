@@ -5,6 +5,24 @@ services: ["minio", "mongo"]
 scenario: A debug agent stores full prompt+response payloads for an entire multi-agent run in MinIO, with an index in Mongo so an engineer can replay any branch deterministically.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: a debug agent stores full prompt+response payloads for an entire multi-agent run in MinIO, with an index in Mongo so an engineer can replay any branch deterministically.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (MinIO (S3-compatible) + MongoDB) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

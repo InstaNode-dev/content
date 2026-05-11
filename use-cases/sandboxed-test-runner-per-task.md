@@ -5,6 +5,24 @@ services: ["deploy"]
 scenario: A coding agent spins up a throwaway container per task to run the user's test suite in isolation, tears it down on success or failure.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: a coding agent spins up a throwaway container per task to run the user's test suite in isolation, tears it down on success or failure.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (container deploy) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

@@ -5,6 +5,24 @@ services: ["nats", "pg"]
 scenario: Each spawn/handoff event is published to a NATS subject; a topology agent subscribes and maintains a real-time graph of which parent spawned which child in Postgres for the dashboard.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: each spawn/handoff event is published to a NATS subject; a topology agent subscribes and maintains a real-time graph of which parent spawned which child in Postgres for the dashboard.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (NATS JetStream + Postgres) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

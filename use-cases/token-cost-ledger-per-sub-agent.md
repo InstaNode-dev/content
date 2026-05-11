@@ -5,6 +5,24 @@ services: ["webhook", "pg", "redis"]
 scenario: Every LLM call from any agent in a fleet emits a webhook with input/output tokens; a ledger agent aggregates spend per tenant in Postgres and triggers throttling at thresholds.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: every LLM call from any agent in a fleet emits a webhook with input/output tokens; a ledger agent aggregates spend per tenant in Postgres and triggers throttling at thresholds.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (webhook receiver + Postgres + Redis) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

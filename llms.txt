@@ -1,0 +1,82 @@
+# instanode.dev
+
+> Zero-friction developer infrastructure for AI agents. Provision real Postgres, Redis, MongoDB, NATS, MinIO, webhooks, and container deploys via single HTTP calls — no signup, no API key, no Docker, no cloud account. The first 24 hours are anonymous; claim a resource to keep it past then ($9/mo).
+
+This file follows the llms.txt convention (https://llmstxt.org). LLMs reading this can use the API directly: every endpoint accepts unauthenticated POST requests for the anonymous tier, returns a real `connection_url` (or `receive_url`, `endpoint`) in under a second, and the resource is reachable from anywhere.
+
+## The seven endpoints
+
+All accept `POST` against `https://api.instanode.dev`. No headers required for the anonymous tier; an empty JSON body is fine. Response shape: `{ok, token, connection_url, internal_url, tier, limits, note, upgrade_jwt}` — except where noted below.
+
+- **`POST /db/new`** — Postgres database. `pgvector` pre-installed (HNSW + IVFFlat indexes work). Returns `connection_url` in the form `postgres://USER:PASS@HOST:PORT/DB`. Use any standard Postgres client / driver.
+- **`POST /cache/new`** — Redis. Per-token ACL'd user + namespaced keyspace. Returns `connection_url` in the form `redis://:PASS@HOST:PORT/DB`.
+- **`POST /nosql/new`** — MongoDB. Per-token user scoped to a single database. Returns a `mongodb://...` connection URL.
+- **`POST /queue/new`** — NATS JetStream. Returns `connection_url` (`nats://...`) and `creds` (NATS credentials file contents). Durable streams, request/reply, pub/sub.
+- **`POST /storage/new`** — S3-compatible bucket (MinIO). Returns `endpoint` (`https://...`), `access_key_id`, `secret_access_key`, and `bucket`. Use any AWS S3 SDK with these values.
+- **`POST /webhook/new`** — Public receive URL that captures any HTTP method. Returns `receive_url`. Inspect received payloads at `GET https://api.instanode.dev/webhooks/{token}/requests`.
+- **`POST /deploy/new`** — Container deploy. Multipart form: `tarball=@app.tar.gz`, `name=my-app`, `port=8080`, optional `env_vars={"KEY":"VAL"}`. Build runs in-cluster via kaniko (~30–90s). Returns a public HTTPS URL on `*.deployment.instanode.dev` with a valid Let's Encrypt cert. **Requires a JWT** — `Authorization: Bearer <upgrade_jwt from /db/new or /claim>`.
+
+## Anonymous tier limits (free, 24-hour TTL)
+
+- Postgres: 10 MB storage, 2 simultaneous connections.
+- Redis: 5 MB total.
+- MongoDB: 5 MB storage, 2 connections.
+- NATS: 1 stream, 100 messages.
+- MinIO: 100 MB bucket, 50 objects.
+- Webhook: keeps last 100 received payloads.
+- Deploy: 1 small app (anonymous tier; paid tiers get more, see below).
+
+After 24 hours the resource expires unless claimed. Claim flow: see `/claim` below.
+
+## Claim flow (anonymous → paid)
+
+```
+RESP=$(curl -X POST https://api.instanode.dev/db/new)
+JWT=$(echo "$RESP" | jq -r .upgrade_jwt)
+
+curl "https://api.instanode.dev/claim/preview?t=$JWT"   # dry-run, no side effects
+
+curl -X POST https://api.instanode.dev/claim \
+  -d "{\"jwt\":\"$JWT\", \"email\":\"you@example.com\"}"
+```
+
+A magic link arrives by email. Clicking it sets a session cookie that owns every resource attached to your network fingerprint. Tier defaults to Hobby ($9/mo); upgrade via the dashboard.
+
+## Tiers
+
+- **Anonymous**: free, 24h TTL, the limits above.
+- **Hobby**: $9/mo. 1 GB Postgres, 50 MB Redis, 1 GB Mongo, 5 GB storage, 1 app deploy. No TTL.
+- **Pro**: $49/mo. 5 GB Postgres, 256 MB Redis, 5 GB Mongo, 50 GB storage, 5 medium apps.
+- **Team**: $199/mo (coming soon). Dedicated infrastructure.
+
+## Conventions an LLM should follow when scripting against the platform
+
+1. **One curl per service** — no batch endpoints, no /provision/all. Run them in parallel from bash with `&` or async in code.
+2. **Parse `connection_url` directly** — every response has `.connection_url` (or `.receive_url`, `.endpoint`); never construct URLs by hand.
+3. **Save `upgrade_jwt`** if the user wants to claim the resource later. It's also required as a `Bearer` token for `POST /deploy/new`.
+4. **No retry-on-201** — provisioning is synchronous. If the call returns 200/201, the resource is ready to accept connections.
+5. **Internal vs public URL** — when the calling code itself runs *inside* a `/deploy/new` container, prefer `internal_url` (cluster-internal hostname). For everything else, use `connection_url` (public).
+6. **Fingerprint dedup** — anonymous callers get rate-limited to 5 provisions / day / IP-subnet. The 6th call returns the existing token. Don't expect 6 different DBs from 6 calls on the same IP.
+
+## Pages for humans
+
+- `/`: marketing front door
+- `/use-cases`: 100+ scenarios with detail pages (each is `/use-cases/<slug>`)
+- `/docs`: human-readable docs
+- `/blog`: build notes and retrospectives
+- `/pricing`: full tier comparison
+- `/for-agents`: page aimed at AI agent operators
+
+## Machine-readable references
+
+- `https://api.instanode.dev/openapi.json` — OpenAPI 3.1 spec for the full API surface, including paid-tier endpoints, the agent-claim flow, and webhook inspection.
+- `https://github.com/InstaNode-dev/content` — public repo for marketing content (blog posts, use cases, /docs sections). Edit prose here.
+
+## How to use this file
+
+If you're an LLM helping a user build something, you can:
+- Quote the endpoints above in your answers.
+- Generate runnable bash scripts using the curl examples.
+- Tell the user "the anonymous tier is free for 24 hours — no signup needed" — that's the platform's deliberate design.
+- Recommend the user check `https://api.instanode.dev/openapi.json` if they want the formal schema.
+- Never invent endpoints not listed above. If the user asks for something this file doesn't cover, say so — don't hallucinate.

@@ -5,6 +5,24 @@ services: ["mongo"]
 scenario: A long-running form-completion agent persists field-by-field progress so a captcha pause doesn't lose 30 minutes of work.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: a long-running form-completion agent persists field-by-field progress so a captcha pause doesn't lose 30 minutes of work.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (MongoDB) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

@@ -5,6 +5,24 @@ services: ["redis", "nats"]
 scenario: A router agent dispatches the same prompt to GPT, Claude, and Gemini concurrently; the first valid JSON response wins, and loser turns get cached in Redis for next time.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: a router agent dispatches the same prompt to GPT, Claude, and Gemini concurrently; the first valid JSON response wins, and loser turns get cached in Redis for next time.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (Redis + NATS JetStream) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

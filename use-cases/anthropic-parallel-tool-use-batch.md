@@ -5,6 +5,24 @@ services: ["nats", "redis"]
 scenario: A Claude turn emits 8 simultaneous tool_use blocks; an executor fans them out to 8 NATS subjects, each handler writes its result to Redis keyed by tool_use_id, and the assistant collects them for the next turn.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: a Claude turn emits 8 simultaneous tool_use blocks; an executor fans them out to 8 NATS subjects, each handler writes its result to Redis keyed by tool_use_id, and the assistant collects them for the next turn.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (NATS JetStream + Redis) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

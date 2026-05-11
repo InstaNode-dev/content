@@ -5,6 +5,24 @@ services: ["webhook", "pg"]
 scenario: An IoT fleet of 10,000 edge agents each runs on a Workers-style runtime, syncing local SQLite deltas to a central Postgres via webhook batches every minute.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: an IoT fleet of 10,000 edge agents each runs on a Workers-style runtime, syncing local SQLite deltas to a central Postgres via webhook batches every minute.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (webhook receiver + Postgres) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

@@ -5,6 +5,24 @@ services: ["mongo", "webhook"]
 scenario: A LangWatch-Scenario-style service spawns attacker agents that probe a target chatbot in parallel; transcripts persist in Mongo and successful jailbreaks fire a webhook to the security team.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: a LangWatch-Scenario-style service spawns attacker agents that probe a target chatbot in parallel; transcripts persist in Mongo and successful jailbreaks fire a webhook to the security team.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (MongoDB + webhook receiver) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

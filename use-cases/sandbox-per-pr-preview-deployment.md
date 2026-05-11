@@ -5,6 +5,24 @@ services: ["pg", "minio", "deploy"]
 scenario: A reviewer agent provisions a throwaway storage bucket plus Postgres tied to a PR number, seeds it from a snapshot, and the whole thing is torn down when the PR closes.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: a reviewer agent provisions a throwaway storage bucket plus Postgres tied to a PR number, seeds it from a snapshot, and the whole thing is torn down when the PR closes.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (Postgres + MinIO (S3-compatible) + container deploy) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

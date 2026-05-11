@@ -5,6 +5,24 @@ services: ["pg", "redis"]
 scenario: A CrewAI Process.parallel run executes researcher, writer, and fact-checker agents simultaneously against a shared pgvector store, each persisting partial drafts as it works.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: a CrewAI Process.parallel run executes researcher, writer, and fact-checker agents simultaneously against a shared pgvector store, each persisting partial drafts as it works.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (Postgres + Redis) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

@@ -5,6 +5,24 @@ services: ["pg", "minio"]
 scenario: An agentic-commerce gateway stores signed user mandates ("buy X up to $Y") for later dispute resolution.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: an agentic-commerce gateway stores signed user mandates ("buy X up to $Y") for later dispute resolution.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (Postgres + MinIO (S3-compatible)) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

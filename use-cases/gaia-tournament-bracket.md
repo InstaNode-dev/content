@@ -5,6 +5,24 @@ services: ["mongo", "minio", "redis"]
 scenario: A tournament service runs 16 agent variants head-to-head on GAIA tasks; pairings live in Mongo, intermediate transcripts in MinIO, win counts in Redis sorted sets for the live leaderboard.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: a tournament service runs 16 agent variants head-to-head on GAIA tasks; pairings live in Mongo, intermediate transcripts in MinIO, win counts in Redis sorted sets for the live leaderboard.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (MongoDB + MinIO (S3-compatible) + Redis) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```

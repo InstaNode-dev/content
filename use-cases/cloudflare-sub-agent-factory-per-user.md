@@ -5,6 +5,24 @@ services: ["pg", "deploy"]
 scenario: A Durable-Object-style root agent mints a fresh sub-agent for each end-user, each with its own SQL-backed memory and a deploy slot for that user's tools.
 ---
 
+## Prompt for any LLM (no setup needed)
+
+Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
+
+```
+Read https://instanode.dev/llms.txt for the API.
+
+I want to: a Durable-Object-style root agent mints a fresh sub-agent for each end-user, each with its own SQL-backed memory and a deploy slot for that user's tools.
+
+Write a complete runnable script (bash + whatever language fits) that:
+- Provisions the services I need (Postgres + container deploy) from instanode.dev
+- Does the work above end-to-end
+- Prints expected output at each step
+- Tells me how to claim the resources at the end if I want to keep them past 24 hours
+
+Use real curl commands against api.instanode.dev. Quote the actual response shapes from llms.txt.
+```
+
 ## Sample agent prompt
 
 ```
