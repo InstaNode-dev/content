@@ -2,7 +2,7 @@
 title: Maya shipped on Sunday night
 date: 2026-05-12
 author: instanode.dev
-excerpt: A solo founder, six hours of laptop battery, a friend who asked for "the thing" by standup. Three curls and she went to bed. Plus four others who showed up the same week with different problems and the same shape of session.
+excerpt: A solo founder, six hours of laptop battery, a friend who asked for "the thing" by standup. Three curls and she went to bed. Plus two others who showed up the same week with different problems and the same shape of session.
 ---
 
 # Maya shipped on Sunday night
@@ -15,10 +15,10 @@ tutorial. None of them are loaded.
 She types `curl -X POST https://api.instanode.dev/db/new` and her laptop,
 somehow, replies with a working Postgres URL in 945 milliseconds.
 
-This is the third tab Maya didn't have to read. The other four people in this
-post had different problems but the same Sunday-night shape: a problem at the
-front of their head, low tolerance for ceremony, and the next twenty minutes
-to make the problem disappear.
+She read none of those tabs. The other people in this post had different
+problems but the same Sunday-night shape: a problem at the front of their
+head, low tolerance for ceremony, and the next twenty minutes to make the
+problem disappear.
 
 ## Maya's full night
 
@@ -86,67 +86,68 @@ expire at midnight Monday. If Bookbase has a user by then she'll click the
 claim link in the response and pay $9/mo. If it doesn't, the URL goes away
 and nothing was wasted.
 
-## Four others, same Sunday-night shape
+## Two others, same week
 
-Maya is not unusual. Four other people showed up this week with different
-problems and the same low-ceremony arrival.
+Maya is not unusual. The shape repeats. Here are two more from this week
+whose problems looked nothing like Maya's and whose sessions looked exactly
+like hers.
 
-### Cleo — a long-running coding agent that needed persistent memory
+### Cleo — a coding agent that finally remembered things
 
-Cleo runs inside someone's terminal across days, handed tasks like "ship the
-auth refactor by Friday." Her old memory was a flat `memory.md` file: broke
-on corrupted writes, out of sync across terminal tabs, couldn't be queried.
-She made one tool call to `/db/new` and a Postgres URL came back. Cleo's
-schema is a `memories` table with a `vector(1536)` embedding column —
-pgvector (Postgres's vector-similarity extension) ships pre-installed, so
-similarity search is a single `SELECT ... ORDER BY embedding <-> $query`.
-When the user asked about a decision two days later, Cleo answered correctly
-and cited the original turn.
+Cleo is not a person. Cleo is a long-running coding agent that lives inside
+someone's terminal for days at a time, handed tasks like "ship the auth
+refactor by Friday." Until last Tuesday her memory was a flat `memory.md`
+file: it broke on corrupted writes, fell out of sync across terminal tabs,
+and couldn't be queried for anything beyond grep.
 
-### Anders — RAG over a stack of legal PDFs
+The fix was one tool call. Cleo issued `POST /db/new` from inside her own
+agent loop — no human in the middle, no signup, no dashboard — and got back
+a Postgres URL she could write to immediately. Her new schema is a
+`memories` table with a `vector(1536)` embedding column. Pgvector
+(Postgres's vector-similarity extension) ships pre-installed on every
+instanode database, so similarity search is one line:
+`SELECT ... ORDER BY embedding <-> $query LIMIT 10`. No separate vector DB,
+no second auth flow, no second bill.
 
-Anders is building Lawclerk, a tiny SaaS that answers questions from a
-corpus of legal PDFs (RAG = retrieval-augmented generation: feed the LLM
-relevant snippets from your own corpus instead of relying on its training
-data). Pinecone rate-limited him at 11 PM, Weaviate was awkward to deploy,
-Qdrant's auth setup beat him. Same `/db/new`, same default pgvector. He
-created an HNSW index (the standard graph-based nearest-neighbor index;
-`CREATE INDEX ON docs USING hnsw`), fed in 47,000 chunks, and watched the
-99th-percentile latency stay under 80 ms. The whole vector layer was
-Postgres, and he already knew Postgres.
+Two days later her user asked about a decision they'd made on Monday. Cleo
+answered correctly and quoted the original turn back. The memory wasn't a
+new feature she shipped. It was a thing that started working because the
+storage layer stopped being a project.
 
-### Priya — debugging a Stripe webhook
+### Priya — the Stripe webhook that was eating events
 
-Priya at an established company. Their Stripe handler drops events
-intermittently. `stripe trigger` won't fire the specific event she needs;
-ngrok wants a paid plan for her account size. Two minutes of searching, then
-`curl -X POST .../webhook/new` got her a public `receive_url`. She pasted
-it into Stripe's test endpoint config. The next 14 payloads landed in the
-platform's request log; she found the malformed field in the second one. The
-fix shipped before standup.
+Priya is a senior engineer at a payments company. Their Stripe handler had
+been intermittently dropping events for a week and nobody could reproduce
+it locally. The usual tools failed her in the usual ways: `stripe trigger`
+fires synthetic payloads, not the malformed real ones she needed; ngrok
+wanted a paid plan for an account her size; the staging environment was
+booked by another team's load test.
 
-### Reza and Tamika — hackathon, 24 hours, one demo
+She typed `curl -X POST https://api.instanode.dev/webhook/new` and pasted
+the returned `receive_url` into Stripe's test endpoint config. The next
+fourteen real payloads landed in the platform's request log, fully
+inspectable — headers, body, timestamp, raw bytes. The malformed field
+was in the second one: a customer with a unicode apostrophe in their
+billing name that her JSON deserializer was choking on.
 
-They met three hours into a hackathon and decided to build "Daily Standup
-Bot." They had never collaborated on a deploy. Three curls in their group
-chat at 3 AM — `/db/new`, `/cache/new`, `/webhook/new` — and within 10
-minutes both had identical working backing services. They wrote the bot in
-Python, shipped it with `/deploy/new`, demoed at 9 AM, won second place.
-They didn't claim; the resources expired at noon the next day. They wrote
-the names down to come back to it.
+She wrote the fix on the train. It shipped before standup. The whole
+debugging session — from "I need a public URL" to "I have a repro" — was
+under three minutes, and the URL is still sitting in her shell history in
+case the bug comes back.
 
 ## What ties them together
 
-These five people don't have much in common. A 24/7 coding agent and a
-sleep-deprived hackathon team are not the same customer.
+A solo founder at midnight, an autonomous agent halfway through a
+multi-day task, and a senior engineer on a commuter train do not look like
+the same customer. They have nothing in common on a marketing slide.
 
 What they share is the moment they show up: **eyes glued to the problem
 they want to disappear**. Anything between them and "the thing is alive
 on the internet" is friction. Anything that survives that gap is a story
 they tell their friends.
 
-Five different starting points, five different problems, one shape of
+Three different starting points, three different problems, one shape of
 solution: curl, build, ship, optionally claim.
 
-If you're somewhere in this list — or in a sixth shape we haven't
+If you're somewhere in this list — or in a fourth shape we haven't
 documented yet — the curl works right now. No signup.

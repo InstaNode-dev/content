@@ -26,49 +26,114 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-You're my terminal coding agent. Claim a Postgres on instanode.dev for our long-term decision log, enable pgvector, and create a decisions table with an embedding column. On every architectural choice we make, write a row with the decision text + an embedding. When I ask "what did we try on X", run a cosine similarity search and surface the top 3 rows.
+You're my terminal coding agent across a multi-week refactor of our billing service. Last Tuesday we tried wrapping Stripe webhooks in an idempotency table; on Thursday we tried a Redis lock; today I want to compare and pick one. Claim a Postgres on instanode.dev for our long-term decision log (or recover it if a JWT is already in ~/.config/instanode/token), enable pgvector, ensure a `decisions` table exists with topic + body + embedding + tags, and at the end of every session write a row for each major architectural choice we made. When I ask "what did we try about webhooks?" embed the query with text-embedding-3-small and return the top 3 cosine-nearest decisions with their dates.
 ```
 
 ## Steps to follow
 
-- **Step 1: Claim a Postgres.** One unauthenticated POST returns a live connection URL; no signup needed for a 24h trial.
+We'll thread one running log — the multi-week refactor of a billing service — through every step. By the last command you'll watch the agent recall a decision made nine days ago by similarity, not by keyword.
+
+- **Step 1: Claim a Postgres once, cache the JWT, recover it on every subsequent run.** Cross-session means the URL has to survive `Ctrl-D`. The agent caches the claimed token in `~/.config/instanode/token` so the next session resumes the same database.
 
   ```bash
-  curl -sX POST https://api.instanode.dev/db/new | tee pg.json
-  export PG_URL=$(jq -r .connection_url pg.json)
+  TOKEN_FILE=~/.config/instanode/token
+  if [ -f "$TOKEN_FILE" ]; then
+    PG_URL=$(curl -s -H "Authorization: Bearer $(cat $TOKEN_FILE)" \
+             https://api.instanode.dev/api/v1/resources | jq -r '.[] | select(.type=="postgres") | .connection_url')
+  else
+    mkdir -p ~/.config/instanode
+    RESP=$(curl -sX POST https://api.instanode.dev/db/new)
+    echo "$RESP" | jq -r .token > "$TOKEN_FILE"
+    PG_URL=$(echo "$RESP" | jq -r .connection_url)
+    # then visit the printed claim_url within 24h to upgrade from anonymous → hobby
+    echo "claim within 24h: $(echo $RESP | jq -r .claim_url)"
+  fi
+  export PG_URL
   ```
 
-- **Step 2: Enable pgvector and create the schema.** instanode ships pgvector pre-installed on shared Postgres.
+- **Step 2: Enable pgvector and create the schema once.** instanode ships pgvector pre-installed on every provisioned Postgres — no `CREATE EXTENSION` failure on permissions.
 
   ```sql
   CREATE EXTENSION IF NOT EXISTS vector;
-  CREATE TABLE decisions (
-    id bigserial PRIMARY KEY,
-    decided_at timestamptz DEFAULT now(),
-    topic text,
-    body text,
-    embedding vector(1536)
+
+  CREATE TABLE IF NOT EXISTS decisions (
+    id          bigserial PRIMARY KEY,
+    decided_at  timestamptz NOT NULL DEFAULT now(),
+    session_id  text NOT NULL,
+    topic       text NOT NULL,
+    body        text NOT NULL,
+    tags        text[] NOT NULL DEFAULT '{}',
+    embedding   vector(1536) NOT NULL
   );
-  CREATE INDEX ON decisions USING ivfflat (embedding vector_cosine_ops);
+
+  CREATE INDEX IF NOT EXISTS decisions_topic_idx
+    ON decisions USING ivfflat (embedding vector_cosine_ops)
+    WITH (lists = 100);
   ```
 
-- **Step 3: Log a decision at the end of each session.** The agent calls OpenAI embeddings, then inserts.
+- **Step 3: At session end, the agent logs each architectural choice.** Embed → insert. Same code path every time, no manual journaling.
 
   ```python
-  emb = openai.embeddings.create(input=body, model="text-embedding-3-small").data[0].embedding
-  cur.execute("INSERT INTO decisions(topic, body, embedding) VALUES (%s,%s,%s)", (topic, body, emb))
+  # agent/log_decision.py
+  import os, openai, psycopg
+  oa = openai.OpenAI()
+
+  def log(session_id: str, topic: str, body: str, tags: list[str]) -> int:
+      emb = oa.embeddings.create(
+          model="text-embedding-3-small",
+          input=f"{topic}\n\n{body}",
+          dimensions=1536,
+      ).data[0].embedding
+      with psycopg.connect(os.environ["PG_URL"]) as cn:
+          row = cn.execute(
+              "INSERT INTO decisions (session_id, topic, body, tags, embedding) "
+              "VALUES (%s, %s, %s, %s, %s) RETURNING id",
+              (session_id, topic, body, tags, emb),
+          ).fetchone()
+          return row[0]
+
+  # called by the agent at the end of Tuesday's session:
+  log("2026-04-21", "Stripe webhook idempotency",
+      "Tried a Postgres idempotency table keyed on stripe_event_id. "
+      "Insert ON CONFLICT DO NOTHING; if rowcount=0, short-circuit. "
+      "Concern: table growth — needs a TTL job.",
+      ["stripe", "idempotency", "webhooks"])
   ```
 
-- **Step 4: Recall "what did we try Tuesday".** Embed the query, cosine search.
+- **Step 4: Recall by meaning, not keyword.** When you ask "what did we try about webhooks?" the agent embeds the question and runs a cosine search. Note that "webhook" never appears verbatim in Thursday's Redis-lock body — but the embedding still pulls it.
 
-  ```sql
-  SELECT topic, body, decided_at FROM decisions
-  ORDER BY embedding <=> $1::vector LIMIT 3;
+  ```python
+  def recall(question: str, k: int = 3):
+      qe = oa.embeddings.create(
+          model="text-embedding-3-small", input=question, dimensions=1536
+      ).data[0].embedding
+      with psycopg.connect(os.environ["PG_URL"]) as cn:
+          return cn.execute(
+              "SELECT decided_at::date, topic, body, "
+              "       1 - (embedding <=> %s::vector) AS similarity "
+              "FROM decisions "
+              "ORDER BY embedding <=> %s::vector LIMIT %s",
+              (qe, qe, k),
+          ).fetchall()
+
+  for d, topic, body, sim in recall("what did we try about webhooks?"):
+      print(f"[{d}] ({sim:.3f}) {topic}\n  {body[:120]}...\n")
+  ```
+
+- **Step 5: Verify recall works across sessions.** Open a fresh terminal — no warm cache, no in-process state — and run the recall.
+
+  ```bash
+  # fresh shell, no agent state:
+  python -c "from agent.log_decision import recall; \
+             [print(r[0], '|', r[1], '|', round(r[3],3)) for r in recall('webhook deduplication', 3)]"
+  # 2026-04-21 | Stripe webhook idempotency | 0.872
+  # 2026-04-23 | Redis SETNX lock for inbound webhooks | 0.841
+  # 2026-04-15 | Outbound retry backoff | 0.612
   ```
 
 ## Why this works on instanode.dev
 
-Pgvector is enabled out of the box on every provisioned Postgres, so there's no extension install dance. The connection URL is a real, persistent database — not a sandbox that resets — and survives across terminal sessions, IDE restarts, and machine reboots. Claim it once, and the same JWT lets the agent recover the URL on any new device.
+Long-running agent memory has been awkwardly served by two opposite camps. The **Pinecone / Weaviate / Qdrant Cloud** path is a real vector DB but assumes a signup, a project, an API key, and a paid tier the moment you cross the free quota — and worse, an agent that wants to *spawn* its own memory store can't, because Pinecone's project creation isn't an open POST. The **LangChain InMemoryVectorStore** / **Chroma-on-disk** path solves provisioning by being local, but the data dies when the laptop sleeps or when a sibling agent on another machine wants to read it. **OpenAI Assistants memory** locks you into one provider's storage. instanode gives the agent a real Postgres with pgvector pre-installed in one unauthenticated POST — no extension-install dance (a common pgvector failure mode on shared Postgres providers like Supabase free), no project quota, no IAM. The claimed token survives terminal restarts, IDE reloads, machine reboots, and any other device the agent runs on, because the JWT itself is the recovery key. The same `decisions` table is queryable from a Python script, a `psql` shell, or another agent — because it's just Postgres.
 
 ## Related cases
 
