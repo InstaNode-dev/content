@@ -4,3 +4,57 @@ category: C. Vertical AI apps
 services: ["pg", "minio"]
 scenario: A medical scribe agent transcribes doctor-patient visits and stores structured SOAP notes per encounter with auditable history.
 ---
+
+## Sample agent prompt
+
+```
+You're a clinical-scribe agent transcribing doctor-patient visits. For each visit, store structured SOAP fields (Subjective, Objective, Assessment, Plan) in Postgres for queryability, and the raw audio + full transcript blob in MinIO for audit. Every edit creates a new version row — never overwrite.
+```
+
+## Steps to follow
+
+- **Step 1: Provision PG + bucket.**
+
+  ```bash
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H "Authorization: Bearer $T" | jq -r .connection_url)
+  curl -sX POST https://api.instanode.dev/storage/new -H "Authorization: Bearer $T" > s3.json
+  ```
+
+- **Step 2: Versioned SOAP table.**
+
+  ```sql
+  CREATE TABLE soap_notes (
+    note_id uuid NOT NULL,
+    version int NOT NULL,
+    encounter_id uuid NOT NULL,
+    subjective text, objective text, assessment text, plan text,
+    audio_key text, transcript_key text,
+    authored_by text NOT NULL,
+    authored_at timestamptz DEFAULT now(),
+    PRIMARY KEY (note_id, version)
+  );
+  CREATE INDEX idx_encounter ON soap_notes (encounter_id, version DESC);
+  ```
+
+- **Step 3: Upload raw audio + transcript, insert metadata.**
+
+  ```python
+  audio_key = f"audio/{encounter_id}.opus"
+  tx_key = f"transcripts/{encounter_id}.json"
+  s3.put_object(Bucket="instant-shared", Key=audio_key, Body=audio_bytes)
+  s3.put_object(Bucket="instant-shared", Key=tx_key, Body=json.dumps(transcript))
+  pg.execute("""INSERT INTO soap_notes (note_id,version,encounter_id,
+                subjective,objective,assessment,plan,audio_key,transcript_key,authored_by)
+                VALUES (%s,1,%s,%s,%s,%s,%s,%s,%s,%s)""",
+             (nid, encounter_id, S, O, A, P, audio_key, tx_key, "scribe-v3"))
+  ```
+
+- **Step 4: Latest version of a note.**
+
+  ```sql
+  SELECT * FROM soap_notes WHERE note_id = $1 ORDER BY version DESC LIMIT 1;
+  ```
+
+## Why this works on instanode.dev
+
+Clinical data needs strict auditability — every edit visible, raw artifacts untouched. Versioned PG rows + immutable MinIO objects give that without a custom CDC pipeline. Both resources encrypt at rest by default. Two curls; the same setup that's HIPAA-shaped on day one scales without a re-platform when you go from one clinic pilot to a real deployment.
