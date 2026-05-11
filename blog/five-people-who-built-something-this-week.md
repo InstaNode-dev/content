@@ -12,8 +12,8 @@ she finished an hour ago, and a friend who asked to see "the thing" before
 standup. Tabs open: Heroku pricing, Fly.io machine docs, a half-read Render
 tutorial. None of them are loaded.
 
-She types `curl -X POST https://api.instanode.dev/db/new` and her laptop,
-somehow, replies with a working Postgres URL in 945 milliseconds.
+She types `curl -X POST https://api.instanode.dev/db/new` and her laptop
+replies with a working Postgres URL in 945 milliseconds.
 
 She read none of those tabs. The other people in this post had different
 problems but the same Sunday-night shape: a problem at the front of their
@@ -51,8 +51,10 @@ curl -X POST https://api.instanode.dev/deploy/new \
 environment on the first build. Maya pastes the two connection URLs in. The
 multipart upload completes in three seconds.
 
-90 seconds of build later — there's a kaniko Job grinding away in the platform
-cluster, but Maya doesn't have to know that — and the response includes:
+90 seconds of build later — there's a kaniko Job (kaniko = a build tool
+that runs a Dockerfile inside a container without needing root) grinding
+away in the platform cluster, but Maya doesn't have to know that — and
+the response includes:
 
 ```
 https://bookbase-7a3f.deployment.instanode.dev
