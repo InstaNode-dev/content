@@ -35,6 +35,30 @@ Two POSTs from the same caller, to the same route, with the same body, within 12
 
 The 120s window is deliberately short. If you need true exactly-once across a longer window, pass an explicit `Idempotency-Key` (which gets the full 24h cache).
 
+### Worked example: a double-click produces one resource
+
+The simplest demonstration is two back-to-back `/db/new` calls from the same caller with the same body. Without `Idempotency-Key`, the fingerprint fallback collapses them:
+
+```bash
+# Two POSTs ~50ms apart — same caller, same body, no Idempotency-Key.
+curl -sS -D /tmp/h1 -X POST https://api.instanode.dev/db/new \
+  -H 'Content-Type: application/json' -d '{"name":"my-db"}' > /tmp/r1.json &
+curl -sS -D /tmp/h2 -X POST https://api.instanode.dev/db/new \
+  -H 'Content-Type: application/json' -d '{"name":"my-db"}' > /tmp/r2.json &
+wait
+
+grep -i "X-Idempotency-Source\|X-Idempotent-Replay" /tmp/h1 /tmp/h2
+#   /tmp/h1:X-Idempotency-Source: miss
+#   /tmp/h2:X-Idempotency-Source: fingerprint
+#   /tmp/h2:X-Idempotent-Replay: true
+
+jq -r .token /tmp/r1.json /tmp/r2.json
+#   tok_3jX...               (same token on both — one resource was created)
+#   tok_3jX...
+```
+
+The second call replays the first response verbatim. Only one Postgres database was provisioned. The same shape holds for `/deploy/new` (multipart, canonicalised by hashing the tarball + sorted form fields) and for `/api/v1/billing/checkout` (where the dashboard's client-side debounce, this fingerprint fallback, and the per-team `checkout_in_flight` SETNX guard layer to make sure a double-click never charges twice).
+
 ## Response headers
 
 Every response from a create endpoint carries:
