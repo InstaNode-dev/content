@@ -90,6 +90,20 @@ Aggregate file: [/llms-full.txt](https://instanode.dev/llms-full.txt) — concat
 - `https://github.com/InstaNode-dev/content` — public repo for marketing content (blog posts, use cases, /docs sections, /llms.txt). Edit prose here.
 - `https://github.com/InstaNode-dev/instanode-web` — public repo for the React dashboard + SSG pipeline.
 
+
+## Deleting a deployment (paid tiers — two-step, email-confirmed)
+
+Paid customers free a consumed deployment slot via a two-step flow:
+
+1. Agent calls `DELETE /api/v1/deployments/<id>` (or `/api/v1/stacks/<slug>`). API returns 202 with `deletion_status: "pending_confirmation"`, a 15-minute confirmation token, and an `agent_action` sentence the agent surfaces to the user verbatim. The slot stays consumed.
+2. User clicks the email link or pastes the token: dashboard issues `POST /api/v1/deployments/<id>/confirm-deletion?token=<plaintext>` → 200, slot freed.
+
+Cancel: `DELETE /api/v1/deployments/<id>/confirm-deletion` reverses the pending state. Expire: 15 minutes without a click flips the row to `expired`; re-running `DELETE` mints a fresh email.
+
+Agent escape hatch: `X-Skip-Email-Confirmation: yes` on the original `DELETE` → immediate destruction. Use only when the agent has explicit user consent on its own side.
+
+Anonymous tier (24h TTL): no email on file, `DELETE` returns 200 immediately. See [/docs/deploy](https://instanode.dev/docs/deploy) for full request/response shapes.
+
 ## How to use this file
 
 If you're an LLM helping a user build something, you can:
