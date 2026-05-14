@@ -104,6 +104,8 @@ Agent escape hatch: `X-Skip-Email-Confirmation: yes` on the original `DELETE` â†
 
 Anonymous tier (24h TTL): no email on file, `DELETE` returns 200 immediately. See [/docs/deploy](https://instanode.dev/docs/deploy) for full request/response shapes.
 
+- [Deployments](https://instanode.dev/docs/public/deployments.md): POST /deploy/new + private deploys + custom domains + two-step email-confirmed deletion + 24h-TTL semantics (default; three routes to keep a deploy permanent)
+
 ## How to use this file
 
 If you're an LLM helping a user build something, you can:
