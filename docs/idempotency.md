@@ -79,6 +79,7 @@ Idempotency is automatic on every POST that creates a resource:
 - Provisioning: `/db/new`, `/cache/new`, `/nosql/new`, `/queue/new`, `/storage/new`, `/webhook/new`, `/vector/new`.
 - Compute: `/deploy/new`, `/stacks/new`, `/stacks/{slug}/redeploy`, `/api/v1/resources/{id}/backup`, `/api/v1/resources/{id}/restore`, `/api/v1/resources/{id}/provision-twin`, `/api/v1/families/bulk-twin`, `/api/v1/stacks/{slug}/promote`.
 - Billing + team: `/api/v1/billing/checkout`, `/api/v1/team/members/invite`, `/api/v1/teams/{team_id}/invitations`, `/api/v1/auth/api-keys`.
+- Vault: `/api/v1/vault/{env}/{key}/rotate`. Each call inserts a new versioned secret row; dedup prevents double-click duplicate versions. `PUT /api/v1/vault/{env}/{key}` is state-replacement by contract (caller supplies the value) and `DELETE` is idempotent by construction, so neither needs the middleware.
 
 `DELETE`, `PATCH`, and read-only `GET` routes are not covered — they're either intrinsically idempotent (state-replacement) or token-bound single-use (e.g. `/claim`).
 
