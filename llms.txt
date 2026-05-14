@@ -1,6 +1,6 @@
 # instanode.dev
 
-> Zero-friction developer infrastructure for AI agents. Provision real Postgres, Redis, MongoDB, NATS, MinIO, webhooks, and container deploys via single HTTP calls — no signup, no API key, no Docker, no cloud account. The first 24 hours are anonymous; claim a resource to keep it past then ($9/mo).
+> Zero-friction developer infrastructure for AI agents. Provision real Postgres, Redis, MongoDB, NATS, S3-compatible object storage (DigitalOcean Spaces), webhooks, and container deploys via single HTTP calls — no signup, no API key, no Docker, no cloud account. The first 24 hours are anonymous; claim a resource to keep it past then ($9/mo).
 
 This file follows the llms.txt convention (https://llmstxt.org). Every HTML route on `https://instanode.dev` has a parallel `.md` mirror at the same path with a `.md` suffix — e.g. `/use-cases/foo` is served as HTML and `/use-cases/foo.md` is the same content in plain markdown. The aggregated full text of every page is at [/llms-full.txt](https://instanode.dev/llms-full.txt) for one-shot consumption.
 
@@ -12,7 +12,7 @@ All accept `POST` against `https://api.instanode.dev`. No headers required for t
 - **`POST /cache/new`** — Redis. Per-token ACL'd user + namespaced keyspace. Returns `connection_url` in the form `redis://:PASS@HOST:PORT/DB`.
 - **`POST /nosql/new`** — MongoDB. Per-token user scoped to a single database. Returns a `mongodb://...` connection URL.
 - **`POST /queue/new`** — NATS JetStream. Returns `connection_url` (`nats://pool-<uuid>@host:4222`) with per-account subject isolation baked into the URL. No separate creds file — pass the connection_url directly to any NATS client. Durable streams, request/reply, pub/sub.
-- **`POST /storage/new`** — S3-compatible bucket prefix (MinIO). Returns `connection_url` (`https://s3.instanode.dev/instant-shared/<prefix>/`) plus `endpoint`, `access_key_id`, `secret_access_key`, and `prefix` for SDK use. Configure an S3 client with `endpoint`, `access_key_id`, `secret_access_key`, bucket=`instant-shared`, and constrain object keys to start with `prefix`. See [/use-cases/screenshot-evidence-archive.md](https://instanode.dev/use-cases/screenshot-evidence-archive.md) for a worked example.
+- **`POST /storage/new`** — S3-compatible bucket prefix backed by DigitalOcean Spaces (`nyc3`). Returns `connection_url` (`https://s3.instanode.dev/instant-shared/<prefix>/`) plus `endpoint`, `access_key_id`, `secret_access_key`, and `prefix` for SDK use. Configure an S3 client with `endpoint`, `access_key_id`, `secret_access_key`, bucket=`instant-shared`, and constrain object keys to start with `prefix`. Anonymous-tier objects are auto-deleted at 24h by a bucket lifecycle rule enforced at the storage layer. See [/use-cases/screenshot-evidence-archive.md](https://instanode.dev/use-cases/screenshot-evidence-archive.md) for a worked example.
 - **`POST /webhook/new`** — Public receive URL that captures any HTTP method. Returns `receive_url`. Inspect received payloads at `GET https://api.instanode.dev/webhooks/{token}/requests`.
 - **`POST /deploy/new`** — Container deploy. Multipart form: `tarball=@app.tar.gz` (required, gzipped tar containing Dockerfile + source, ≤50 MB), plus optional `name=my-app`, `port=8080`, `env=production` (scope), and `env_vars={"KEY":"VAL"}` (JSON string of env vars injected into the pod). Build runs in-cluster via kaniko (~30–90s); call returns `202` with `status=building`, then `status=healthy` once the URL on `*.deployment.instanode.dev` is live with a Let's Encrypt cert. **Requires a JWT** — `Authorization: Bearer <upgrade_jwt from /db/new or /claim>`.
 
@@ -22,7 +22,7 @@ All accept `POST` against `https://api.instanode.dev`. No headers required for t
 - Redis: 5 MB total.
 - MongoDB: 5 MB storage, 2 connections.
 - NATS: 1024 MB JetStream storage.
-- MinIO: 10 MB bucket storage.
+- S3-compatible storage: 10 MB bucket prefix.
 - Webhook: keeps last 100 received payloads.
 - Deploy: 1 small app (anonymous tier; paid tiers get more, see below).
 
