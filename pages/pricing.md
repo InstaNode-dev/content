@@ -1,6 +1,6 @@
 # Pricing — instanode.dev
 
-> Self-serve at every tier. No talk-to-sales gate. Anonymous is the funnel; Hobby pays for the side project; Pro unlocks the multi-env workflow; Team (coming soon) is for the company that ships every day.
+> Self-serve at every tier. No talk-to-sales gate. Anonymous is the funnel; Hobby pays for the side project; Pro lets one product run in production + staging + development; Team (coming soon) is for the company that ships every day.
 
 ## Tiers
 

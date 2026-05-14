@@ -15,7 +15,7 @@ Read https://instanode.dev/llms.txt for the API.
 I want to: a medical scribe agent transcribes doctor-patient visits and stores structured SOAP notes per encounter with auditable history.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (Postgres + MinIO (S3-compatible)) from instanode.dev
+- Provisions the services I need (Postgres + S3-compatible storage) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,7 +26,7 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-You're a clinical-scribe agent transcribing doctor-patient visits. For each visit, store structured SOAP fields (Subjective, Objective, Assessment, Plan) in Postgres for queryability, and the raw audio + full transcript blob in MinIO for audit. Every edit creates a new version row — never overwrite.
+You're a clinical-scribe agent transcribing doctor-patient visits. For each visit, store structured SOAP fields (Subjective, Objective, Assessment, Plan) in Postgres for queryability, and the raw audio + full transcript blob in S3-compatible storage for audit. Every edit creates a new version row — never overwrite.
 ```
 
 ## Steps to follow
@@ -75,7 +75,7 @@ You're a clinical-scribe agent transcribing doctor-patient visits. For each visi
 
 ## Why this works on instanode.dev
 
-Clinical data needs strict auditability — every edit visible, raw artifacts untouched. Versioned PG rows + immutable MinIO objects give that without a custom CDC pipeline. Both resources encrypt at rest by default. Two curls; the same setup that's HIPAA-shaped on day one scales without a re-platform when you go from one clinic pilot to a real deployment.
+Clinical data needs strict auditability — every edit visible, raw artifacts untouched. Versioned PG rows + immutable objects in S3-compatible storage give that without a custom CDC pipeline. Both resources encrypt at rest by default. Two curls; the same setup that's HIPAA-shaped on day one scales without a re-platform when you go from one clinic pilot to a real deployment.
 
 ## Related cases
 

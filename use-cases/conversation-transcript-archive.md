@@ -15,7 +15,7 @@ Read https://instanode.dev/llms.txt for the API.
 I want to: coding sessions are persisted as JSONL transcripts for replay, fine-tuning, and "what did we try last sprint" search across the team.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (MinIO (S3-compatible)) from instanode.dev
+- Provisions the services I need (S3-compatible storage) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,7 +26,7 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-Persist every coding session as a JSONL transcript to MinIO on instanode.dev. One object per session, keyed by date + agent ID. On a "what did we try last sprint" query, list objects in the last 14 days, stream them, and grep for the topic.
+Persist every coding session as a JSONL transcript to S3-compatible storage on instanode.dev. One object per session, keyed by date + agent ID. On a "what did we try last sprint" query, list objects in the last 14 days, stream them, and grep for the topic.
 ```
 
 ## Steps to follow
@@ -63,7 +63,7 @@ Persist every coding session as a JSONL transcript to MinIO on instanode.dev. On
 
 ## Why this works on instanode.dev
 
-MinIO speaks the S3 API verbatim — every existing tool (aws-cli, boto3, rclone, duckdb httpfs) works unchanged. You get a real bucket with a real IAM user scoped to your token, not a stub. No AWS account, no IAM policy authoring, no bucket-name uniqueness collision; the bucket is provisioned and ready in ~600ms.
+S3-compatible storage speaks the S3 API verbatim — every existing tool (aws-cli, boto3, rclone, duckdb httpfs) works unchanged. You get a real bucket with a real IAM user scoped to your token, not a stub. No AWS account, no IAM policy authoring, no bucket-name uniqueness collision; the bucket is provisioned and ready in ~600ms.
 
 ## Related cases
 

@@ -2,7 +2,7 @@
 title: Overnight dossier fleet
 category: Q. Background/async agent fleets
 services: ["mongo", "minio"]
-scenario: An async research service queues hundreds of overnight dossier jobs; workers persist intermediate findings in Mongo and PDF outputs in MinIO when complete.
+scenario: An async research service queues hundreds of overnight dossier jobs; workers persist intermediate findings in Mongo and PDF outputs in S3-compatible storage when complete.
 ---
 
 ## Prompt for any LLM (no setup needed)
@@ -12,10 +12,10 @@ Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
 ```
 Read https://instanode.dev/llms.txt for the API.
 
-I want to: an async research service queues hundreds of overnight dossier jobs; workers persist intermediate findings in Mongo and PDF outputs in MinIO when complete.
+I want to: an async research service queues hundreds of overnight dossier jobs; workers persist intermediate findings in Mongo and PDF outputs in S3-compatible storage when complete.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (MongoDB + MinIO (S3-compatible)) from instanode.dev
+- Provisions the services I need (MongoDB + S3-compatible storage) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,7 +26,7 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-Spin up an overnight research fleet: queue 400 dossier jobs at 11pm, each worker persists intermediate findings to Mongo (flexible schema) and uploads the final PDF to MinIO. By 7am I want a manifest of completed dossiers with their PDF URLs. Provision Mongo and MinIO.
+Spin up an overnight research fleet: queue 400 dossier jobs at 11pm, each worker persists intermediate findings to Mongo (flexible schema) and uploads the final PDF to S3-compatible storage. By 7am I want a manifest of completed dossiers with their PDF URLs. Provision Mongo and S3-compatible storage.
 ```
 
 ## Steps to follow
@@ -71,10 +71,10 @@ Spin up an overnight research fleet: queue 400 dossier jobs at 11pm, each worker
 
 ## Why this works on instanode.dev
 
-Mongo's flexible docs hold the intermediate findings even when sub-agents return wildly different shapes, and MinIO holds the final PDFs cheaply. One token claims both; the morning manifest is a single `find()` away.
+Mongo's flexible docs hold the intermediate findings even when sub-agents return wildly different shapes, and S3-compatible storage holds the final PDFs cheaply. One token claims both; the morning manifest is a single `find()` away.
 
 ## Related cases
 
 - [Cron-scheduled scraping swarm](/use-cases/cron-scheduled-scraping-swarm.md) — scheduled producer of the same kind of background research jobs
-- [Inbox-zero agent fleet](/use-cases/inbox-zero-agent-fleet.md) — another async fleet writing Mongo + MinIO outputs per user
+- [Inbox-zero agent fleet](/use-cases/inbox-zero-agent-fleet.md) — another async fleet writing Mongo + S3-compatible storage outputs per user
 - [arXiv-and-RSS research feed](/use-cases/arxiv-and-rss-research-feed.md) — an upstream input source for dossier topics

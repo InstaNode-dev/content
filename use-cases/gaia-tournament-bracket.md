@@ -2,7 +2,7 @@
 title: GAIA tournament bracket
 category: P. Agent benchmarking & evaluation
 services: ["mongo", "minio", "redis"]
-scenario: A tournament service runs 16 agent variants head-to-head on GAIA tasks; pairings live in Mongo, intermediate transcripts in MinIO, win counts in Redis sorted sets for the live leaderboard.
+scenario: A tournament service runs 16 agent variants head-to-head on GAIA tasks; pairings live in Mongo, intermediate transcripts in S3-compatible storage, win counts in Redis sorted sets for the live leaderboard.
 ---
 
 ## Prompt for any LLM (no setup needed)
@@ -12,10 +12,10 @@ Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
 ```
 Read https://instanode.dev/llms.txt for the API.
 
-I want to: a tournament service runs 16 agent variants head-to-head on GAIA tasks; pairings live in Mongo, intermediate transcripts in MinIO, win counts in Redis sorted sets for the live leaderboard.
+I want to: a tournament service runs 16 agent variants head-to-head on GAIA tasks; pairings live in Mongo, intermediate transcripts in S3-compatible storage, win counts in Redis sorted sets for the live leaderboard.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (MongoDB + MinIO (S3-compatible) + Redis) from instanode.dev
+- Provisions the services I need (MongoDB + S3-compatible storage + Redis) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,7 +26,7 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-Run a 16-agent GAIA tournament. Claim Mongo + MinIO + Redis on instanode.dev. Pairings + per-task outcomes in Mongo. Full per-task transcripts in MinIO. Live leaderboard win counts in Redis sorted set. After every match, update all three.
+Run a 16-agent GAIA tournament. Claim Mongo + S3-compatible storage + Redis on instanode.dev. Pairings + per-task outcomes in Mongo. Full per-task transcripts in S3-compatible storage. Live leaderboard win counts in Redis sorted set. After every match, update all three.
 ```
 
 ## Steps to follow
@@ -67,7 +67,7 @@ Run a 16-agent GAIA tournament. Claim Mongo + MinIO + Redis on instanode.dev. Pa
 
 ## Why this works on instanode.dev
 
-Each service maps to exactly its strength: Mongo's flexible schema for bracket structure, MinIO for fat transcripts (avg ~2MB), Redis sorted sets for the live leaderboard. Provisioning all three with the same anonymous token means the tournament runner has no IAM glue to write. If a result is contested, the MinIO object is the source of truth — replay it deterministically.
+Each service maps to exactly its strength: Mongo's flexible schema for bracket structure, S3-compatible storage for fat transcripts (avg ~2MB), Redis sorted sets for the live leaderboard. Provisioning all three with the same anonymous token means the tournament runner has no IAM glue to write. If a result is contested, the object in S3-compatible storage is the source of truth — replay it deterministically.
 
 ## Related cases
 

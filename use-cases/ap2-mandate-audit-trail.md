@@ -15,7 +15,7 @@ Read https://instanode.dev/llms.txt for the API.
 I want to: an agentic-commerce gateway stores signed user mandates ("buy X up to $Y") for later dispute resolution.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (Postgres + MinIO (S3-compatible)) from instanode.dev
+- Provisions the services I need (Postgres + S3-compatible storage) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,7 +26,7 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-You operate an agentic-commerce gateway. Every user mandate ("buy this SKU up to $300, valid until Friday") arrives signed. Store the canonical mandate in Postgres for indexed queries (by user, by expiry) and the full signed JWS blob in MinIO for dispute resolution. On every purchase, link the txn back to the mandate row.
+You operate an agentic-commerce gateway. Every user mandate ("buy this SKU up to $300, valid until Friday") arrives signed. Store the canonical mandate in Postgres for indexed queries (by user, by expiry) and the full signed JWS blob in S3-compatible storage for dispute resolution. On every purchase, link the txn back to the mandate row.
 ```
 
 ## Steps to follow
@@ -54,7 +54,7 @@ You operate an agentic-commerce gateway. Every user mandate ("buy this SKU up to
   CREATE INDEX idx_user_active ON mandates (user_id, status, expires_at);
   ```
 
-- **Step 3: Store the JWS in MinIO, the metadata in PG.**
+- **Step 3: Store the JWS in S3-compatible storage, the metadata in PG.**
 
   ```python
   key = f"mandates/{user_id}/{mandate_id}.jws"
