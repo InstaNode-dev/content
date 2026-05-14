@@ -15,7 +15,7 @@ Read https://instanode.dev/llms.txt for the API.
 I want to: a reviewer agent provisions a throwaway storage bucket plus Postgres tied to a PR number, seeds it from a snapshot, and the whole thing is torn down when the PR closes.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (Postgres + MinIO (S3-compatible) + container deploy) from instanode.dev
+- Provisions the services I need (Postgres + S3-compatible storage + container deploy) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,12 +26,12 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-On every PR opened against this repo, provision an isolated Postgres + MinIO bucket via instanode.dev, restore from the staging snapshot (s3://staging/snapshot.dump), and deploy the app container to pr-NNN.instanode.dev. On PR close, hit the delete endpoint for each resource. Pass the share URL back as a PR comment.
+On every PR opened against this repo, provision an isolated Postgres + S3-compatible bucket via instanode.dev, restore from the staging snapshot (s3://staging/snapshot.dump), and deploy the app container to pr-NNN.instanode.dev. On PR close, hit the delete endpoint for each resource. Pass the share URL back as a PR comment.
 ```
 
 ## Steps to follow
 
-- **Step 1: Provision Postgres and MinIO for PR #42.**
+- **Step 1: Provision Postgres and S3-compatible storage for PR #42.**
 
   ```bash
   PR=42

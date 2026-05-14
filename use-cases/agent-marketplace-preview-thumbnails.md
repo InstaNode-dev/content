@@ -15,7 +15,7 @@ Read https://instanode.dev/llms.txt for the API.
 I want to: an agent marketplace stores screenshot previews of each listed agent's UI for human browsing.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (MinIO (S3-compatible)) from instanode.dev
+- Provisions the services I need (S3-compatible storage) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,7 +26,7 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-You're indexing an agent marketplace. For every listed agent, capture a screenshot of its hosted UI and store it in MinIO under `thumbnails/{agent_id}.png`. Serve presigned URLs to the marketplace frontend so it can render a card grid without proxying images through your origin.
+You're indexing an agent marketplace. For every listed agent, capture a screenshot of its hosted UI and store it in S3-compatible storage under `thumbnails/{agent_id}.png`. Serve presigned URLs to the marketplace frontend so it can render a card grid without proxying images through your origin.
 ```
 
 ## Steps to follow
@@ -67,7 +67,7 @@ You're indexing an agent marketplace. For every listed agent, capture a screensh
   )
   ```
 
-- **Step 4: Frontend renders directly from MinIO.**
+- **Step 4: Frontend renders directly from S3-compatible storage.**
 
   ```html
   <img src="{{ thumbnail_url }}" loading="lazy" alt="{{ agent.name }}">
@@ -75,10 +75,10 @@ You're indexing an agent marketplace. For every listed agent, capture a screensh
 
 ## Why this works on instanode.dev
 
-Marketplace thumbnails are write-once, read-many, and you don't want to pay R2/S3 egress on every card hover. MinIO is S3-API-compatible, so boto3 and any image CDN drop in without code changes. Provisioning is one curl and the bucket starts empty — no IAM policy JSON, no CORS preamble, no per-bucket pricing tier to choose.
+Marketplace thumbnails are write-once, read-many, and you don't want to pay R2/S3 egress on every card hover. S3-compatible storage is S3-API-compatible, so boto3 and any image CDN drop in without code changes. Provisioning is one curl and the bucket starts empty — no IAM policy JSON, no CORS preamble, no per-bucket pricing tier to choose.
 
 ## Related cases
 
 - [A2A agent-card registry](/use-cases/a2a-agent-card-registry.md) — the structured-metadata half of the same marketplace listing
-- [Screenshot evidence archive](/use-cases/screenshot-evidence-archive.md) — the same MinIO-keyed-by-id pattern for QA screenshots
+- [Screenshot evidence archive](/use-cases/screenshot-evidence-archive.md) — the same S3-compatible storage-keyed-by-id pattern for QA screenshots
 - [Agent reputation log](/use-cases/agent-reputation-log.md) — ratings that surface next to the thumbnails in the listing UI

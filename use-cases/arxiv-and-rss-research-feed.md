@@ -15,7 +15,7 @@ Read https://instanode.dev/llms.txt for the API.
 I want to: a research agent receives webhook pings from arXiv and RSS bridges, dedupes via Redis, and stores PDFs for later retrieval.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (webhook receiver + Redis + MinIO (S3-compatible)) from instanode.dev
+- Provisions the services I need (webhook receiver + Redis + S3-compatible storage) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,7 +26,7 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-You're my research agent. Subscribe to arXiv + RSS bridges via a webhook URL. On each ping, dedupe by paper_id in Redis (TTL 30 days). For new papers, download the PDF to MinIO under `papers/{arxiv_id}.pdf`. Surface unread papers when I ask.
+You're my research agent. Subscribe to arXiv + RSS bridges via a webhook URL. On each ping, dedupe by paper_id in Redis (TTL 30 days). For new papers, download the PDF to S3-compatible storage under `papers/{arxiv_id}.pdf`. Surface unread papers when I ask.
 ```
 
 ## Steps to follow
@@ -62,7 +62,7 @@ You're my research agent. Subscribe to arXiv + RSS bridges via a webhook URL. On
 
 ## Why this works on instanode.dev
 
-Personal-research agents shouldn't need a server. A webhook URL is the inbox, Redis SET-NX is the dedupe primitive, MinIO is the PDF archive — three curls, no Lambda, no DynamoDB GSI. The webhook receive endpoint is queryable via HTTP so the agent can pull on its own cadence instead of running a 24/7 listener.
+Personal-research agents shouldn't need a server. A webhook URL is the inbox, Redis SET-NX is the dedupe primitive, S3-compatible storage is the PDF archive — three curls, no Lambda, no DynamoDB GSI. The webhook receive endpoint is queryable via HTTP so the agent can pull on its own cadence instead of running a 24/7 listener.
 
 ## Related cases
 

@@ -15,7 +15,7 @@ Read https://instanode.dev/llms.txt for the API.
 I want to: a second-brain agent receives uploaded voice memos, transcribes them, and files transcripts plus audio for semantic search.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (MinIO (S3-compatible) + Postgres) from instanode.dev
+- Provisions the services I need (S3-compatible storage + Postgres) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,7 +26,7 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-Build a second-brain pipeline. Provision MinIO + Postgres via instanode.dev. When the user uploads a voice memo (via the app), store the original WAV in MinIO, run Whisper transcription, embed the transcript with text-embedding-3-small, and insert a row (audio_key, transcript, embedding, captured_at). Enable semantic search via pgvector.
+Build a second-brain pipeline. Provision S3-compatible storage + Postgres via instanode.dev. When the user uploads a voice memo (via the app), store the original WAV in S3-compatible storage, run Whisper transcription, embed the transcript with text-embedding-3-small, and insert a row (audio_key, transcript, embedding, captured_at). Enable semantic search via pgvector.
 ```
 
 ## Steps to follow
@@ -71,7 +71,7 @@ Build a second-brain pipeline. Provision MinIO + Postgres via instanode.dev. Whe
 
 ## Why this works on instanode.dev
 
-The audio bytes belong in MinIO (cheap, S3-API), the transcript + embedding belong in Postgres (queryable, indexed). Two curls and the entire second-brain backend exists; pgvector handles cosine search natively without managing a vector DB on the side.
+The audio bytes belong in S3-compatible storage (cheap, S3-API), the transcript + embedding belong in Postgres (queryable, indexed). Two curls and the entire second-brain backend exists; pgvector handles cosine search natively without managing a vector DB on the side.
 
 ## Related cases
 

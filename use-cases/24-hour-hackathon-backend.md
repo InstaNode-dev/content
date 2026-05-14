@@ -2,7 +2,7 @@
 title: 24-hour hackathon backend
 category: I. Hackathon & education
 services: ["pg", "mongo", "minio"]
-scenario: A team provisions Postgres + Mongo + MinIO anonymously, ships their demo, and lets the stack expire 24 hours after judging.
+scenario: A team provisions Postgres + Mongo + S3-compatible storage anonymously, ships their demo, and lets the stack expire 24 hours after judging.
 ---
 
 ## Prompt for any LLM (no setup needed)
@@ -12,10 +12,10 @@ Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
 ```
 Read https://instanode.dev/llms.txt for the API.
 
-I want to: a team provisions Postgres + Mongo + MinIO anonymously, ships their demo, and lets the stack expire 24 hours after judging.
+I want to: a team provisions Postgres + Mongo + S3-compatible storage anonymously, ships their demo, and lets the stack expire 24 hours after judging.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (Postgres + MongoDB + MinIO (S3-compatible)) from instanode.dev
+- Provisions the services I need (Postgres + MongoDB + S3-compatible storage) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,7 +26,7 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-You're scaffolding a 24-hour hackathon project. Provision a Postgres for users + submissions, a MongoDB for unstructured judge feedback, and a MinIO bucket for demo videos — all anonymously, no signup. Wire them into a Next.js app, deploy a demo, and stop worrying about cleanup since the stack auto-expires 24 hours after we provision.
+You're scaffolding a 24-hour hackathon project. Provision a Postgres for users + submissions, a MongoDB for unstructured judge feedback, and a S3-compatible bucket for demo videos — all anonymously, no signup. Wire them into a Next.js app, deploy a demo, and stop worrying about cleanup since the stack auto-expires 24 hours after we provision.
 ```
 
 ## Steps to follow
@@ -59,7 +59,7 @@ You're scaffolding a 24-hour hackathon project. Provision a Postgres for users +
   );
   ```
 
-- **Step 4: Upload demo videos to MinIO.** S3-compatible, works with any AWS SDK.
+- **Step 4: Upload demo videos to S3-compatible storage.** S3-compatible, works with any AWS SDK.
 
   ```bash
   aws --endpoint-url "$S3_URL" s3 cp demo.mp4 s3://instant-shared/team42/demo.mp4

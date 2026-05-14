@@ -17,7 +17,7 @@ and merging on green CI. We tried something stricter for the last sprint:
 
 It is more work. It found bugs that unit tests missed. Three examples:
 
-## The MinIO build context
+## The S3-compatible storage build context
 
 We tried to lift the kaniko build-context cap past 1 MiB by switching from k8s
 Secrets to s3:// URLs. Unit tests passed. The Job spec contained

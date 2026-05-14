@@ -2,7 +2,7 @@
 title: OpenTelemetry agent-trace ingest
 category: N. Multi-agent observability
 services: ["webhook", "pg", "minio"]
-scenario: A Langfuse-style collector receives OTel spans from 200 concurrent agents via a webhook endpoint, writes them to Postgres, and stores large prompt payloads in MinIO.
+scenario: A Langfuse-style collector receives OTel spans from 200 concurrent agents via a webhook endpoint, writes them to Postgres, and stores large prompt payloads in S3-compatible storage.
 ---
 
 ## Prompt for any LLM (no setup needed)
@@ -12,10 +12,10 @@ Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
 ```
 Read https://instanode.dev/llms.txt for the API.
 
-I want to: a Langfuse-style collector receives OTel spans from 200 concurrent agents via a webhook endpoint, writes them to Postgres, and stores large prompt payloads in MinIO.
+I want to: a Langfuse-style collector receives OTel spans from 200 concurrent agents via a webhook endpoint, writes them to Postgres, and stores large prompt payloads in S3-compatible storage.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (webhook receiver + Postgres + MinIO (S3-compatible)) from instanode.dev
+- Provisions the services I need (webhook receiver + Postgres + S3-compatible storage) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,7 +26,7 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-Build a Langfuse-style OTel ingestor for our 200-agent swarm. Spans arrive on a webhook endpoint, get unpacked into Postgres for query, and large prompt/response bodies overflow to MinIO with a pointer back. Provision webhook, Postgres, and MinIO.
+Build a Langfuse-style OTel ingestor for our 200-agent swarm. Spans arrive on a webhook endpoint, get unpacked into Postgres for query, and large prompt/response bodies overflow to S3-compatible storage with a pointer back. Provision webhook, Postgres, and S3-compatible storage.
 ```
 
 ## Steps to follow
@@ -59,7 +59,7 @@ Build a Langfuse-style OTel ingestor for our 200-agent swarm. Spans arrive on a 
   exporter = OTLPSpanExporter(endpoint=f"{WH_URL}/v1/traces")
   ```
 
-- **Step 4: Ingest worker offloads large bodies to MinIO.**
+- **Step 4: Ingest worker offloads large bodies to S3-compatible storage.**
 
   ```python
   for span in fetch_webhook_batch():
@@ -80,7 +80,7 @@ Build a Langfuse-style OTel ingestor for our 200-agent swarm. Spans arrive on a 
 
 ## Why this works on instanode.dev
 
-The webhook absorbs bursts when 200 agents flush at once; MinIO keeps Postgres rows skinny by holding the 50KB prompt bodies; the trace dashboard joins them on demand. One claimed token, three resources, zero observability vendor lock-in.
+The webhook absorbs bursts when 200 agents flush at once; S3-compatible storage keeps Postgres rows skinny by holding the 50KB prompt bodies; the trace dashboard joins them on demand. One claimed token, three resources, zero observability vendor lock-in.
 
 ## Related cases
 

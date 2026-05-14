@@ -15,7 +15,7 @@ Read https://instanode.dev/llms.txt for the API.
 I want to: an automated reviewer handles thousands of MRs/day, queues each review job, and stores comment artifacts per run.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (NATS JetStream + MinIO (S3-compatible)) from instanode.dev
+- Provisions the services I need (NATS JetStream + S3-compatible storage) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,7 +26,7 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-Set up the backend for our AI PR-review bot that handles 3k MRs/day. Provision a NATS JetStream queue for review jobs and a MinIO bucket for the markdown comment artifacts each run produces. Wire a small Go publisher that enqueues one job per merge_request.open webhook and a worker that reads from the stream, runs the review, and uploads the artifact. Return the connection URLs once both resources are live.
+Set up the backend for our AI PR-review bot that handles 3k MRs/day. Provision a NATS JetStream queue for review jobs and a S3-compatible bucket for the markdown comment artifacts each run produces. Wire a small Go publisher that enqueues one job per merge_request.open webhook and a worker that reads from the stream, runs the review, and uploads the artifact. Return the connection URLs once both resources are live.
 ```
 
 ## Steps to follow
@@ -54,7 +54,7 @@ Set up the backend for our AI PR-review bot that handles 3k MRs/day. Provision a
   await js.publish("review.queued", json.dumps({"mr_id": mr, "sha": sha}).encode())
   ```
 
-- **Step 4: Pull-consumer in the worker.** Acks only on successful upload to MinIO.
+- **Step 4: Pull-consumer in the worker.** Acks only on successful upload to S3-compatible storage.
 
   ```python
   sub = await js.pull_subscribe("review.queued", durable="reviewer")
@@ -69,7 +69,7 @@ Set up the backend for our AI PR-review bot that handles 3k MRs/day. Provision a
 
 ## Why this works on instanode.dev
 
-JetStream gives you at-least-once delivery and durable consumers without standing up a broker, and MinIO is wire-compatible with the AWS CLI you already use. Both resources are claimed under the same token, so when traffic grows past the hobby tier you upgrade once and every consumer keeps its URL.
+JetStream gives you at-least-once delivery and durable consumers without standing up a broker, and S3-compatible storage is wire-compatible with the AWS CLI you already use. Both resources are claimed under the same token, so when traffic grows past the hobby tier you upgrade once and every consumer keeps its URL.
 
 ## Related cases
 

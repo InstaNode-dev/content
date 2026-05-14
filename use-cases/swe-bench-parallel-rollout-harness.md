@@ -2,7 +2,7 @@
 title: SWE-bench parallel rollout harness
 category: P. Agent benchmarking & evaluation
 services: ["pg", "minio", "deploy"]
-scenario: A benchmark runner spawns 500 isolated agent instances against 500 SWE-bench-Verified tasks, each with a private Postgres scratch and its results written to MinIO for the judge model.
+scenario: A benchmark runner spawns 500 isolated agent instances against 500 SWE-bench-Verified tasks, each with a private Postgres scratch and its results written to S3-compatible storage for the judge model.
 ---
 
 ## Prompt for any LLM (no setup needed)
@@ -12,10 +12,10 @@ Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
 ```
 Read https://instanode.dev/llms.txt for the API.
 
-I want to: a benchmark runner spawns 500 isolated agent instances against 500 SWE-bench-Verified tasks, each with a private Postgres scratch and its results written to MinIO for the judge model.
+I want to: a benchmark runner spawns 500 isolated agent instances against 500 SWE-bench-Verified tasks, each with a private Postgres scratch and its results written to S3-compatible storage for the judge model.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (Postgres + MinIO (S3-compatible) + container deploy) from instanode.dev
+- Provisions the services I need (Postgres + S3-compatible storage + container deploy) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,12 +26,12 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-Run SWE-bench-Verified end-to-end on 500 tasks in parallel. For each task: provision a Postgres scratch + deploy a per-task agent container via instanode.dev, mount the buggy repo, run the agent's patch loop, then write the final patch + test output to MinIO under runs/<run_id>/<task_id>/. Aggregate pass@1 into a results table.
+Run SWE-bench-Verified end-to-end on 500 tasks in parallel. For each task: provision a Postgres scratch + deploy a per-task agent container via instanode.dev, mount the buggy repo, run the agent's patch loop, then write the final patch + test output to S3-compatible storage under runs/<run_id>/<task_id>/. Aggregate pass@1 into a results table.
 ```
 
 ## Steps to follow
 
-- **Step 1: Provision shared MinIO + per-task Postgres in batch.**
+- **Step 1: Provision shared S3-compatible storage + per-task Postgres in batch.**
 
   ```bash
   BUCKET=$(curl -sX POST https://api.instanode.dev/storage/new | jq -r .bucket)
@@ -49,7 +49,7 @@ Run SWE-bench-Verified end-to-end on 500 tasks in parallel. For each task: provi
     :::: tasks-and-dbs.tsv
   ```
 
-- **Step 3: Agent writes patch + test log to MinIO.**
+- **Step 3: Agent writes patch + test log to S3-compatible storage.**
 
   ```python
   s3.put_object(Bucket=BUCKET, Key=f"runs/{run_id}/{task_id}/patch.diff", Body=patch)

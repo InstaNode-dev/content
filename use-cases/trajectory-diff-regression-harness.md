@@ -2,7 +2,7 @@
 title: Trajectory diff regression harness
 category: P. Agent benchmarking & evaluation
 services: ["minio", "pg"]
-scenario: On every PR to the agent repo, a CI agent re-runs 1000 cached trajectories in parallel and stores diffs against the baseline in MinIO so reviewers see exactly which behaviors changed.
+scenario: On every PR to the agent repo, a CI agent re-runs 1000 cached trajectories in parallel and stores diffs against the baseline in S3-compatible storage so reviewers see exactly which behaviors changed.
 ---
 
 ## Prompt for any LLM (no setup needed)
@@ -12,10 +12,10 @@ Paste this into ChatGPT, Claude, or Gemini — no MCP, no API key, no install:
 ```
 Read https://instanode.dev/llms.txt for the API.
 
-I want to: on every PR to the agent repo, a CI agent re-runs 1000 cached trajectories in parallel and stores diffs against the baseline in MinIO so reviewers see exactly which behaviors changed.
+I want to: on every PR to the agent repo, a CI agent re-runs 1000 cached trajectories in parallel and stores diffs against the baseline in S3-compatible storage so reviewers see exactly which behaviors changed.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (MinIO (S3-compatible) + Postgres) from instanode.dev
+- Provisions the services I need (S3-compatible storage + Postgres) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,12 +26,12 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-On every PR to the agent repo, replay 1000 cached trajectories in parallel against the new code. For each, compare the new trajectory step-by-step to the baseline cached in MinIO, write a unified diff back to MinIO under prs/<pr>/<task>.diff, and log the per-PR aggregate (added/removed/changed steps) to Postgres. Provision both via instanode.dev.
+On every PR to the agent repo, replay 1000 cached trajectories in parallel against the new code. For each, compare the new trajectory step-by-step to the baseline cached in S3-compatible storage, write a unified diff back to S3-compatible storage under prs/<pr>/<task>.diff, and log the per-PR aggregate (added/removed/changed steps) to Postgres. Provision both via instanode.dev.
 ```
 
 ## Steps to follow
 
-- **Step 1: Provision MinIO + Postgres.**
+- **Step 1: Provision S3-compatible storage + Postgres.**
 
   ```bash
   BUCKET=$(curl -sX POST https://api.instanode.dev/storage/new | jq -r .bucket)

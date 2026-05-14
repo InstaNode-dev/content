@@ -15,7 +15,7 @@ Read https://instanode.dev/llms.txt for the API.
 I want to: a QA agent captures before/after screenshots on every test run and stores them keyed by run-id for diff review.
 
 Write a complete runnable script (bash + whatever language fits) that:
-- Provisions the services I need (MinIO (S3-compatible)) from instanode.dev
+- Provisions the services I need (S3-compatible storage) from instanode.dev
 - Does the work above end-to-end
 - Prints expected output at each step
 - Tells me how to claim the resources at the end if I want to keep them past 24 hours
@@ -26,7 +26,7 @@ Use real curl commands against api.instanode.dev. Quote the actual response shap
 ## Sample agent prompt
 
 ```
-Every Playwright test in this suite should snapshot before-action and after-action screenshots, then upload both to a MinIO bucket provisioned via instanode.dev. Key the objects as runs/<run_id>/<test_name>/<step>.png. On test failure, generate a diff image and store it alongside.
+Every Playwright test in this suite should snapshot before-action and after-action screenshots, then upload both to a S3-compatible bucket provisioned via instanode.dev. Key the objects as runs/<run_id>/<test_name>/<step>.png. On test failure, generate a diff image and store it alongside.
 ```
 
 ## Steps to follow
@@ -71,10 +71,10 @@ Every Playwright test in this suite should snapshot before-action and after-acti
 
 ## Why this works on instanode.dev
 
-MinIO speaks the S3 API so every Playwright-Python-Go-Rust S3 client just works. `/storage/new` mints a scoped IAM user limited to one bucket — the reviewer's signed URL can't leak into a neighbor's evidence.
+S3-compatible storage speaks the S3 API so every Playwright-Python-Go-Rust S3 client just works. `/storage/new` mints a scoped IAM user limited to one bucket — the reviewer's signed URL can't leak into a neighbor's evidence.
 
 ## Related cases
 
-- [Agent-marketplace preview thumbnails](/use-cases/agent-marketplace-preview-thumbnails.md) — same MinIO-keyed-by-id pattern for marketplace screenshots
-- [Trajectory diff regression harness](/use-cases/trajectory-diff-regression-harness.md) — diff-on-PR sibling that stores artifacts in MinIO
-- [Overnight dossier fleet](/use-cases/overnight-dossier-fleet.md) — another MinIO-as-artifact-store async-fleet pattern
+- [Agent-marketplace preview thumbnails](/use-cases/agent-marketplace-preview-thumbnails.md) — same S3-compatible storage-keyed-by-id pattern for marketplace screenshots
+- [Trajectory diff regression harness](/use-cases/trajectory-diff-regression-harness.md) — diff-on-PR sibling that stores artifacts in S3-compatible storage
+- [Overnight dossier fleet](/use-cases/overnight-dossier-fleet.md) — another S3-compatible storage-as-artifact-store async-fleet pattern
