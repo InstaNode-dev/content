@@ -21,3 +21,35 @@ ceiling for self-serve upgrades today.
 Limits are enforced at the Postgres user level (`CONNECTION LIMIT` on the
 role) and via per-bucket storage quotas. Exceeding a limit returns a 402 with
 an upgrade URL — your app keeps running, the next provision just fails.
+
+## `POST /api/v1/billing/checkout` — concurrent-call dedup
+
+`POST /api/v1/billing/checkout` is server-side deduplicated per team. A second
+concurrent call for the same team — within a 60s window — gets a structured
+409 instead of a second Razorpay subscription. This catches cross-tab clicks,
+mobile double-taps, retried form submits, and agents that retry the endpoint
+without coordination.
+
+Response envelope:
+
+```json
+{
+  "ok": false,
+  "error": "checkout_in_flight",
+  "message": "A checkout is already being created for this team. Wait ~60s and retry, or visit /dashboard to find the existing pending subscription.",
+  "retry_after_seconds": 60,
+  "agent_action": "Tell the user a checkout is already being created. They should wait ~60 seconds and refresh — the existing checkout link will appear in the dashboard.",
+  "request_id": "..."
+}
+```
+
+The `retry_after_seconds` field tells callers how long to wait. The TTL also
+caps the worst case where the first caller crashes mid-flight — after 60s a
+retry is allowed automatically. The standard `Idempotency-Key` header (see
+`/docs/idempotency`) is honoured on this route too and provides a longer-window
+guarantee — pass it on every retry of a logical checkout attempt.
+
+If Redis is unavailable the dedup guard fails open (the call proceeds), with
+a `WARN billing.checkout.dedup_setnx_failed_open` log line. A Redis brownout
+must never block a paid upgrade — the idempotency middleware is the second
+layer of defence.
