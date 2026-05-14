@@ -10,7 +10,7 @@ plus an `upgrade_jwt` you can hand to /claim.
 - `POST /cache/new` — Redis (ACL'd, per-token key prefix)
 - `POST /nosql/new` — MongoDB
 - `POST /queue/new` — NATS JetStream
-- `POST /storage/new` — S3-compatible (MinIO)
+- `POST /storage/new` — S3-compatible (DigitalOcean Spaces, `nyc3`)
 - `POST /webhook/new` — public URL that receives any HTTP method
 
 Every response has the same shape: `{ ok, token, connection_url, internal_url,
