@@ -58,6 +58,7 @@ A magic link arrives by email. Clicking it sets a session cookie that owns every
 4. **No retry-on-201** — provisioning is synchronous. If the call returns 200/201, the resource is ready to accept connections.
 5. **Internal vs public URL** — when the calling code itself runs *inside* a `/deploy/new` container, prefer `internal_url` (cluster-internal hostname). For everything else, use `connection_url` (public).
 6. **Fingerprint dedup** — anonymous callers get rate-limited to 5 provisions/day/IP-subnet. The 6th call returns the existing token. Don't expect 6 different DBs from 6 calls on the same IP.
+7. **Idempotency is on by default** — every POST that creates a resource (db/cache/nosql/queue/storage/webhook/vector/deploy/stacks/backup/restore/billing-checkout/team-invite/api-keys/twin/promote/admin-promo) is idempotent. Two layered guards: (a) the standard `Idempotency-Key` request header, Stripe-shape, 24h TTL — pass a UUID per logical retry; (b) when no header is sent, the server synthesises a fingerprint from `sha256(scope, route, canonical-body)` and dedups identical retries inside a 120s window (covers double-clicks, mobile double-taps, agent retries on transient 5xx). Replays carry `X-Idempotent-Replay: true`. Every create response sets `X-Idempotency-Source: explicit | fingerprint | miss` so callers can branch on which path matched. Use the explicit header when you need exactly-once guarantees beyond 120s.
 
 ## Text-only routes for LLM consumption
 
