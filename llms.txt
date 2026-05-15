@@ -47,8 +47,8 @@ A magic link arrives by email. Clicking it sets a session cookie that owns every
 
 - **Anonymous**: free, 24h TTL, the limits above.
 - **Hobby**: $9/mo. 1 GB Postgres, 50 MB Redis, 1 GB Mongo, 5 GB storage, 1 app deploy. No TTL.
-- **Pro**: $49/mo. 5 GB Postgres, 256 MB Redis, 5 GB Mongo, 50 GB storage, 5 medium apps.
-- **Team**: $199/mo (coming soon). Dedicated infrastructure.
+- **Pro**: $49/mo. 10 GB Postgres, 512 MB Redis, 5 GB Mongo, 50 GB storage, 10 medium apps.
+- **Team**: coming soon.
 
 ## Conventions an LLM should follow when scripting against the platform
 
