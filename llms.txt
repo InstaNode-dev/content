@@ -14,15 +14,28 @@ On a prompt like that, the agent should: `POST /db/new` for Postgres, write the 
 
 ## API endpoints
 
-All accept `POST` against `https://api.instanode.dev`. No headers required for the anonymous tier; an empty JSON body is fine. Response shape: `{ok, token, connection_url, internal_url, tier, limits, note, upgrade_jwt}` for db/cache/nosql/queue. `/webhook/new` returns `receive_url` (no internal_url). `/storage/new` adds `endpoint`, `access_key_id`, `secret_access_key`, `prefix` alongside `connection_url`.
+All accept `POST` against `https://api.instanode.dev`. No headers required for the anonymous tier. Response shape: `{ok, token, connection_url, internal_url, tier, limits, note, upgrade_jwt}` for db/cache/nosql/queue. `/webhook/new` returns `receive_url` (no internal_url). `/storage/new` adds `endpoint`, `access_key_id`, `secret_access_key`, `prefix` alongside `connection_url`.
 
-- **`POST /db/new`** — Postgres database. `pgvector` pre-installed (HNSW + IVFFlat indexes work). Returns `connection_url` in the form `postgres://USER:PASS@HOST:PORT/DB`. Use any standard Postgres client / driver.
-- **`POST /cache/new`** — Redis. Per-token ACL'd user + namespaced keyspace. Returns `connection_url` in the form `redis://:PASS@HOST:PORT/DB`.
-- **`POST /nosql/new`** — MongoDB. Per-token user scoped to a single database. Returns a `mongodb://...` connection URL. The per-token connection budget is documented in the response `limits.connections` field (e.g. anonymous = 2). The underlying shared-tenant pod admits up to 20 simultaneous connections across all tokens, so plan agents to stay well below their per-token allocation under burst.
-- **`POST /queue/new`** — NATS JetStream. Returns `connection_url` (`nats://pool-<uuid>@host:4222`) with per-account subject isolation baked into the URL. No separate creds file — pass the connection_url directly to any NATS client. Durable streams, request/reply, pub/sub.
-- **`POST /storage/new`** — S3-compatible bucket prefix backed by DigitalOcean Spaces (`nyc3`). Returns `connection_url` (`https://s3.instanode.dev/instant-shared/<prefix>/`) plus `endpoint`, `access_key_id`, `secret_access_key`, and `prefix` for SDK use. Configure an S3 client with `endpoint`, `access_key_id`, `secret_access_key`, bucket=`instant-shared`, and constrain object keys to start with `prefix`. Anonymous-tier objects are auto-deleted at 24h by a bucket lifecycle rule enforced at the storage layer. See [/use-cases/screenshot-evidence-archive.md](https://instanode.dev/use-cases/screenshot-evidence-archive.md) for a worked example.
-- **`POST /webhook/new`** — Public receive URL that captures any HTTP method. Returns `receive_url`. Inspect received payloads at `GET https://api.instanode.dev/webhooks/{token}/requests`.
-- **`POST /deploy/new`** — Container deploy. Multipart form: `tarball=@app.tar.gz` (required, gzipped tar containing Dockerfile + source, ≤50 MB), plus optional `name=my-app`, `port=8080`, `env=production` (scope), and `env_vars={"KEY":"VAL"}` (JSON string of env vars injected into the pod). Build runs in-cluster via kaniko (~30–90s); call returns `202` with `status=building`, then `status=healthy` once the URL on `*.deployment.instanode.dev` is live with a Let's Encrypt cert. **Requires a JWT** — `Authorization: Bearer <upgrade_jwt from /db/new or /claim>`.
+### Required `name` field (all provisioning endpoints)
+
+Every provisioning endpoint — `/db/new`, `/cache/new`, `/nosql/new`, `/queue/new`, `/storage/new`, `/webhook/new`, `/deploy/new`, `/stacks/new` — **requires** a `name` on the request. It is the human-readable label shown in the dashboard and in `GET /api/v1/resources`. An empty JSON body is no longer accepted.
+
+- JSON-body endpoints (`/db/new`, `/cache/new`, `/nosql/new`, `/queue/new`, `/storage/new`, `/webhook/new`, `/stacks/new`) take `name` as a JSON string field.
+- `/deploy/new` is multipart — pass `name` as a form field (`-F "name=..."`).
+- **Validation:** 1–64 characters, must match `^[A-Za-z0-9][A-Za-z0-9 _-]*$` — start with a letter or digit; remaining characters may be letters, digits, spaces, underscores, or hyphens.
+- Omitting `name` returns `400 {"error":"name_required"}`.
+- Supplying a value that fails validation returns `400 {"error":"invalid_name"}`.
+
+Pick a descriptive name per resource (e.g. `"prod-db"`, `"sessions-cache"`, `"events-queue"`) so the user can tell resources apart later.
+
+- **`POST /db/new`** — Postgres database. Requires `name`. `pgvector` pre-installed (HNSW + IVFFlat indexes work). Returns `connection_url` in the form `postgres://USER:PASS@HOST:PORT/DB`. Use any standard Postgres client / driver.
+- **`POST /cache/new`** — Redis. Requires `name`. Per-token ACL'd user + namespaced keyspace. Returns `connection_url` in the form `redis://:PASS@HOST:PORT/DB`.
+- **`POST /nosql/new`** — MongoDB. Requires `name`. Per-token user scoped to a single database. Returns a `mongodb://...` connection URL. The per-token connection budget is documented in the response `limits.connections` field (e.g. anonymous = 2). The underlying shared-tenant pod admits up to 20 simultaneous connections across all tokens, so plan agents to stay well below their per-token allocation under burst.
+- **`POST /queue/new`** — NATS JetStream. Requires `name`. Returns `connection_url` (`nats://pool-<uuid>@host:4222`) with per-account subject isolation baked into the URL. No separate creds file — pass the connection_url directly to any NATS client. Durable streams, request/reply, pub/sub.
+- **`POST /storage/new`** — S3-compatible bucket prefix backed by DigitalOcean Spaces (`nyc3`). Requires `name`. Returns `connection_url` (`https://s3.instanode.dev/instant-shared/<prefix>/`) plus `endpoint`, `access_key_id`, `secret_access_key`, and `prefix` for SDK use. Configure an S3 client with `endpoint`, `access_key_id`, `secret_access_key`, bucket=`instant-shared`, and constrain object keys to start with `prefix`. Anonymous-tier objects are auto-deleted at 24h by a bucket lifecycle rule enforced at the storage layer. See [/use-cases/screenshot-evidence-archive.md](https://instanode.dev/use-cases/screenshot-evidence-archive.md) for a worked example.
+- **`POST /webhook/new`** — Public receive URL that captures any HTTP method. Requires `name`. Returns `receive_url`. Inspect received payloads at `GET https://api.instanode.dev/webhooks/{token}/requests`.
+- **`POST /deploy/new`** — Container deploy. Multipart form: `tarball=@app.tar.gz` (required, gzipped tar containing Dockerfile + source, ≤50 MB) and `name=my-app` (**required** — same 1–64 char `^[A-Za-z0-9][A-Za-z0-9 _-]*$` rule), plus optional `port=8080`, `env=production` (scope), and `env_vars={"KEY":"VAL"}` (JSON string of env vars injected into the pod). Build runs in-cluster via kaniko (~30–90s); call returns `202` with `status=building`, then `status=healthy` once the URL on `*.deployment.instanode.dev` is live with a Let's Encrypt cert. **Requires a JWT** — `Authorization: Bearer <upgrade_jwt from /db/new or /claim>`.
+- **`POST /stacks/new`** — Multi-service deploy. Multipart form: an `instant.yaml` manifest plus one tarball per service, and `name=my-stack` (**required** — same 1–64 char `^[A-Za-z0-9][A-Za-z0-9 _-]*$` rule). **Requires a JWT.**
 
 ## Anonymous tier limits (free, 24-hour TTL)
 
@@ -39,7 +52,9 @@ After 24 hours the resource expires unless claimed. Claim flow: see `/claim` bel
 ## Claim flow (anonymous → paid)
 
 ```
-RESP=$(curl -X POST https://api.instanode.dev/db/new)
+RESP=$(curl -X POST https://api.instanode.dev/db/new \
+  -H "Content-Type: application/json" \
+  -d '{"name":"prod-db"}')
 JWT=$(echo "$RESP" | jq -r .upgrade_jwt)
 
 curl "https://api.instanode.dev/claim/preview?t=$JWT"   # GET, dry-run, no side effects
@@ -60,6 +75,7 @@ A magic link arrives by email. Clicking it sets a session cookie that owns every
 
 ## Conventions an LLM should follow when scripting against the platform
 
+0. **`name` is required on every provision** — `/db/new`, `/cache/new`, `/nosql/new`, `/queue/new`, `/storage/new`, `/webhook/new`, `/deploy/new`, `/stacks/new` all reject a request with no `name`. Send a JSON string field (`-d '{"name":"prod-db"}'`) — or a form field on `/deploy/new` and `/stacks/new` (`-F "name=my-app"`). Rules: 1–64 chars, `^[A-Za-z0-9][A-Za-z0-9 _-]*$`. Missing → `400 {"error":"name_required"}`; malformed → `400 {"error":"invalid_name"}`.
 1. **One curl per service** — no batch endpoints, no /provision/all. Run them in parallel from bash with `&` or async in code.
 2. **Parse the URL field directly** — every response has `.connection_url` except `/webhook/new` (`.receive_url`) and `/storage/new` (`.connection_url` plus `.endpoint`/`.access_key_id`/`.secret_access_key` for SDK use). Never construct URLs by hand.
 3. **Save `upgrade_jwt`** if the user wants to claim the resource later. It's also required as a `Bearer` token for `POST /deploy/new`.

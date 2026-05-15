@@ -10,10 +10,17 @@ containing your Dockerfile + source.
 curl -X POST https://api.instanode.dev/deploy/new \
   -H "Authorization: Bearer <JWT>" \
   -F "tarball=@app.tar.gz" \
-  -F "name=my-app" \
+  -F "name=expense-tracker" \
   -F "port=8080" \
   -F 'env_vars={"DATABASE_URL":"postgres://..."}'
 ```
+
+`name` is **required** — it is the human-readable label for the deployment.
+Send it as a form field. It must be 1–64 characters and match
+`^[A-Za-z0-9][A-Za-z0-9 _-]*$` (start with a letter or digit; letters,
+digits, spaces, underscores and hyphens after). Omitting it returns
+`400 {"error":"name_required"}`; an invalid value returns
+`400 {"error":"invalid_name"}`.
 
 The build runs in-cluster on kaniko (~30–90s for typical Node/Python apps)
 and the app rolls out behind a public HTTPS URL on

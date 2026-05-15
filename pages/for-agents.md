@@ -9,18 +9,20 @@
 3. Provision the services the task needs. Each is one HTTP call:
 
 ```bash
-curl -X POST https://api.instanode.dev/db/new      # Postgres
-curl -X POST https://api.instanode.dev/cache/new   # Redis
-curl -X POST https://api.instanode.dev/nosql/new   # MongoDB
-curl -X POST https://api.instanode.dev/queue/new   # NATS
-curl -X POST https://api.instanode.dev/storage/new # MinIO
-curl -X POST https://api.instanode.dev/webhook/new # Public receive URL
+H='Content-Type: application/json'
+curl -X POST https://api.instanode.dev/db/new      -H "$H" -d '{"name":"prod-db"}'        # Postgres
+curl -X POST https://api.instanode.dev/cache/new   -H "$H" -d '{"name":"sessions-cache"}' # Redis
+curl -X POST https://api.instanode.dev/nosql/new   -H "$H" -d '{"name":"events-store"}'   # MongoDB
+curl -X POST https://api.instanode.dev/queue/new   -H "$H" -d '{"name":"jobs-queue"}'     # NATS
+curl -X POST https://api.instanode.dev/storage/new -H "$H" -d '{"name":"uploads-bucket"}' # S3-compatible
+curl -X POST https://api.instanode.dev/webhook/new -H "$H" -d '{"name":"github-webhook"}' # Public receive URL
 ```
 
 Each response includes `connection_url` and `upgrade_jwt`. The agent uses the URL immediately; the JWT is kept in case the user wants to claim the resource later.
 
 ## Conventions an LLM should follow
 
+- **`name` is required on every provision.** All eight provisioning endpoints (`/db/new`, `/cache/new`, `/nosql/new`, `/queue/new`, `/storage/new`, `/webhook/new`, `/deploy/new`, `/stacks/new`) reject a request with no `name`. Pass a JSON string field — or a multipart form field on `/deploy/new` and `/stacks/new`. Rules: 1–64 characters, `^[A-Za-z0-9][A-Za-z0-9 _-]*$`. A missing `name` returns `400 {"error":"name_required"}`; a malformed one returns `400 {"error":"invalid_name"}`. Choose a descriptive name per resource so the user can tell them apart.
 - **One curl per service.** No batch endpoints — fan out in parallel from bash with `&` or async in code.
 - **Parse `connection_url` directly** — every response has `.connection_url` (or `.receive_url`, `.endpoint`); never construct URLs by hand.
 - **Save `upgrade_jwt`** if the user wants to claim the resource later. It's also required as a Bearer token for `POST /deploy/new`.
