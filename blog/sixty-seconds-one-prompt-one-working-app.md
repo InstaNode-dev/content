@@ -17,7 +17,7 @@ deploy it somewhere I can hit from my phone. Use instanode.dev.
 ```
 
 Four curls and ninety-three seconds later there was a working
-`https://expense-9b2c.deployment.instanode.dev` answering HTTP. She added
+`https://expense-<your-id>.deployment.instanode.dev` answering HTTP. She added
 three transactions from her phone in line at the coffee shop the next
 morning. This post is the exact transcript of that session — every
 command, every response shape, nothing skipped.
@@ -163,7 +163,7 @@ The response:
 {
   "ok": true,
   "token": "tok_dep_9b2c...",
-  "app_url": "https://expense-9b2c.deployment.instanode.dev",
+  "app_url": "https://expense-<your-id>.deployment.instanode.dev",
   "build_status": "running",
   "tier": "anonymous"
 }
@@ -175,18 +175,23 @@ issued on first hit.
 
 ## Step 5: Use the app
 
+Copy the `app_url` the platform returned in Step 4 (it'll have a
+different random suffix from the placeholder below — whatever the API
+hands back is yours).
+
 ```bash
-APP=https://expense-9b2c.deployment.instanode.dev
+APP=$(jq -r .app_url deploy.json)
+# or paste the URL: APP=https://expense-<your-id>.deployment.instanode.dev
 
 curl "$APP/healthz"
-# {"ok":true}
+# expected: {"ok":true}
 
 curl -X POST "$APP/tx" -H "content-type: application/json" \
   -d '{"amount_cents": 480, "category": "coffee", "note": "oat latte"}'
-# {"id":1,"at":"2026-05-12T08:14:03.221Z"}
+# expected: {"id":1,"at":"2026-..."}
 
 curl "$APP/summary"
-# [{"category":"coffee","spent_cents":480}]
+# expected: [{"category":"coffee","spent_cents":480}]
 ```
 
 That's the app. Devika is now logging expenses from her phone.
@@ -197,15 +202,20 @@ Anonymous resources expire in 24 hours. If Devika decides this is worth
 keeping she follows the URL printed in the `/db/new` response:
 
 ```
-https://instanode.dev/start?t=eyJhbGc...
+https://api.instanode.dev/start?t=eyJhbGc...
 ```
 
 That 302s into the dashboard with the JWT pre-filled. One click claims
 the Postgres, the deploy, and binds both to her account. After that
 they live indefinitely at the [hobby tier](https://instanode.dev/pricing)
-($9/mo for 500 MB Postgres + one small deploy app — see the
+($9/mo for 1 GB Postgres + one small deploy app — see the
 [anonymous-as-trial](/blog/why-anonymous-is-the-trial) post for the
 reasoning).
+
+If your fingerprint has previously claimed and the free resource has
+since expired, `/db/new` will return a 402 asking you to claim again
+first at https://instanode.dev/claim — one-time email gate, no card,
+30 seconds. Subsequent provisions then go through as shown above.
 
 ## Why this fits in 60 seconds
 
@@ -223,9 +233,9 @@ build was the work. The infra was a side effect.
 
 ## Cross-links
 
-- [Side-project container deploy](/use-cases/side-project-container-deploy.md) — the deploy primitive in isolation, with the same multipart shape
-- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend.md) — the same Postgres + deploy bundle for a paid product instead of a personal tool
-- [CRM for one person](/use-cases/crm-for-one-person.md) — single-user Postgres pattern that pairs naturally with this tracker
+- [Side-project container deploy](/use-cases/side-project-container-deploy) — the deploy primitive in isolation, with the same multipart shape
+- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend) — the same Postgres + deploy bundle for a paid product instead of a personal tool
+- [CRM for one person](/use-cases/crm-for-one-person) — single-user Postgres pattern that pairs naturally with this tracker
 - [llms.txt](https://instanode.dev/llms.txt) — the one-page API reference every agent reads first
 
 The curl works right now. No signup.
