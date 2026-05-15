@@ -4,6 +4,14 @@
 
 This file follows the llms.txt convention (https://llmstxt.org). Every HTML route on `https://instanode.dev` has a parallel `.md` mirror at the same path with a `.md` suffix — e.g. `/use-cases/foo` is served as HTML and `/use-cases/foo.md` is the same content in plain markdown. The aggregated full text of every page is at [/llms-full.txt](https://instanode.dev/llms-full.txt) for one-shot consumption.
 
+## Example prompt (what a user says to their coding agent)
+
+A user who wants to try instanode.dev just tells their agent, in plain language, to use it. No setup instructions needed — the agent reads this file and the API does the rest. Canonical example (also shown on the homepage):
+
+> Build me a tiny expense tracker — Postgres backing store, a FastAPI app on top, and deploy it to a public URL I can hit from my phone. Use instanode.dev — no signup, provision whatever you need.
+
+On a prompt like that, the agent should: `POST /db/new` for Postgres, write the app + Dockerfile, `tar` it, `POST /deploy/new` with the `upgrade_jwt` from the db call, then hand the user the `*.deployment.instanode.dev` URL. Surface the claim link from the response so the user can keep it past 24h.
+
 ## API endpoints
 
 All accept `POST` against `https://api.instanode.dev`. No headers required for the anonymous tier; an empty JSON body is fine. Response shape: `{ok, token, connection_url, internal_url, tier, limits, note, upgrade_jwt}` for db/cache/nosql/queue. `/webhook/new` returns `receive_url` (no internal_url). `/storage/new` adds `endpoint`, `access_key_id`, `secret_access_key`, `prefix` alongside `connection_url`.
