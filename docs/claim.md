@@ -6,7 +6,9 @@ order: 5
 Anonymous resources expire in 24 hours. To keep them, claim them.
 
 ```
-RESP=$(curl -X POST https://api.instanode.dev/db/new -d '{}')
+RESP=$(curl -X POST https://api.instanode.dev/db/new \
+  -H "Content-Type: application/json" \
+  -d '{"name":"prod-db"}')
 JWT=$(echo $RESP | jq -r .upgrade_jwt)
 
 # Optional preview — shows what would attach, no side effects
