@@ -3,12 +3,12 @@ title: Tiers and limits
 order: 7
 ---
 
-| Tier      | Postgres   | Redis     | MongoDB    | TTL  | Price       |
-| --------- | ---------- | --------- | ---------- | ---- | ----------- |
-| Anonymous | 10MB / 2c  | 5MB       | 5MB / 2c   | 24h  | free        |
-| Hobby     | 1GB / 8c   | 50MB      | 1GB / 8c   | none | $9 / mo     |
-| Pro       | 5GB / 20c  | 256MB     | 5GB / 20c  | none | $49 / mo    |
-| Team      | unlimited  | unlimited | unlimited  | none | $199 / mo — coming soon |
+| Tier      | Postgres    | Redis     | MongoDB      | TTL  | Price       |
+| --------- | ----------- | --------- | ------------ | ---- | ----------- |
+| Anonymous | 10MB / 2c   | 5MB       | 5MB / 2c     | 24h  | free        |
+| Hobby     | 1GB / 8c    | 50MB      | 100MB / 5c   | none | $9 / mo     |
+| Pro       | 10GB / 20c  | 512MB     | 5GB / 20c    | none | $49 / mo    |
+| Team      | unlimited   | unlimited | unlimited    | none | $199 / mo — coming soon |
 
 "c" = simultaneous connections. The full table is at `/pricing`.
 

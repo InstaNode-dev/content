@@ -9,9 +9,9 @@
 - 10 MB Postgres / 2 connections
 - 5 MB Redis
 - 5 MB MongoDB / 2 connections
-- NATS: 1 stream, 100 messages
-- 100 MB MinIO bucket
-- 1 small container deploy
+- NATS: 1024 MB JetStream storage
+- 10 MB object storage (S3-compatible, DigitalOcean Spaces)
+- Deploy: not available (requires Hobby or above)
 - Webhook: last 100 received payloads
 - **Lifetime: 24 hours, then the resource is reaped unless claimed.**
 
@@ -19,9 +19,9 @@
 
 - 1 GB Postgres / 8 connections
 - 50 MB Redis
-- 1 GB MongoDB / 8 connections
-- 5 GB MinIO storage
-- 1 container deploy with custom domain
+- 100 MB MongoDB / 5 connections
+- 512 MB object storage
+- 1 container deploy (*.deployment.instanode.dev subdomain, no custom domain)
 - No TTL on resources
 - Self-serve checkout; no sales call
 
@@ -44,7 +44,7 @@ We're building the engineering-org tier. Not generally available yet.
 
 - Claim a resource with `POST /claim` using the `upgrade_jwt` from any provisioning response.
 - A magic link arrives by email — clicking it sets a session cookie.
-- The Hobby tier is the default for newly claimed resources. Upgrade in the dashboard.
+- Newly claimed teams start on the Free tier (no TTL, same limits as anonymous). Upgrade to Hobby ($9/mo) or above in the dashboard.
 - All payments via Razorpay (cards, UPI, net banking).
 - No invoicing gate, no contracts, no minimums.
 
