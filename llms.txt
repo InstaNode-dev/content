@@ -14,7 +14,7 @@ On a prompt like that, the agent should: `POST /db/new` for Postgres, write the 
 
 ## API endpoints
 
-All accept `POST` against `https://api.instanode.dev`. No headers required for the anonymous tier. Response shape: `{ok, token, connection_url, internal_url, tier, limits, note, upgrade_jwt}` for db/cache/nosql/queue. `/webhook/new` returns `receive_url` (no internal_url). `/storage/new` adds `endpoint`, `access_key_id`, `secret_access_key`, `prefix` alongside `connection_url`.
+All accept `POST` against `https://api.instanode.dev`. No authentication header required for the anonymous tier, but every request body **must** include `name` (see below). Response shape: `{ok, token, connection_url, internal_url, tier, limits, note, upgrade_jwt, upgrade_url}` for db/cache/nosql/queue — where `upgrade_url` is the human-readable claim link (e.g. `https://instanode.dev/start?t=<jwt>`) and `upgrade_jwt` is the raw JWT for programmatic use. `/webhook/new` returns `receive_url` (no internal_url). `/storage/new` adds `endpoint`, `access_key_id`, `secret_access_key`, `prefix` alongside `connection_url`.
 
 ### Required `name` field (all provisioning endpoints)
 
