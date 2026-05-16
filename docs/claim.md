@@ -16,6 +16,7 @@ curl "https://api.instanode.dev/claim/preview?t=$JWT"
 
 # Trigger the claim — sends a magic link to your email
 curl -X POST https://api.instanode.dev/claim \
+  -H "Content-Type: application/json" \
   -d "{\"jwt\":\"$JWT\", \"email\":\"you@example.com\"}"
 ```
 
