@@ -44,7 +44,7 @@ We're building the engineering-org tier. Not generally available yet.
 
 - Claim a resource with `POST /claim` using the `upgrade_jwt` from any provisioning response.
 - A magic link arrives by email — clicking it sets a session cookie.
-- Newly claimed teams start on the Free tier (no TTL, same limits as anonymous). Upgrade to Hobby ($9/mo) or above in the dashboard.
+- Newly claimed teams start on the Free tier (24h TTL, same limits as anonymous) — claiming gives you an account, not durability. Resources keep expiring at 24h until you upgrade to Hobby ($9/mo) or above in the dashboard.
 - All payments via Razorpay (cards, UPI, net banking).
 - No invoicing gate, no contracts, no minimums.
 

@@ -64,7 +64,7 @@ curl -X POST https://api.instanode.dev/claim \
   -d "{\"jwt\":\"$JWT\", \"email\":\"you@example.com\"}"
 ```
 
-A magic link arrives by email. Clicking it sets a session cookie that owns every resource attached to your network fingerprint. Tier starts at Free (no TTL, same limits as anonymous) — resources are yours to keep. Upgrade to Hobby ($9/mo) or above in the dashboard to unlock higher limits and features.
+A magic link arrives by email. Clicking it sets a session cookie that owns every resource attached to your network fingerprint. Tier starts at Free (24h TTL, same limits as anonymous) — claiming gives you an account, not durability. Resources still expire at 24h until the team upgrades to a paid tier (Hobby $9/mo or above) in the dashboard.
 
 ## Tiers
 
