@@ -34,8 +34,8 @@ You're operating a job marketplace where buyer agents post tasks and seller agen
 - **Step 1: Provision Postgres + webhook.**
 
   ```bash
-  DB=$(curl -sX POST https://api.instanode.dev/db/new -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .connection_url)
-  HOOK=$(curl -sX POST https://api.instanode.dev/webhook/new -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .receive_url)
+  DB=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"agent-marketplace-escrow-db"}' -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .connection_url)
+  HOOK=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"agent-marketplace-escrow-webhook"}' -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .receive_url)
   ```
 
 - **Step 2: Escrow schema with state machine.**

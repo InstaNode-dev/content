@@ -34,7 +34,7 @@ Set up nightly Obsidian-vault embedding into pgvector on instanode. Provision Po
 - **Step 1: Provision Postgres.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/db/new | jq -r .connection_url > .pg
+  curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"obsidian-vault-embedding-sync-db"}' | jq -r .connection_url > .pg
   ```
 
 - **Step 2: Enable pgvector and create the schema.**

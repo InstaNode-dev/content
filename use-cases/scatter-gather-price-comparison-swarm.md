@@ -34,8 +34,8 @@ Provision a NATS JetStream and Redis via instanode.dev. Publish "shop.query" wit
 - **Step 1: Provision both services.**
 
   ```bash
-  NATS=$(curl -sX POST https://api.instanode.dev/queue/new | jq -r .connection_url)
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url)
+  NATS=$(curl -sX POST https://api.instanode.dev/queue/new -H 'Content-Type: application/json' -d '{"name":"scatter-gather-price-comparison-sw-queue"}' | jq -r .connection_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"scatter-gather-price-comparison-sw-cache"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Broadcast the query.**

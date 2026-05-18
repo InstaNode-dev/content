@@ -33,33 +33,35 @@ I'm building a Cognition-Devin-style PR bot for a 220k-LOC Rails monorepo at git
 
 We'll thread one issue — **acme/billing-core#4127, "backfill stripe_customer_id on orders"** — through every step. By the end you'll have a spawned worker, a tested migration, an open PR with a preview URL, and a clean reap.
 
-- **Step 1: GitHub webhook → orchestrator → spawn three resources.** The orchestrator stores `(issue, pg_token, wh_token, deploy_token)` in its own DB so it can reap later.
+- **Step 1: GitHub webhook → orchestrator → spawn three resources.** Each provision requires a `name`. The orchestrator stores each resource's `id` (returned in the provision response) in its own DB so it can reap later via `DELETE /api/v1/resources/:id`.
 
   ```bash
   # spawn-worker.sh — called by the orchestrator on `issue.labeled` with agent:try
   ISSUE=$1   # e.g. 4127
   REPO=$2    # e.g. acme/billing-core
+  H='Content-Type: application/json'
 
-  PG=$(curl -sX POST https://api.instanode.dev/db/new)
-  PG_URL=$(echo $PG | jq -r .connection_url); PG_TOKEN=$(echo $PG | jq -r .token)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H "$H" -d "{\"name\":\"pr-${ISSUE}-scratch-db\"}")
+  PG_URL=$(echo $PG | jq -r .connection_url); PG_ID=$(echo $PG | jq -r .id)
 
-  WH=$(curl -sX POST https://api.instanode.dev/webhook/new)
-  WH_URL=$(echo $WH | jq -r .receive_url); WH_TOKEN=$(echo $WH | jq -r .token)
+  WH=$(curl -sX POST https://api.instanode.dev/webhook/new -H "$H" -d "{\"name\":\"pr-${ISSUE}-callback\"}")
+  WH_URL=$(echo $WH | jq -r .receive_url); WH_ID=$(echo $WH | jq -r .id)
 
+  # /deploy/new is multipart — pass name + image + env.* as form fields, JWT as Bearer.
   DEPLOY=$(curl -sX POST https://api.instanode.dev/deploy/new \
-    -H 'Content-Type: application/json' \
-    -d "{\"image\":\"ghcr.io/acme/devin-worker:latest\",\
-         \"subdomain\":\"pr-${ISSUE}\",\
-         \"env\":{\
-           \"PG_URL\":\"$PG_URL\",\
-           \"CALLBACK\":\"$WH_URL\",\
-           \"ISSUE\":\"$ISSUE\",\
-           \"REPO\":\"$REPO\",\
-           \"GH_TOKEN\":\"$ORCH_GH_TOKEN\"}}")
-  DEPLOY_URL=$(echo $DEPLOY | jq -r .url); DEPLOY_TOKEN=$(echo $DEPLOY | jq -r .token)
+    -H "Authorization: Bearer $INSTANODE_TOKEN" \
+    -F "name=pr-${ISSUE}-worker" \
+    -F "image=ghcr.io/acme/devin-worker:latest" \
+    -F "subdomain=pr-${ISSUE}" \
+    -F "env.PG_URL=$PG_URL" \
+    -F "env.CALLBACK=$WH_URL" \
+    -F "env.ISSUE=$ISSUE" \
+    -F "env.REPO=$REPO" \
+    -F "env.GH_TOKEN=$ORCH_GH_TOKEN")
+  DEPLOY_URL=$(echo $DEPLOY | jq -r .url); DEPLOY_ID=$(echo $DEPLOY | jq -r .id)
 
-  psql "$ORCH_DB" -c "INSERT INTO workers (issue, pg_token, wh_token, deploy_token, deploy_url) \
-                       VALUES ($ISSUE, '$PG_TOKEN', '$WH_TOKEN', '$DEPLOY_TOKEN', '$DEPLOY_URL');"
+  psql "$ORCH_DB" -c "INSERT INTO workers (issue, pg_id, wh_id, deploy_id, deploy_url) \
+                       VALUES ($ISSUE, '$PG_ID', '$WH_ID', '$DEPLOY_ID', '$DEPLOY_URL');"
   echo "worker spawned for #$ISSUE → $DEPLOY_URL"
   ```
 
@@ -125,17 +127,18 @@ We'll thread one issue — **acme/billing-core#4127, "backfill stripe_customer_i
   done
   ```
 
-- **Step 5: On PR close/merge, reap all three resources for this worker.** Anonymous-tier auto-reap (24h) is a backstop if the orchestrator's reaper is buggy — a property a self-hosted fleet would never get for free.
+- **Step 5: On PR close/merge, reap all three resources for this worker.** Anonymous-tier auto-reap (24h) is a backstop if the orchestrator's reaper is buggy — a property a self-hosted fleet would never get for free. Teardown is `DELETE /api/v1/resources/:id` with the orchestrator's claimed-session Bearer token.
 
   ```bash
   # reap.sh — called by GitHub webhook on pull_request.closed
   ISSUE=$1
-  read PG_T WH_T DEPLOY_T <<< $(psql "$ORCH_DB" -t -A -F' ' \
-      -c "SELECT pg_token, wh_token, deploy_token FROM workers WHERE issue=$ISSUE;")
+  read PG_ID WH_ID DEPLOY_ID <<< $(psql "$ORCH_DB" -t -A -F' ' \
+      -c "SELECT pg_id, wh_id, deploy_id FROM workers WHERE issue=$ISSUE;")
 
-  curl -sX DELETE "https://api.instanode.dev/db/$PG_T"
-  curl -sX DELETE "https://api.instanode.dev/deploy/$DEPLOY_T"
-  curl -sX DELETE "https://api.instanode.dev/webhook/$WH_T"
+  for RID in "$PG_ID" "$DEPLOY_ID" "$WH_ID"; do
+    curl -sX DELETE "https://api.instanode.dev/api/v1/resources/$RID" \
+      -H "Authorization: Bearer $INSTANODE_TOKEN"
+  done
 
   psql "$ORCH_DB" -c "UPDATE workers SET status='reaped', reaped_at=now() WHERE issue=$ISSUE;"
   echo "reaped worker for #$ISSUE"

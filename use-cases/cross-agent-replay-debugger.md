@@ -1,7 +1,7 @@
 ---
 title: Cross-agent replay debugger
 category: N. Multi-agent observability
-services: ["minio", "mongo"]
+services: ["storage", "mongo"]
 scenario: A debug agent stores full prompt+response payloads for an entire multi-agent run in S3-compatible storage, with an index in Mongo so an engineer can replay any branch deterministically.
 ---
 
@@ -34,8 +34,8 @@ Build me a replay debugger. Claim S3-compatible storage + Mongo on instanode.dev
 - **Step 1: Claim object storage and index.** S3-compatible S3-compatible storage for payloads, Mongo for the lookup graph.
 
   ```bash
-  S3=$(curl -sX POST https://api.instanode.dev/storage/new)
-  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new | jq -r .connection_url)
+  S3=$(curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"cross-agent-replay-debugger-storage"}')
+  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new -H 'Content-Type: application/json' -d '{"name":"cross-agent-replay-debugger-mongo"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Wrap every LLM call.** Persist the full payload and index it.

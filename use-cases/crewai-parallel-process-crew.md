@@ -34,8 +34,8 @@ Configure CrewAI Process.parallel for a researcher + writer + fact-checker. Use 
 - **Step 1: Provision Postgres + Redis.** Same anonymous token claims both; no separate signups.
 
   ```bash
-  PG=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"crewai-parallel-process-crew-db"}' | jq -r .connection_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"crewai-parallel-process-crew-cache"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Set up the shared pgvector store.** All three agents read from this single table.

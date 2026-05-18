@@ -34,8 +34,8 @@ You're a CI flakiness tracker. Receive GitHub Actions / CircleCI webhooks on eve
 - **Step 1: Provision webhook + Postgres.**
 
   ```bash
-  HOOK=$(curl -sX POST https://api.instanode.dev/webhook/new -H "Authorization: Bearer $T" | jq -r .receive_url)
-  PG=$(curl -sX POST https://api.instanode.dev/db/new   -H "Authorization: Bearer $T" | jq -r .connection_url)
+  HOOK=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"ci-flake-tracker-webhook"}' -H "Authorization: Bearer $T" | jq -r .receive_url)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"ci-flake-tracker-db"}'   -H "Authorization: Bearer $T" | jq -r .connection_url)
   ```
 
 - **Step 2: Configure CI to POST results to `$HOOK`.**

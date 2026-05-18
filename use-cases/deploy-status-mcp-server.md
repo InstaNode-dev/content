@@ -34,8 +34,8 @@ Build an MCP server that exposes deploy_status across staging/prod. Use NATS for
 - **Step 1: Provision NATS + Redis.** Two curls, anonymous tier.
 
   ```bash
-  NATS=$(curl -sX POST https://api.instanode.dev/queue/new | jq -r .connection_url)
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url)
+  NATS=$(curl -sX POST https://api.instanode.dev/queue/new -H 'Content-Type: application/json' -d '{"name":"deploy-status-mcp-server-queue"}' | jq -r .connection_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"deploy-status-mcp-server-cache"}' | jq -r .connection_url)
   ```
 
 - **Step 2: CI runner publishes status events.** One line at each deploy lifecycle step.

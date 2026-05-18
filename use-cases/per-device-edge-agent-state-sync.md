@@ -34,8 +34,8 @@ We've got 10,000 Workers-runtime edge agents each with a local SQLite. Every min
 - **Step 1: Provision the receiver and central DB.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/webhook/new
-  curl -s -X POST https://api.instanode.dev/db/new
+  curl -s -X POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"per-device-edge-agent-state-sync-webhook"}'
+  curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"per-device-edge-agent-state-sync-db"}'
   ```
 
 - **Step 2: Central schema.**

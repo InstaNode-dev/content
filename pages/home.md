@@ -1,11 +1,11 @@
 # instanode.dev — real infrastructure for AI agents
 
-> Provision real Postgres, Redis, MongoDB, NATS, MinIO, webhooks, and container deploys with single HTTP calls. No signup, no API key, no Docker, no cloud account. The first 24 hours are anonymous; claim a resource to keep it past then.
+> Provision real Postgres, Redis, MongoDB, NATS, S3-compatible object storage, webhooks, and container deploys with single HTTP calls. No signup, no API key, no Docker, no cloud account. The first 24 hours are anonymous; claim a resource to keep it past then.
 
 ## The pitch in one curl
 
 ```
-curl -X POST https://api.instanode.dev/db/new
+curl -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"home-db"}'
 ```
 
 Sub-second response with a real `connection_url` to a dedicated Postgres database. No setup. No installer. No "verify your email." The platform shapes itself around what an AI agent or developer was going to type anyway.
@@ -16,7 +16,7 @@ Sub-second response with a real `connection_url` to a dedicated Postgres databas
 - **Redis** — `POST /cache/new`. ACL'd per token.
 - **MongoDB** — `POST /nosql/new`. Per-token user.
 - **NATS JetStream** — `POST /queue/new`. Durable pub/sub + request/reply.
-- **MinIO (S3)** — `POST /storage/new`. Standard S3 SDKs work as-is.
+- **S3-compatible storage (DigitalOcean Spaces)** — `POST /storage/new`. Standard S3 SDKs work as-is.
 - **Webhook receiver** — `POST /webhook/new`. Public URL captures any HTTP method.
 - **Container deploy** — `POST /deploy/new`. Tarball in, HTTPS URL out. ~30–90 seconds.
 
@@ -42,7 +42,7 @@ The platform exists because AI agents (Claude Code, Cursor, MCP tools) need real
 ## Try it now
 
 ```
-curl -X POST https://api.instanode.dev/db/new
+curl -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"home-db"}'
 ```
 
 That's the entire onboarding. The response includes everything you need.

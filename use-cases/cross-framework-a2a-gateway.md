@@ -34,8 +34,8 @@ Build an A2A gateway. Claim NATS + Postgres on instanode.dev. NATS carries the m
 - **Step 1: Provision the bus + log.** Two curls, same anonymous token.
 
   ```bash
-  NATS=$(curl -sX POST https://api.instanode.dev/queue/new | jq -r .connection_url)
-  PG=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
+  NATS=$(curl -sX POST https://api.instanode.dev/queue/new -H 'Content-Type: application/json' -d '{"name":"cross-framework-a2a-gateway-queue"}' | jq -r .connection_url)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"cross-framework-a2a-gateway-db"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Create the audit schema.** Every translation is recorded.

@@ -1,7 +1,7 @@
 ---
 title: SWE-bench parallel rollout harness
 category: P. Agent benchmarking & evaluation
-services: ["pg", "minio", "deploy"]
+services: ["pg", "storage", "deploy"]
 scenario: A benchmark runner spawns 500 isolated agent instances against 500 SWE-bench-Verified tasks, each with a private Postgres scratch and its results written to S3-compatible storage for the judge model.
 ---
 
@@ -34,9 +34,9 @@ Run SWE-bench-Verified end-to-end on 500 tasks in parallel. For each task: provi
 - **Step 1: Provision shared S3-compatible storage + per-task Postgres in batch.**
 
   ```bash
-  BUCKET=$(curl -sX POST https://api.instanode.dev/storage/new | jq -r .bucket)
+  BUCKET=$(curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"swe-bench-parallel-rollout-harness-storage"}' | jq -r .bucket)
   for task in $(jq -r .[].instance_id verified.json); do
-    curl -sX POST https://api.instanode.dev/db/new \
+    curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"swe-bench-parallel-rollout-harness-db"}' \
       | jq --arg t "$task" '. + {task: $t}' >> dbs.jsonl
   done
   ```
@@ -45,7 +45,7 @@ Run SWE-bench-Verified end-to-end on 500 tasks in parallel. For each task: provi
 
   ```bash
   parallel -j 50 --colsep ' ' \
-    'curl -X POST https://api.instanode.dev/deploy/new -d "{\"image\":\"ghcr.io/me/agent:swe\",\"env\":{\"TASK\":\"{1}\",\"DB\":\"{2}\",\"S3_BUCKET\":\"$BUCKET\"}}"' \
+    'curl -X POST https://api.instanode.dev/deploy/new -H "Authorization: Bearer $INSTANODE_TOKEN" -F "name=swe-agent-{1}" -F "image=ghcr.io/me/agent:swe" -F "env.TASK={1}" -F "env.DB={2}" -F "env.S3_BUCKET=$BUCKET"' \
     :::: tasks-and-dbs.tsv
   ```
 

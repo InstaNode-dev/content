@@ -1,7 +1,7 @@
 ---
 title: AI cofounder spawns a startup
 category: L. Agent-factory / spawning patterns
-services: ["pg", "minio", "webhook", "deploy"]
+services: ["pg", "storage", "webhook", "deploy"]
 scenario: A founder-agent reads a one-line idea, provisions Postgres + S3-compatible storage + a webhook + a deploy slot, generates a landing page, and hands the bundle to a marketing sub-agent.
 ---
 
@@ -34,9 +34,9 @@ You're an AI cofounder. Given a one-line idea ("dog-walker scheduling for NYC"),
 - **Step 1: Provision the full startup bundle in parallel.**
 
   ```bash
-  curl -sX POST https://api.instanode.dev/db/new      -H "Authorization: Bearer $T" > pg.json &
-  curl -sX POST https://api.instanode.dev/storage/new -H "Authorization: Bearer $T" > s3.json &
-  curl -sX POST https://api.instanode.dev/webhook/new -H "Authorization: Bearer $T" > hook.json &
+  curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"ai-cofounder-spawns-a-startup-db"}'      -H "Authorization: Bearer $T" > pg.json &
+  curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"ai-cofounder-spawns-a-startup-storage"}' -H "Authorization: Bearer $T" > s3.json &
+  curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"ai-cofounder-spawns-a-startup-webhook"}' -H "Authorization: Bearer $T" > hook.json &
   wait
   ```
 
@@ -57,13 +57,10 @@ You're an AI cofounder. Given a one-line idea ("dog-walker scheduling for NYC"),
   ```bash
   curl -sX POST https://api.instanode.dev/deploy/new \
     -H "Authorization: Bearer $T" \
-    -d '{
-      "image": "ghcr.io/cofounder-agent/landing:latest",
-      "env": {
-        "DATABASE_URL": "'"$(jq -r .connection_url pg.json)"'",
-        "STRIPE_WEBHOOK_URL": "'"$(jq -r .receive_url hook.json)"'"
-      }
-    }' | jq -r .app_url
+    -F "name=cofounder-landing" \
+    -F "image=ghcr.io/cofounder-agent/landing:latest" \
+    -F "env.DATABASE_URL=$(jq -r .connection_url pg.json)" \
+    -F "env.STRIPE_WEBHOOK_URL=$(jq -r .receive_url hook.json)" | jq -r .url
   ```
 
 - **Step 4: Hand the bundle to the marketing sub-agent.**

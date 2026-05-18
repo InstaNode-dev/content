@@ -34,11 +34,13 @@ For each branch the background agent works on, claim a Redis cache, a webhook re
 - **Step 1: Per-branch infra provisioning.** Three curls, all keyed by the same token.
 
   ```bash
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url)
-  WH=$(curl -sX POST https://api.instanode.dev/webhook/new | jq -r .receive_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"cursor-background-agent-worktree-cache"}' | jq -r .connection_url)
+  WH=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"cursor-background-agent-worktree-webhook"}' | jq -r .receive_url)
   DEPLOY=$(curl -sX POST https://api.instanode.dev/deploy/new \
-    -H "Content-Type: application/json" \
-    -d "{\"image\":\"ghcr.io/me/app:$BRANCH\",\"env\":{\"REDIS_URL\":\"$REDIS\"}}" | jq -r .url)
+    -H "Authorization: Bearer $INSTANODE_TOKEN" \
+    -F "name=worktree-$BRANCH" \
+    -F "image=ghcr.io/me/app:$BRANCH" \
+    -F "env.REDIS_URL=$REDIS" | jq -r .url)
   ```
 
 - **Step 2: Wire build cache.** turbo + Redis remote cache via the connection URL.

@@ -34,8 +34,8 @@ You operate a reputation ledger. Buyer agents POST ratings (1-5) on seller agent
 - **Step 1: Provision both stores.**
 
   ```bash
-  PG=$(curl -sX POST https://api.instanode.dev/db/new -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .connection_url)
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .connection_url)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"agent-reputation-log-db"}' -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .connection_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"agent-reputation-log-cache"}' -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .connection_url)
   ```
 
 - **Step 2: Append-only ratings table.**

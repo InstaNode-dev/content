@@ -34,8 +34,8 @@ Build a five-judge consensus pool. Each judge agent subscribes to a NATS request
 - **Step 1: Provision the resources.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/queue/new -d '{"stream":"judges"}' -H 'Content-Type: application/json'
-  curl -s -X POST https://api.instanode.dev/db/new
+  curl -s -X POST https://api.instanode.dev/queue/new -d '{"name":"llm-as-judge-consensus-pool-queue","stream":"judges"}' -H 'Content-Type: application/json'
+  curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"llm-as-judge-consensus-pool-db"}'
   ```
 
 - **Step 2: Verdict schema.**

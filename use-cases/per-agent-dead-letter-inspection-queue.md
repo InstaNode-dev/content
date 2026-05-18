@@ -34,8 +34,8 @@ Every failed tool call across the swarm publishes to a NATS DLQ subject. Build a
 - **Step 1: Provision queue and store.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/queue/new -d '{"stream":"dlq"}' -H 'Content-Type: application/json'
-  curl -s -X POST https://api.instanode.dev/nosql/new
+  curl -s -X POST https://api.instanode.dev/queue/new -d '{"name":"per-agent-dead-letter-inspection-q-queue","stream":"dlq"}' -H 'Content-Type: application/json'
+  curl -s -X POST https://api.instanode.dev/nosql/new -H 'Content-Type: application/json' -d '{"name":"per-agent-dead-letter-inspection-q-mongo"}'
   ```
 
 - **Step 2: Workers publish failures to the DLQ.**

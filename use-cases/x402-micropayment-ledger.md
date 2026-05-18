@@ -34,7 +34,7 @@ Build an x402 micropayment hub. Provision Postgres via instanode.dev. Every time
 - **Step 1: Provision Postgres.**
 
   ```bash
-  curl -X POST https://api.instanode.dev/db/new | tee db.json
+  curl -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"x402-micropayment-ledger-db"}' | tee db.json
   export DATABASE_URL=$(jq -r .connection_url db.json)
   ```
 

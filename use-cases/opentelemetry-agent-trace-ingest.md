@@ -1,7 +1,7 @@
 ---
 title: OpenTelemetry agent-trace ingest
 category: N. Multi-agent observability
-services: ["webhook", "pg", "minio"]
+services: ["webhook", "pg", "storage"]
 scenario: A Langfuse-style collector receives OTel spans from 200 concurrent agents via a webhook endpoint, writes them to Postgres, and stores large prompt payloads in S3-compatible storage.
 ---
 
@@ -34,9 +34,9 @@ Build a Langfuse-style OTel ingestor for our 200-agent swarm. Spans arrive on a 
 - **Step 1: Provision all three.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/webhook/new
-  curl -s -X POST https://api.instanode.dev/db/new
-  curl -s -X POST https://api.instanode.dev/storage/new
+  curl -s -X POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"opentelemetry-agent-trace-ingest-webhook"}'
+  curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"opentelemetry-agent-trace-ingest-db"}'
+  curl -s -X POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"opentelemetry-agent-trace-ingest-storage"}'
   ```
 
 - **Step 2: Spans table.**

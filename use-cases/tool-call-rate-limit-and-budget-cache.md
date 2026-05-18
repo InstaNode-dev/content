@@ -34,7 +34,7 @@ Provision Redis via instanode.dev. Use it as a coordination layer so parallel su
 - **Step 1: Provision Redis.**
 
   ```bash
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"tool-call-rate-limit-and-budget-ca-cache"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Atomic budget + rate-limit Lua script.**

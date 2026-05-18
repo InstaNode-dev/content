@@ -37,7 +37,7 @@ shape of the JSON it gets back.
 ## Step 1: Postgres in 950 ms
 
 ```bash
-curl -sX POST https://api.instanode.dev/db/new | tee pg.json
+curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"sixty-seconds-one-prompt-one-worki-db"}' | tee pg.json
 ```
 
 Response (trimmed):

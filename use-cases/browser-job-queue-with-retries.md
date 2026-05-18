@@ -34,7 +34,7 @@ You're running a fleet of 30 Playwright workers. Pull navigation jobs (url, acti
 - **Step 1: Provision NATS JetStream queue.**
 
   ```bash
-  curl -sX POST https://api.instanode.dev/queue/new \
+  curl -sX POST https://api.instanode.dev/queue/new -H 'Content-Type: application/json' -d '{"name":"browser-job-queue-with-retries-queue"}' \
     -H "Authorization: Bearer $T" | jq .
   # response contains connection_url with creds and a JetStream stream name
   ```

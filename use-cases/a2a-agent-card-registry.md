@@ -34,7 +34,7 @@ You're building an A2A discovery service. Provision a Postgres on instanode.dev,
 - **Step 1: Provision Postgres.** Use a claimed token so cards persist beyond 24h.
 
   ```bash
-  curl -sX POST https://api.instanode.dev/db/new \
+  curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"a2a-agent-card-registry-db"}' \
     -H "Authorization: Bearer $INSTANT_TOKEN" | jq .
   ```
 

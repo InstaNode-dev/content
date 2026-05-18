@@ -34,7 +34,7 @@ Index every Go, Python, and TypeScript file in this monorepo into a blast-radius
 - **Step 1: Provision Postgres.**
 
   ```bash
-  curl -X POST https://api.instanode.dev/db/new | tee db.json
+  curl -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"repo-wide-code-dependency-graph-db"}' | tee db.json
   export DATABASE_URL=$(jq -r .connection_url db.json)
   ```
 

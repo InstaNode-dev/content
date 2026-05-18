@@ -1,7 +1,7 @@
 ---
 title: High-volume PR-review pipeline
 category: F. Developer tooling
-services: ["nats", "minio"]
+services: ["nats", "storage"]
 scenario: An automated reviewer handles thousands of MRs/day, queues each review job, and stores comment artifacts per run.
 ---
 
@@ -36,13 +36,13 @@ Set up the backend for our AI PR-review bot that handles 3k MRs/day. Provision a
   ```bash
   curl -s -X POST https://api.instanode.dev/queue/new \
     -H 'Content-Type: application/json' \
-    -d '{"stream":"pr-reviews","subjects":["review.>"]}' | jq .
+    -d '{"name":"high-volume-pr-review-pipeline-queue","stream":"pr-reviews","subjects":["review.>"]}' | jq .
   ```
 
 - **Step 2: Provision the artifact bucket.** A scoped S3-compatible bucket for per-MR markdown.
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/storage/new | jq -r .connection_url
+  curl -s -X POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"high-volume-pr-review-pipeline-storage"}' | jq -r .connection_url
   ```
 
 - **Step 3: Publish a job on each GitLab webhook.**

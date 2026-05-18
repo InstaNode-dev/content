@@ -34,8 +34,8 @@ Build a model bake-off router. The router publishes the same prompt to GPT, Clau
 - **Step 1: Provision the bus and cache.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/queue/new -d '{"stream":"bakeoff"}' -H 'Content-Type: application/json'
-  curl -s -X POST https://api.instanode.dev/cache/new
+  curl -s -X POST https://api.instanode.dev/queue/new -d '{"name":"multi-model-bake-off-router-queue","stream":"bakeoff"}' -H 'Content-Type: application/json'
+  curl -s -X POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"multi-model-bake-off-router-cache"}'
   ```
 
 - **Step 2: Three model workers, queue-grouped by model name.**

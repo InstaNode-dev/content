@@ -34,9 +34,10 @@ Give me a full dev backend in one go. Claim Postgres, Redis, and MongoDB on inst
 - **Step 1: Three curls in parallel.** Anonymous, no signup, all return in under a second.
 
   ```bash
-  export PG_URL=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
-  export REDIS_URL=$(curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url)
-  export MONGO_URL=$(curl -sX POST https://api.instanode.dev/nosql/new | jq -r .connection_url)
+  H='Content-Type: application/json'
+  export PG_URL=$(curl -sX POST https://api.instanode.dev/db/new    -H "$H" -d '{"name":"dev-postgres"}' | jq -r .connection_url)
+  export REDIS_URL=$(curl -sX POST https://api.instanode.dev/cache/new -H "$H" -d '{"name":"dev-cache"}'    | jq -r .connection_url)
+  export MONGO_URL=$(curl -sX POST https://api.instanode.dev/nosql/new -H "$H" -d '{"name":"dev-mongo"}'    | jq -r .connection_url)
   ```
 
 - **Step 2: Run your app.** Reads env vars; no other setup.
@@ -53,13 +54,7 @@ Give me a full dev backend in one go. Claim Postgres, Redis, and MongoDB on inst
   mongosh "$MONGO_URL" --eval 'db.runCommand({ping:1})'
   ```
 
-- **Step 4: Tear down when done.** Or let the 24h TTL auto-reap.
-
-  ```bash
-  for svc in db cache nosql; do
-    curl -X DELETE https://api.instanode.dev/$svc/$TOKEN
-  done
-  ```
+- **Step 4: Nothing to tear down.** These three resources are provisioned anonymously, so they auto-reap at the 24h TTL — a forgotten backend has bounded blast radius and costs nothing. If you later claim them (and hold a session token), you can delete any resource early with `DELETE /api/v1/resources/:id`.
 
 ## Why this works on instanode.dev
 

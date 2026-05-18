@@ -34,8 +34,8 @@ You're operating an AWS-AgentCore-style multi-tenant runtime. When a new custome
 - **Step 1: Provision the tenant control-plane.**
 
   ```bash
-  PG=$(curl -sX POST https://api.instanode.dev/db/new -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .connection_url)
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .connection_url)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"agentcore-tenant-scoped-spawning-db"}' -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .connection_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"agentcore-tenant-scoped-spawning-cache"}' -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .connection_url)
   ```
 
 - **Step 2: Tenant vault schema.**

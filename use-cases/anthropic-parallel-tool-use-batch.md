@@ -34,8 +34,8 @@ A Claude turn just returned 8 tool_use blocks in parallel. Fan them out to 8 NAT
 - **Step 1: Provision NATS + Redis.**
 
   ```bash
-  NATS=$(curl -sX POST https://api.instanode.dev/queue/new -H "Authorization: Bearer $T" | jq -r .connection_url)
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H "Authorization: Bearer $T" | jq -r .connection_url)
+  NATS=$(curl -sX POST https://api.instanode.dev/queue/new -H 'Content-Type: application/json' -d '{"name":"anthropic-parallel-tool-use-batch-queue"}' -H "Authorization: Bearer $T" | jq -r .connection_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"anthropic-parallel-tool-use-batch-cache"}' -H "Authorization: Bearer $T" | jq -r .connection_url)
   ```
 
 - **Step 2: Fan out the 8 tool_use blocks.**

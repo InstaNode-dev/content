@@ -1,7 +1,7 @@
 ---
 title: AP2 mandate audit trail
 category: G. Internet-of-AI
-services: ["pg", "minio"]
+services: ["pg", "storage"]
 scenario: An agentic-commerce gateway stores signed user mandates ("buy X up to $Y") for later dispute resolution.
 ---
 
@@ -34,8 +34,8 @@ You operate an agentic-commerce gateway. Every user mandate ("buy this SKU up to
 - **Step 1: Provision DB + bucket.**
 
   ```bash
-  PG=$(curl -sX POST https://api.instanode.dev/db/new -H "Authorization: Bearer $T" | jq -r .connection_url)
-  curl -sX POST https://api.instanode.dev/storage/new -H "Authorization: Bearer $T" > s3.json
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"ap2-mandate-audit-trail-db"}' -H "Authorization: Bearer $T" | jq -r .connection_url)
+  curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"ap2-mandate-audit-trail-storage"}' -H "Authorization: Bearer $T" > s3.json
   ```
 
 - **Step 2: Mandate metadata table.**

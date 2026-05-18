@@ -34,8 +34,8 @@ Implement the merchant side of Stripe + OpenAI's Agentic Commerce Protocol. Prov
 - **Step 1: Provision webhook + Mongo.**
 
   ```bash
-  WH=$(curl -sX POST https://api.instanode.dev/webhook/new)
-  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new | jq -r .connection_url)
+  WH=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"stripe-acp-checkout-agent-webhook"}')
+  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new -H 'Content-Type: application/json' -d '{"name":"stripe-acp-checkout-agent-mongo"}' | jq -r .connection_url)
   echo "Register $(echo $WH | jq -r .receive_url) with Stripe as ACP endpoint"
   ```
 

@@ -34,8 +34,8 @@ Build an intake aggregator. Claim a webhook receiver and a NATS stream on instan
 - **Step 1: Provision webhook + queue.** Two curls.
 
   ```bash
-  WH=$(curl -sX POST https://api.instanode.dev/webhook/new | jq -r .receive_url)
-  NATS=$(curl -sX POST https://api.instanode.dev/queue/new | jq -r .connection_url)
+  WH=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"ehr-appointment-webhook-fan-in-webhook"}' | jq -r .receive_url)
+  NATS=$(curl -sX POST https://api.instanode.dev/queue/new -H 'Content-Type: application/json' -d '{"name":"ehr-appointment-webhook-fan-in-queue"}' | jq -r .connection_url)
   echo "Register this URL with each EHR vendor: $WH"
   ```
 

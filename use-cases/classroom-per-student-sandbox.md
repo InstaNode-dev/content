@@ -35,7 +35,7 @@ You're a CS professor running a SQL assignment for 40 students. Provision one ep
 
   ```bash
   while read student email; do
-    url=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
+    url=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"classroom-per-student-sandbox-db"}' | jq -r .connection_url)
     echo "$student,$email,$url" >> handouts.csv
   done < roster.csv
   ```

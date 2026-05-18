@@ -34,8 +34,8 @@ Set up a Temporal-backed 14-day procurement negotiation agent. Each negotiation 
 - **Step 1: Provision the persistent state store and signal bus.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/db/new
-  curl -s -X POST https://api.instanode.dev/queue/new -d '{"stream":"procurement"}' -H 'Content-Type: application/json'
+  curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"long-horizon-temporal-agent-workfl-db"}'
+  curl -s -X POST https://api.instanode.dev/queue/new -d '{"name":"long-horizon-temporal-agent-workfl-queue","stream":"procurement"}' -H 'Content-Type: application/json'
   ```
 
 - **Step 2: Negotiation state schema.**

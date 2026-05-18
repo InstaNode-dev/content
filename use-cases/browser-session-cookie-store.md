@@ -34,7 +34,7 @@ You're a browser agent that targets 8 different sites. Each site needs its own l
 - **Step 1: Provision Redis.**
 
   ```bash
-  REDIS_URL=$(curl -sX POST https://api.instanode.dev/cache/new \
+  REDIS_URL=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"browser-session-cookie-store-cache"}' \
     -H "Authorization: Bearer $T" | jq -r .connection_url)
   ```
 

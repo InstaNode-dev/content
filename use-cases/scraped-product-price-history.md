@@ -34,7 +34,7 @@ Build a price-watcher. Provision Postgres via instanode.dev, scrape the listed p
 - **Step 1: Provision Postgres.**
 
   ```bash
-  curl -X POST https://api.instanode.dev/db/new | tee db.json
+  curl -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"scraped-product-price-history-db"}' | tee db.json
   export DATABASE_URL=$(jq -r .connection_url db.json)
   ```
 

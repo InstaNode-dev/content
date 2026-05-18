@@ -42,13 +42,12 @@ I have a Dockerized Go app in this repo. Ship it to a public subdomain via insta
 
   ```bash
   curl -X POST https://api.instanode.dev/deploy/new \
-    -H "Content-Type: application/json" \
-    -d '{
-      "image": "ghcr.io/me/sideproject:v1",
-      "port": 8080,
-      "subdomain": "my-thing",
-      "env": {"PORT": "8080"}
-    }'
+    -H "Authorization: Bearer $INSTANODE_TOKEN" \
+    -F "name=my-side-project" \
+    -F "image=ghcr.io/me/sideproject:v1" \
+    -F "port=8080" \
+    -F "subdomain=my-thing" \
+    -F "env.PORT=8080"
   ```
 
 - **Step 3: Hit the returned URL.**

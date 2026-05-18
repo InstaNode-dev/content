@@ -42,7 +42,7 @@ We'll thread one running log — the multi-week refactor of a billing service �
              https://api.instanode.dev/api/v1/resources | jq -r '.[] | select(.type=="postgres") | .connection_url')
   else
     mkdir -p ~/.config/instanode
-    RESP=$(curl -sX POST https://api.instanode.dev/db/new)
+    RESP=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"coding-agent-cross-session-memory-db"}')
     echo "$RESP" | jq -r .token > "$TOKEN_FILE"
     PG_URL=$(echo "$RESP" | jq -r .connection_url)
     # then visit the printed claim_url within 24h to upgrade from anonymous → hobby

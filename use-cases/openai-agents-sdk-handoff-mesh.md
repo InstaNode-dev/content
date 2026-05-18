@@ -34,8 +34,8 @@ Use the OpenAI Agents SDK to wire a triage agent that hands off to refund, shipp
 - **Step 1: Provision Postgres and Redis.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/db/new
-  curl -s -X POST https://api.instanode.dev/cache/new
+  curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"openai-agents-sdk-handoff-mesh-db"}'
+  curl -s -X POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"openai-agents-sdk-handoff-mesh-cache"}'
   ```
 
 - **Step 2: Threads schema.**

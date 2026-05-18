@@ -34,7 +34,7 @@ Build a 24-hour preview backend for this prototype. Provision an anonymous Postg
 - **Step 1: Provision a 24h-TTL Postgres.** Anonymous tier expires automatically — no cleanup script needed.
 
   ```bash
-  curl -X POST https://api.instanode.dev/db/new | tee db.json
+  curl -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"replit-agent-preview-backend-db"}' | tee db.json
   export DATABASE_URL=$(jq -r .connection_url db.json)
   export DB_TOKEN=$(jq -r .token db.json)
   ```
@@ -49,8 +49,10 @@ Build a 24-hour preview backend for this prototype. Provision an anonymous Postg
 
   ```bash
   curl -X POST https://api.instanode.dev/deploy/new \
-    -H "Content-Type: application/json" \
-    -d "{\"image\":\"ghcr.io/me/prototype:pr-42\",\"env\":{\"DATABASE_URL\":\"$DATABASE_URL\"}}" | tee deploy.json
+    -H "Authorization: Bearer $INSTANODE_TOKEN" \
+    -F "name=prototype-pr-42" \
+    -F "image=ghcr.io/me/prototype:pr-42" \
+    -F "env.DATABASE_URL=$DATABASE_URL" | tee deploy.json
   export APP_URL=$(jq -r .url deploy.json)
   ```
 

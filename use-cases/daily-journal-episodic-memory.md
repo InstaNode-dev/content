@@ -34,8 +34,8 @@ You're my journal agent. Claim Postgres + Redis on instanode.dev. Each day at en
 - **Step 1: Provision both stores.** Same token; both URLs returned in <1s.
 
   ```bash
-  PG=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"daily-journal-episodic-memory-db"}' | jq -r .connection_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"daily-journal-episodic-memory-cache"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Set up schema with vector index.** Day is the natural key.

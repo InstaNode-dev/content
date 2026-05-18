@@ -36,7 +36,7 @@ You're an Ardent-style migration agent. Take a snapshot of prod Postgres, fork a
   ```bash
   CLONE_URL=$(curl -sX POST https://api.instanode.dev/db/new \
     -H "Content-Type: application/json" \
-    -d '{"seed_dump_url":"https://my-bucket.s3.amazonaws.com/prod-snapshot.sql.gz"}' \
+    -d '{"name":"copy-on-write-postgres-for-agent-m-db","seed_dump_url":"https://my-bucket.s3.amazonaws.com/prod-snapshot.sql.gz"}' \
     | jq -r .connection_url)
   ```
 
@@ -57,10 +57,14 @@ You're an Ardent-style migration agent. Take a snapshot of prod Postgres, fork a
   FROM orders;
   ```
 
-- **Step 4: Destroy the clone.** Resources expire at 24h on free tier, or destroy immediately via API.
+- **Step 4: Let the clone reap.** Anonymous resources auto-expire at the 24h TTL — a forgotten clone has bounded blast radius, no teardown call needed. If you claimed the resource (so you hold a session token) and want it gone sooner, look up its id and delete it:
 
   ```bash
-  curl -sX DELETE https://api.instanode.dev/db/$DB_TOKEN
+  # claimed-flow only — anonymous clones just expire at 24h.
+  RID=$(curl -s https://api.instanode.dev/api/v1/resources \
+    -H "Authorization: Bearer $INSTANODE_TOKEN" | jq -r '.[0].id')
+  curl -sX DELETE "https://api.instanode.dev/api/v1/resources/$RID" \
+    -H "Authorization: Bearer $INSTANODE_TOKEN"
   ```
 
 ## Why this works on instanode.dev

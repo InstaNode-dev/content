@@ -34,8 +34,8 @@ You run a LangWatch-Scenario-style red-team. Spawn 50 attacker agents that probe
 - **Step 1: Provision Mongo + a webhook receiver.**
 
   ```bash
-  MONGO_URL=$(curl -sX POST https://api.instanode.dev/nosql/new -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .connection_url)
-  WEBHOOK=$(curl -sX POST https://api.instanode.dev/webhook/new -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .receive_url)
+  MONGO_URL=$(curl -sX POST https://api.instanode.dev/nosql/new -H 'Content-Type: application/json' -d '{"name":"adversarial-red-team-runner-mongo"}' -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .connection_url)
+  WEBHOOK=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"adversarial-red-team-runner-webhook"}' -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .receive_url)
   ```
 
 - **Step 2: Define attacker run document.**

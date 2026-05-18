@@ -34,8 +34,8 @@ For our pre-launch landing page, set up a waitlist capture. Provision a webhook 
 - **Step 1: Provision the receiver and DB.**
 
   ```bash
-  WH=$(curl -s -X POST https://api.instanode.dev/webhook/new | jq -r .receive_url)
-  curl -s -X POST https://api.instanode.dev/db/new
+  WH=$(curl -s -X POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"pre-launch-waitlist-store-webhook"}' | jq -r .receive_url)
+  curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"pre-launch-waitlist-store-db"}'
   echo "Form action: $WH"
   ```
 

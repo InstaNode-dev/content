@@ -34,7 +34,7 @@ You're an adaptive math tutor. For each student, track concept-level mastery in 
 - **Step 1: Provision the student-model database.**
 
   ```bash
-  curl -sX POST https://api.instanode.dev/db/new \
+  curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"adaptive-tutoring-student-model-db"}' \
     -H "Authorization: Bearer $INSTANT_TOKEN" \
     | jq -r .connection_url > .env.db
   ```

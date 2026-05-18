@@ -1,7 +1,7 @@
 ---
 title: Voice-memo capture pipeline
 category: D. Personal AI
-services: ["minio", "pg"]
+services: ["storage", "pg"]
 scenario: A second-brain agent receives uploaded voice memos, transcribes them, and files transcripts plus audio for semantic search.
 ---
 
@@ -34,8 +34,8 @@ Build a second-brain pipeline. Provision S3-compatible storage + Postgres via in
 - **Step 1: Provision both.**
 
   ```bash
-  BUCKET=$(curl -sX POST https://api.instanode.dev/storage/new | jq -r .bucket)
-  DB=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
+  BUCKET=$(curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"voice-memo-capture-pipeline-storage"}' | jq -r .bucket)
+  DB=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"voice-memo-capture-pipeline-db"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Schema.**

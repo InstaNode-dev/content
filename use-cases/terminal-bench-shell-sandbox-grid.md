@@ -34,17 +34,22 @@ Spin up 100 ephemeral shell sandboxes, one per Terminal-Bench task, each with it
 - **Step 1: One collector webhook + one shared results DB.**
 
   ```bash
-  WH=$(curl -sX POST https://api.instanode.dev/webhook/new | jq -r .receive_url)
-  RESULTS=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
+  WH=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"terminal-bench-shell-sandbox-grid-webhook"}' | jq -r .receive_url)
+  RESULTS=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"terminal-bench-shell-sandbox-grid-db"}' | jq -r .connection_url)
   ```
 
 - **Step 2: For each task, fresh sandbox + scratch Postgres.**
 
   ```bash
   for task in $(ls tasks/); do
-    SCRATCH=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
+    SCRATCH=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"terminal-bench-shell-sandbox-grid-db"}' | jq -r .connection_url)
     curl -X POST https://api.instanode.dev/deploy/new \
-      -d "{\"image\":\"tbench/runner:latest\",\"env\":{\"TASK\":\"$task\",\"DB\":\"$SCRATCH\",\"REPORT\":\"$WH\"}}"
+      -H "Authorization: Bearer $INSTANODE_TOKEN" \
+      -F "name=tbench-$task" \
+      -F "image=tbench/runner:latest" \
+      -F "env.TASK=$task" \
+      -F "env.DB=$SCRATCH" \
+      -F "env.REPORT=$WH"
   done
   ```
 

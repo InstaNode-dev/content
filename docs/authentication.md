@@ -14,7 +14,7 @@ How to get one:
 3. Click the link in the email; the page sets a session cookie.
 
 For unattended use (CI, agents), exchange the session cookie for a long-lived
-API key at `POST /api/v1/api-keys`. Pass it as `Authorization: Bearer
+API key at `POST /api/v1/auth/api-keys`. Pass it as `Authorization: Bearer
 <key>` on every request.
 
 To verify a token works at any time, hit `GET /api/v1/whoami` — returns

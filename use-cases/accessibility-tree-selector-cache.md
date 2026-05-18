@@ -34,7 +34,7 @@ You are a scraping agent that walks a11y trees. Each page costs ~400ms to re-sna
 - **Step 1: Claim a Redis.** Anonymous works for prototyping; claim a token for persistence.
 
   ```bash
-  REDIS_URL=$(curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url)
+  REDIS_URL=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"accessibility-tree-selector-cache-cache"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Compute the cache key from URL + viewport.**

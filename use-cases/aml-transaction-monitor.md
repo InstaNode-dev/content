@@ -34,8 +34,8 @@ You're an AML compliance agent. Consume transaction events from NATS, score them
 - **Step 1: Provision NATS + Postgres.**
 
   ```bash
-  NATS=$(curl -sX POST https://api.instanode.dev/queue/new -H "Authorization: Bearer $T" | jq -r .connection_url)
-  PG=$(curl -sX POST https://api.instanode.dev/db/new   -H "Authorization: Bearer $T" | jq -r .connection_url)
+  NATS=$(curl -sX POST https://api.instanode.dev/queue/new -H 'Content-Type: application/json' -d '{"name":"aml-transaction-monitor-queue"}' -H "Authorization: Bearer $T" | jq -r .connection_url)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"aml-transaction-monitor-db"}'   -H "Authorization: Bearer $T" | jq -r .connection_url)
   ```
 
 - **Step 2: Decisions table with full audit trail.**

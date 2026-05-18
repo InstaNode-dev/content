@@ -1,7 +1,7 @@
 ---
 title: Agent-run lineage store
 category: N. Multi-agent observability
-services: ["pg", "minio"]
+services: ["pg", "storage"]
 scenario: An evaluation team builds a lineage UI where every run links to its parent run and its eval verdict; the relation graph lives in Postgres and the raw transcripts in S3-compatible storage.
 ---
 
@@ -34,8 +34,8 @@ You're building an evaluation lineage UI. Every agent run has a parent_run_id, a
 - **Step 1: Provision both stores.**
 
   ```bash
-  PG=$(curl -sX POST https://api.instanode.dev/db/new -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .connection_url)
-  S3=$(curl -sX POST https://api.instanode.dev/storage/new -H "Authorization: Bearer $INSTANT_TOKEN")
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"agent-run-lineage-store-db"}' -H "Authorization: Bearer $INSTANT_TOKEN" | jq -r .connection_url)
+  S3=$(curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"agent-run-lineage-store-storage"}' -H "Authorization: Bearer $INSTANT_TOKEN")
   ```
 
 - **Step 2: Lineage table with self-FK.**

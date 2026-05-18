@@ -36,7 +36,7 @@ Two agents need to negotiate asynchronously. Claim a NATS JetStream on instanode
   ```bash
   curl -sX POST https://api.instanode.dev/queue/new \
     -H "Content-Type: application/json" \
-    -d '{"stream":"negotiation","subjects":["negotiation.A","negotiation.B"]}' | jq
+    -d '{"name":"cross-agent-shared-inbox-queue","stream":"negotiation","subjects":["negotiation.A","negotiation.B"]}' | jq
   ```
 
 - **Step 2: Agent A subscribes durably to B's subject.** Durable = position survives reconnect.

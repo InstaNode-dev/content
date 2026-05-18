@@ -36,13 +36,14 @@ have to re-derive labels on every request. Two URLs in her clipboard.
 
 ```
 # 1. Postgres for books + embeddings, Redis for tag cache
-curl -X POST https://api.instanode.dev/db/new
-curl -X POST https://api.instanode.dev/cache/new
+curl -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"five-people-who-built-something-th-db"}'
+curl -X POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"five-people-who-built-something-th-cache"}'
 
 # 2. Tar the app, ship it
 tar -czf app.tar.gz .
 curl -X POST https://api.instanode.dev/deploy/new \
   -H "Authorization: Bearer $JWT" \
+  -F "name=bookstore-app" \
   -F "tarball=@app.tar.gz" \
   -F 'env_vars={"DATABASE_URL":"...","REDIS_URL":"..."}'
 ```

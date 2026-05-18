@@ -30,7 +30,7 @@
 - 10 GB Postgres / 20 connections
 - 512 MB Redis
 - 5 GB MongoDB / 20 connections
-- 50 GB MinIO storage
+- 50 GB S3-compatible storage
 - 10 medium container deploys
 - Multi-environment workflow (dev / staging / prod)
 - Vault for secrets

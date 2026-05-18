@@ -34,9 +34,9 @@ You're running a chaos lab for agent resilience research. Provision Postgres, Re
 - **Step 1: Claim three resources.**
 
   ```bash
-  curl -sX POST https://api.instanode.dev/db/new    > .pg.json
-  curl -sX POST https://api.instanode.dev/cache/new > .redis.json
-  curl -sX POST https://api.instanode.dev/queue/new > .nats.json
+  curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"agent-resilience-chaos-lab-db"}'    > .pg.json
+  curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"agent-resilience-chaos-lab-cache"}' > .redis.json
+  curl -sX POST https://api.instanode.dev/queue/new -H 'Content-Type: application/json' -d '{"name":"agent-resilience-chaos-lab-queue"}' > .nats.json
   ```
 
 - **Step 2: Define the agent's expected workflow.**

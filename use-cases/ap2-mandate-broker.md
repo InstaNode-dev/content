@@ -34,8 +34,8 @@ You're a Google-AP2-style mandate broker. Users register shopping mandates in Po
 - **Step 1: Provision Postgres + webhook.**
 
   ```bash
-  PG=$(curl -sX POST https://api.instanode.dev/db/new -H "Authorization: Bearer $T" | jq -r .connection_url)
-  HOOK=$(curl -sX POST https://api.instanode.dev/webhook/new -H "Authorization: Bearer $T" | jq -r .receive_url)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"ap2-mandate-broker-db"}' -H "Authorization: Bearer $T" | jq -r .connection_url)
+  HOOK=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"ap2-mandate-broker-webhook"}' -H "Authorization: Bearer $T" | jq -r .receive_url)
   ```
 
 - **Step 2: Mandate + receipts schema.**

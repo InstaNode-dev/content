@@ -1,7 +1,7 @@
 ---
 title: Sandbox-per-PR preview deployment
 category: K. Ephemeral agent runtimes
-services: ["pg", "minio", "deploy"]
+services: ["pg", "storage", "deploy"]
 scenario: A reviewer agent provisions a throwaway storage bucket plus Postgres tied to a PR number, seeds it from a snapshot, and the whole thing is torn down when the PR closes.
 ---
 
@@ -35,8 +35,8 @@ On every PR opened against this repo, provision an isolated Postgres + S3-compat
 
   ```bash
   PR=42
-  DB=$(curl -sX POST https://api.instanode.dev/db/new)
-  BUCKET=$(curl -sX POST https://api.instanode.dev/storage/new)
+  DB=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"sandbox-per-pr-preview-deployment-db"}')
+  BUCKET=$(curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"sandbox-per-pr-preview-deployment-storage"}')
   echo "$DB" > .preview/pr-$PR-db.json
   echo "$BUCKET" > .preview/pr-$PR-bucket.json
   ```
@@ -54,17 +54,20 @@ On every PR opened against this repo, provision an isolated Postgres + S3-compat
   ```bash
   aws s3 sync s3://staging/fixtures/ \
     s3://$(jq -r .bucket .preview/pr-$PR-bucket.json)/ \
-    --endpoint-url https://minio.instanode.dev
+    --endpoint-url https://s3.instanode.dev
   ```
 
 - **Step 4: Deploy the app.**
 
   ```bash
   curl -X POST https://api.instanode.dev/deploy/new \
-    -d "{\"image\":\"ghcr.io/me/app:pr-$PR\",\"subdomain\":\"pr-$PR\"}"
+    -H "Authorization: Bearer $INSTANODE_TOKEN" \
+    -F "name=pr-$PR-preview" \
+    -F "image=ghcr.io/me/app:pr-$PR" \
+    -F "subdomain=pr-$PR"
   ```
 
-- **Step 5: On PR close, fan-out deletes** using each resource's token.
+- **Step 5: On PR close, fan-out deletes** — `DELETE /api/v1/resources/:id` per resource (using each resource's `id` from its provision response, with a Bearer session token). Anonymous-tier resources also auto-reap at the 24h TTL, so a missed delete is bounded.
 
 ## Why this works on instanode.dev
 

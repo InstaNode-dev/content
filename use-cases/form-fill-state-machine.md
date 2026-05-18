@@ -34,7 +34,7 @@ You're filling a 200-field government form via browser automation. Claim a Mongo
 - **Step 1: Provision Mongo.** One POST.
 
   ```bash
-  curl -sX POST https://api.instanode.dev/nosql/new | jq -r .connection_url
+  curl -sX POST https://api.instanode.dev/nosql/new -H 'Content-Type: application/json' -d '{"name":"form-fill-state-machine-mongo"}' | jq -r .connection_url
   ```
 
 - **Step 2: Define the document shape.** Nested object: section → field → value + filled_at.

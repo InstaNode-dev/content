@@ -34,8 +34,8 @@ Set up a 5000-page-per-hour scrape swarm. For each URL, claim a MongoDB on insta
 - **Step 1: Provision Mongo + webhook.** One Mongo for diffs, one webhook for change notifications.
 
   ```bash
-  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new | jq -r .connection_url)
-  WH=$(curl -sX POST https://api.instanode.dev/webhook/new | jq -r .receive_url)
+  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new -H 'Content-Type: application/json' -d '{"name":"cron-scheduled-scraping-swarm-mongo"}' | jq -r .connection_url)
+  WH=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"cron-scheduled-scraping-swarm-webhook"}' | jq -r .receive_url)
   ```
 
 - **Step 2: Schedule the swarm.** Cron triggers a fan-out lambda that dispatches 5000 scraper invocations.

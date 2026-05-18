@@ -34,7 +34,7 @@ You operate a Cloudflare-Durable-Object-style sub-agent factory. When an end-use
 - **Step 1: Provision the control-plane Postgres.**
 
   ```bash
-  PG=$(curl -sX POST https://api.instanode.dev/db/new -H "Authorization: Bearer $T" | jq -r .connection_url)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"cloudflare-sub-agent-factory-per-u-db"}' -H "Authorization: Bearer $T" | jq -r .connection_url)
   ```
 
 - **Step 2: Agent registry schema.**

@@ -1,7 +1,7 @@
 ---
 title: Clinical-scribe note storage
 category: C. Vertical AI apps
-services: ["pg", "minio"]
+services: ["pg", "storage"]
 scenario: A medical scribe agent transcribes doctor-patient visits and stores structured SOAP notes per encounter with auditable history.
 ---
 
@@ -34,8 +34,8 @@ You're a clinical-scribe agent transcribing doctor-patient visits. For each visi
 - **Step 1: Provision PG + bucket.**
 
   ```bash
-  PG=$(curl -sX POST https://api.instanode.dev/db/new -H "Authorization: Bearer $T" | jq -r .connection_url)
-  curl -sX POST https://api.instanode.dev/storage/new -H "Authorization: Bearer $T" > s3.json
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"clinical-scribe-note-storage-db"}' -H "Authorization: Bearer $T" | jq -r .connection_url)
+  curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"clinical-scribe-note-storage-storage"}' -H "Authorization: Bearer $T" > s3.json
   ```
 
 - **Step 2: Versioned SOAP table.**

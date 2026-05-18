@@ -39,13 +39,16 @@ For each task in tasks.jsonl, deploy a throwaway container via instanode.dev /de
   ENTRYPOINT ["pytest", "-x", "--json-report", "--json-report-file=/out/report.json"]
   ```
 
-- **Step 2: Spawn one container per task.**
+- **Step 2: Spawn one container per task.** `/deploy/new` is multipart — pass `name`, `image`, and any `env.*` as form fields.
 
   ```bash
   for task in $(cat tasks.jsonl); do
+    REPO=$(echo "$task" | jq -r .repo)
     DEPLOY=$(curl -sX POST https://api.instanode.dev/deploy/new \
-      -H "Content-Type: application/json" \
-      -d "{\"image\":\"ghcr.io/me/runner:latest\",\"env\":{\"REPO\":\"$(echo $task | jq -r .repo)\"}}")
+      -H "Authorization: Bearer $INSTANODE_TOKEN" \
+      -F "name=test-runner-$(echo "$REPO" | tr '/' '-')" \
+      -F "image=ghcr.io/me/runner:latest" \
+      -F "env.REPO=$REPO")
     echo "$DEPLOY" >> deploys.jsonl
   done
   ```
@@ -54,15 +57,17 @@ For each task in tasks.jsonl, deploy a throwaway container via instanode.dev /de
 
   ```bash
   while read d; do
-    TOKEN=$(echo "$d" | jq -r .token)
-    curl -s "https://api.instanode.dev/deploy/$TOKEN/logs" | tail -200
+    ID=$(echo "$d" | jq -r .id)
+    curl -s "https://api.instanode.dev/deploy/$ID/logs" \
+      -H "Authorization: Bearer $INSTANODE_TOKEN" | tail -200
   done < deploys.jsonl
   ```
 
 - **Step 4: Tear down each on exit.**
 
   ```bash
-  curl -X DELETE "https://api.instanode.dev/deploy/$TOKEN"
+  curl -sX DELETE "https://api.instanode.dev/deploy/$ID" \
+    -H "Authorization: Bearer $INSTANODE_TOKEN"
   ```
 
 - **Step 5: Aggregate** exit codes into results.csv for the planner agent to consume.

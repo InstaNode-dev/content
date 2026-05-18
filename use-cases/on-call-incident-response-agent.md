@@ -34,8 +34,8 @@ Build an on-call agent that receives PagerDuty webhooks, runs the matching runbo
 - **Step 1: Provision the webhook and DB.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/webhook/new | tee /tmp/wh.json
-  curl -s -X POST https://api.instanode.dev/db/new
+  curl -s -X POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"on-call-incident-response-agent-webhook"}' | tee /tmp/wh.json
+  curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"on-call-incident-response-agent-db"}'
   ```
 
 - **Step 2: Tell PagerDuty the receiver URL** from the response.

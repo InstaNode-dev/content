@@ -34,9 +34,9 @@ Every LLM call across the agent fleet POSTs token usage to a webhook provisioned
 - **Step 1: Provision webhook + Redis + Postgres.**
 
   ```bash
-  WH=$(curl -sX POST https://api.instanode.dev/webhook/new | jq -r .receive_url)
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url)
-  DB=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
+  WH=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"token-cost-ledger-per-sub-agent-webhook"}' | jq -r .receive_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"token-cost-ledger-per-sub-agent-cache"}' | jq -r .connection_url)
+  DB=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"token-cost-ledger-per-sub-agent-db"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Agents emit usage.**

@@ -36,7 +36,7 @@ The example below threads a single migration — dropping `orders.customer_email
 - **Step 1: Claim a throwaway Postgres.** One POST, no signup. The token auto-reaps in 24 hours, so a forgotten test DB never lingers on your bill.
 
   ```bash
-  RESP=$(curl -sX POST https://api.instanode.dev/db/new)
+  RESP=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"ephemeral-test-database-for-a-risk-db"}')
   export PG_URL=$(echo "$RESP" | jq -r .connection_url)
   export PG_TOKEN=$(echo "$RESP" | jq -r .token)
   echo "throwaway db ready: ${PG_URL%@*}@***"
@@ -79,7 +79,7 @@ The example below threads a single migration — dropping `orders.customer_email
   echo "remaining references: $(wc -l < /tmp/refs.txt)"
   ```
 
-- **Step 5: Verdict + cleanup.** The agent reports back, then deletes the throwaway (or just lets it expire).
+- **Step 5: Verdict + cleanup.** The agent reports back. The throwaway needs no teardown call — anonymous resources auto-reap at the 24h TTL.
 
   ```bash
   if [ -s /tmp/refs.txt ]; then
@@ -87,8 +87,12 @@ The example below threads a single migration — dropping `orders.customer_email
   else
     echo "SAFE — pg_depend clean, no string references in tree."
   fi
-  curl -sX DELETE "https://api.instanode.dev/db/$PG_TOKEN"
-  # {"ok":true,"deleted":"<uuid>"}
+  # Nothing to delete: this anonymous DB expires automatically in 24h.
+  # If you claimed it (and hold a session token), delete it by resource id:
+  #   RID=$(curl -s https://api.instanode.dev/api/v1/resources \
+  #     -H "Authorization: Bearer $INSTANODE_TOKEN" | jq -r '.[0].id')
+  #   curl -sX DELETE "https://api.instanode.dev/api/v1/resources/$RID" \
+  #     -H "Authorization: Bearer $INSTANODE_TOKEN"
   ```
 
 ## Why this works on instanode.dev

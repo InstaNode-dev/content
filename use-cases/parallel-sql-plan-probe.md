@@ -34,8 +34,8 @@ Probe 12 candidate query rewrites in parallel against a forked Postgres. Each pr
 - **Step 1: Provision the fork-target DB and Redis.**
 
   ```bash
-  PG=$(curl -s -X POST https://api.instanode.dev/db/new | jq -r .connection_url)
-  RD=$(curl -s -X POST https://api.instanode.dev/cache/new | jq -r .connection_url)
+  PG=$(curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"parallel-sql-plan-probe-db"}' | jq -r .connection_url)
+  RD=$(curl -s -X POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"parallel-sql-plan-probe-cache"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Seed it with a snapshot from production.**

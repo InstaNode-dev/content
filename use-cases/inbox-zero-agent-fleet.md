@@ -1,7 +1,7 @@
 ---
 title: Inbox-zero agent fleet
 category: Q. Background/async agent fleets
-services: ["minio", "pg", "webhook"]
+services: ["storage", "pg", "webhook"]
 scenario: A Cloudflare-Email-style fleet runs one durable agent per user that triages incoming email, files attachments in S3-compatible storage, and stores extracted action items in Postgres.
 ---
 
@@ -34,19 +34,19 @@ Build a per-user durable email-triage agent. For each user, provision a S3-compa
 - **Step 1: Provision the Postgres for action items.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/db/new | tee /tmp/pg.json
+  curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"inbox-zero-agent-fleet-db"}' | tee /tmp/pg.json
   ```
 
 - **Step 2: Provision the attachment bucket.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/storage/new | tee /tmp/minio.json
+  curl -s -X POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"inbox-zero-agent-fleet-storage"}' | tee /tmp/s3.json
   ```
 
 - **Step 3: Provision an inbound-email webhook receiver.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/webhook/new | tee /tmp/wh.json
+  curl -s -X POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"inbox-zero-agent-fleet-webhook"}' | tee /tmp/wh.json
   ```
 
 - **Step 4: Create the action-items schema.**

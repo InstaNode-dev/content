@@ -34,7 +34,7 @@ For each skill in the marketplace registry, mint a dedicated MCP server: deploy 
 - **Step 1: Provision the shared Redis bus.**
 
   ```bash
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"smithery-one-mcp-per-skill-mint-cache"}' | jq -r .connection_url)
   ```
 
 - **Step 2: For each skill, deploy + webhook.**
@@ -42,8 +42,11 @@ For each skill in the marketplace registry, mint a dedicated MCP server: deploy 
   ```bash
   for skill in $(ls skills/); do
     DEPLOY=$(curl -sX POST https://api.instanode.dev/deploy/new \
-      -d "{\"image\":\"ghcr.io/marketplace/$skill:latest\",\"env\":{\"REDIS_URL\":\"$REDIS\"}}")
-    WH=$(curl -sX POST https://api.instanode.dev/webhook/new)
+      -H "Authorization: Bearer $INSTANODE_TOKEN" \
+      -F "name=mcp-$skill" \
+      -F "image=ghcr.io/marketplace/$skill:latest" \
+      -F "env.REDIS_URL=$REDIS")
+    WH=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"smithery-one-mcp-per-skill-mint-webhook"}')
     register_skill "$skill" "$(echo $DEPLOY | jq -r .url)" "$(echo $WH | jq -r .receive_url)"
   done
   ```

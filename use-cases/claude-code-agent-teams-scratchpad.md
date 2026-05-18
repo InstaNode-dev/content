@@ -34,8 +34,8 @@ You're the lead Claude Code session orchestrating 6 worker sessions, each owning
 - **Step 1: Provision the coordination plane.**
 
   ```bash
-  PG=$(curl -sX POST https://api.instanode.dev/db/new   -H "Authorization: Bearer $T" | jq -r .connection_url)
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H "Authorization: Bearer $T" | jq -r .connection_url)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"claude-code-agent-teams-scratchpad-db"}'   -H "Authorization: Bearer $T" | jq -r .connection_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"claude-code-agent-teams-scratchpad-cache"}' -H "Authorization: Bearer $T" | jq -r .connection_url)
   ```
 
 - **Step 2: Scratchpad table — every session appends, all read.**

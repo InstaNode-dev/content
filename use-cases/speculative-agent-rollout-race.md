@@ -34,8 +34,8 @@ Run the same task three times in parallel at temperatures 0.2/0.7/1.0. Use NATS 
 - **Step 1: Provision NATS + Postgres.**
 
   ```bash
-  NATS=$(curl -sX POST https://api.instanode.dev/queue/new | jq -r .connection_url)
-  DB=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
+  NATS=$(curl -sX POST https://api.instanode.dev/queue/new -H 'Content-Type: application/json' -d '{"name":"speculative-agent-rollout-race-queue"}' | jq -r .connection_url)
+  DB=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"speculative-agent-rollout-race-db"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Dispatch three rollouts in parallel.**

@@ -1,7 +1,7 @@
 ---
 title: Federated-learning aggregator
 category: R. Edge agents & federated swarms
-services: ["webhook", "minio", "pg"]
+services: ["webhook", "storage", "pg"]
 scenario: Edge agents on user devices compute private gradients and POST them to an aggregator webhook; the aggregator stores rounds in S3-compatible storage and the new global weights in Postgres.
 ---
 
@@ -34,9 +34,9 @@ Build a federated-learning aggregator. Claim a webhook receiver, a S3-compatible
 - **Step 1: Provision all three.** One per service.
 
   ```bash
-  WH=$(curl -sX POST https://api.instanode.dev/webhook/new | jq -r .receive_url)
-  S3=$(curl -sX POST https://api.instanode.dev/storage/new | tee s3.json)
-  PG=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
+  WH=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"federated-learning-aggregator-webhook"}' | jq -r .receive_url)
+  S3=$(curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"federated-learning-aggregator-storage"}' | tee s3.json)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"federated-learning-aggregator-db"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Edge agent uploads gradient.** Lightweight POST, no auth handshake.

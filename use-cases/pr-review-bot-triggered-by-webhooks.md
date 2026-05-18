@@ -34,8 +34,8 @@ Wire a GitHub PR-review agent. Provision a webhook to receive pull_request and p
 - **Step 1: Provision the receiver and the cache.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/webhook/new | tee /tmp/wh.json
-  curl -s -X POST https://api.instanode.dev/cache/new
+  curl -s -X POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"pr-review-bot-triggered-by-webhook-webhook"}' | tee /tmp/wh.json
+  curl -s -X POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"pr-review-bot-triggered-by-webhook-cache"}'
   ```
 
 - **Step 2: Configure the GitHub webhook.**

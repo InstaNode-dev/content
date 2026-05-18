@@ -1,7 +1,7 @@
 ---
 title: Screenshot evidence archive
 category: E. Browser & automation agents
-services: ["minio"]
+services: ["storage"]
 scenario: A QA agent captures before/after screenshots on every test run and stores them keyed by run-id for diff review.
 ---
 
@@ -34,7 +34,7 @@ Every Playwright test in this suite should snapshot before-action and after-acti
 - **Step 1: Provision the bucket.**
 
   ```bash
-  curl -X POST https://api.instanode.dev/storage/new | tee s.json
+  curl -X POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"screenshot-evidence-archive-storage"}' | tee s.json
   export S3_ENDPOINT=$(jq -r .endpoint s.json)
   export S3_BUCKET=$(jq -r .bucket s.json)
   export AWS_ACCESS_KEY_ID=$(jq -r .access_key s.json)

@@ -1,7 +1,7 @@
 ---
 title: arXiv-and-RSS research feed
 category: D. Personal AI
-services: ["webhook", "redis", "minio"]
+services: ["webhook", "redis", "storage"]
 scenario: A research agent receives webhook pings from arXiv and RSS bridges, dedupes via Redis, and stores PDFs for later retrieval.
 ---
 
@@ -34,9 +34,9 @@ You're my research agent. Subscribe to arXiv + RSS bridges via a webhook URL. On
 - **Step 1: Provision the trio.**
 
   ```bash
-  HOOK=$(curl -sX POST https://api.instanode.dev/webhook/new -H "Authorization: Bearer $T" | jq -r .receive_url)
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H "Authorization: Bearer $T" | jq -r .connection_url)
-  curl -sX POST https://api.instanode.dev/storage/new -H "Authorization: Bearer $T" > s3.json
+  HOOK=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"arxiv-and-rss-research-feed-webhook"}' -H "Authorization: Bearer $T" | jq -r .receive_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"arxiv-and-rss-research-feed-cache"}' -H "Authorization: Bearer $T" | jq -r .connection_url)
+  curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"arxiv-and-rss-research-feed-storage"}' -H "Authorization: Bearer $T" > s3.json
   ```
 
 - **Step 2: Register the webhook with your RSS bridge service.** Point arXiv-RSS-bridge (or similar) at `$HOOK`.

@@ -1,7 +1,7 @@
 ---
 title: Agent-marketplace preview thumbnails
 category: G. Internet-of-AI
-services: ["minio"]
+services: ["storage"]
 scenario: An agent marketplace stores screenshot previews of each listed agent's UI for human browsing.
 ---
 
@@ -34,7 +34,7 @@ You're indexing an agent marketplace. For every listed agent, capture a screensh
 - **Step 1: Provision the bucket.**
 
   ```bash
-  curl -sX POST https://api.instanode.dev/storage/new \
+  curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"agent-marketplace-preview-thumbnai-storage"}' \
     -H "Authorization: Bearer $INSTANT_TOKEN" | jq .
   # returns connection_url, bucket, access_key, secret_key
   ```

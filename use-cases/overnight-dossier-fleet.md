@@ -1,7 +1,7 @@
 ---
 title: Overnight dossier fleet
 category: Q. Background/async agent fleets
-services: ["mongo", "minio"]
+services: ["mongo", "storage"]
 scenario: An async research service queues hundreds of overnight dossier jobs; workers persist intermediate findings in Mongo and PDF outputs in S3-compatible storage when complete.
 ---
 
@@ -34,8 +34,8 @@ Spin up an overnight research fleet: queue 400 dossier jobs at 11pm, each worker
 - **Step 1: Provision the stores.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/nosql/new
-  curl -s -X POST https://api.instanode.dev/storage/new
+  curl -s -X POST https://api.instanode.dev/nosql/new -H 'Content-Type: application/json' -d '{"name":"overnight-dossier-fleet-mongo"}'
+  curl -s -X POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"overnight-dossier-fleet-storage"}'
   ```
 
 - **Step 2: Seed the job collection.**

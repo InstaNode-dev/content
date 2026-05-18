@@ -34,17 +34,20 @@ When a B2B tenant clicks "Add AI assistant," call /nosql/new for their chat hist
 - **Step 1: Tenant clicks the button — your factory backend runs:**
 
   ```bash
-  MONGO=$(curl -s -X POST https://api.instanode.dev/nosql/new | jq -r .connection_url)
-  REDIS=$(curl -s -X POST https://api.instanode.dev/cache/new | jq -r .connection_url)
+  MONGO=$(curl -s -X POST https://api.instanode.dev/nosql/new -H 'Content-Type: application/json' -d '{"name":"per-tenant-chatbot-factory-at-sign-mongo"}' | jq -r .connection_url)
+  REDIS=$(curl -s -X POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"per-tenant-chatbot-factory-at-sign-cache"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Deploy the agent container with tenant-scoped env.**
 
   ```bash
   curl -s -X POST https://api.instanode.dev/deploy/new \
-    -H 'Content-Type: application/json' \
-    -d "$(jq -n --arg m "$MONGO" --arg r "$REDIS" --arg t "$TENANT" \
-        '{image:"ghcr.io/acme/assistant:latest", env:{MONGO_URL:$m, REDIS_URL:$r, TENANT_ID:$t}}')" \
+    -H "Authorization: Bearer $INSTANODE_TOKEN" \
+    -F "name=assistant-$TENANT" \
+    -F "image=ghcr.io/acme/assistant:latest" \
+    -F "env.MONGO_URL=$MONGO" \
+    -F "env.REDIS_URL=$REDIS" \
+    -F "env.TENANT_ID=$TENANT" \
     | jq -r .url > assistant_url.txt
   ```
 

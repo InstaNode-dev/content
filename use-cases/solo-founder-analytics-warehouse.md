@@ -34,7 +34,7 @@ I'm a solo founder. Provision a Postgres on instanode.dev, wire my Next.js app t
 - **Step 1: Provision Postgres.**
 
   ```bash
-  curl -X POST https://api.instanode.dev/db/new | tee db.json
+  curl -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"solo-founder-analytics-warehouse-db"}' | tee db.json
   export DATABASE_URL=$(jq -r .connection_url db.json)
   ```
 

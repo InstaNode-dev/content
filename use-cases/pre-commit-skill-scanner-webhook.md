@@ -34,7 +34,7 @@ Set up a pre-commit MCP-skill security scanner. Provision a webhook endpoint; co
 - **Step 1: Provision the webhook.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/webhook/new | jq -r .receive_url
+  curl -s -X POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"pre-commit-skill-scanner-webhook-webhook"}' | jq -r .receive_url
   ```
 
 - **Step 2: Wire the pre-commit hook.**

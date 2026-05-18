@@ -36,10 +36,10 @@ Build a geo-sharded chat fleet. In each region (US/EU/APAC), claim a local Redis
   ```bash
   for r in us-east eu-west ap-south; do
     curl -sX POST https://api.instanode.dev/cache/new \
-      -H "Content-Type: application/json" -d "{\"region\":\"$r\"}" \
+      -H "Content-Type: application/json" -d "{\"name\":\"geo-sharded-chat-agent-fleet-cache\",\"region\":\"$r\"}" \
       | jq -r .connection_url > redis-$r.url
   done
-  PG=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"geo-sharded-chat-agent-fleet-db"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Session state writes locally.** Edge agent reads its REDIS_URL env var.

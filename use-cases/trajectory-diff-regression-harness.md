@@ -1,7 +1,7 @@
 ---
 title: Trajectory diff regression harness
 category: P. Agent benchmarking & evaluation
-services: ["minio", "pg"]
+services: ["storage", "pg"]
 scenario: On every PR to the agent repo, a CI agent re-runs 1000 cached trajectories in parallel and stores diffs against the baseline in S3-compatible storage so reviewers see exactly which behaviors changed.
 ---
 
@@ -34,8 +34,8 @@ On every PR to the agent repo, replay 1000 cached trajectories in parallel again
 - **Step 1: Provision S3-compatible storage + Postgres.**
 
   ```bash
-  BUCKET=$(curl -sX POST https://api.instanode.dev/storage/new | jq -r .bucket)
-  DB=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
+  BUCKET=$(curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"trajectory-diff-regression-harness-storage"}' | jq -r .bucket)
+  DB=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"trajectory-diff-regression-harness-db"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Replay against baseline.**

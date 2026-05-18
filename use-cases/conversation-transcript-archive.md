@@ -1,7 +1,7 @@
 ---
 title: Conversation transcript archive
 category: A. AI coding agents
-services: ["minio"]
+services: ["storage"]
 scenario: Coding sessions are persisted as JSONL transcripts for replay, fine-tuning, and "what did we try last sprint" search across the team.
 ---
 
@@ -34,7 +34,7 @@ Persist every coding session as a JSONL transcript to S3-compatible storage on i
 - **Step 1: Claim S3-compatible storage.** Returns a bucket URL + IAM access key scoped to this token.
 
   ```bash
-  curl -sX POST https://api.instanode.dev/storage/new | tee s3.json
+  curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"conversation-transcript-archive-storage"}' | tee s3.json
   export AWS_ACCESS_KEY_ID=$(jq -r .access_key s3.json)
   export AWS_SECRET_ACCESS_KEY=$(jq -r .secret_key s3.json)
   export AWS_ENDPOINT_URL=$(jq -r .endpoint s3.json)

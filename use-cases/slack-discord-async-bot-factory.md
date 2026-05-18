@@ -34,14 +34,14 @@ Stand up a per-workspace Slack bot factory. For each tenant: provision a webhook
 - **Step 1: Provision shared Postgres.**
 
   ```bash
-  curl -X POST https://api.instanode.dev/db/new | tee db.json
+  curl -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"slack-discord-async-bot-factory-db"}' | tee db.json
   export DATABASE_URL=$(jq -r .connection_url db.json)
   ```
 
 - **Step 2: Per-tenant webhook on workspace install.**
 
   ```bash
-  WH=$(curl -sX POST https://api.instanode.dev/webhook/new)
+  WH=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"slack-discord-async-bot-factory-webhook"}')
   echo "$WH" > tenants/$WORKSPACE_ID-webhook.json
   # Register receive_url with Slack as the event endpoint
   ```

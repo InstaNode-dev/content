@@ -35,7 +35,7 @@ Set up a 50-sandbox Daytona warm pool. For each sandbox, pre-claim a Redis names
 
   ```bash
   for i in $(seq 1 50); do
-    curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url > caches/$i.url
+    curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"daytona-warm-pool-data-workspace-cache"}' | jq -r .connection_url > caches/$i.url
   done
   ```
 
@@ -43,8 +43,11 @@ Set up a 50-sandbox Daytona warm pool. For each sandbox, pre-claim a Redis names
 
   ```bash
   curl -X POST https://api.instanode.dev/deploy/new \
-    -H "Content-Type: application/json" \
-    -d '{"image":"ghcr.io/me/daytona-agent-base:latest","cpu":1000,"mem_mb":2048}'
+    -H "Authorization: Bearer $INSTANODE_TOKEN" \
+    -F "name=daytona-agent-base" \
+    -F "image=ghcr.io/me/daytona-agent-base:latest" \
+    -F "cpu=1000" \
+    -F "mem_mb=2048"
   ```
 
 - **Step 3: Resolver hits Redis before PyPI.** Cache key = (python_version, requirements_hash).
@@ -59,10 +62,12 @@ Set up a 50-sandbox Daytona warm pool. For each sandbox, pre-claim a Redis names
       r.setex(key, 86400, lock)
   ```
 
-- **Step 4: Reap on sandbox destroy.** One DELETE per resource.
+- **Step 4: Reap on sandbox destroy.** Anonymous caches auto-expire at the 24h TTL, so a destroyed sandbox's Redis namespace reaps itself — no teardown call needed. If you claimed a cache (holding a session token) and want it gone sooner, delete it by resource id:
 
   ```bash
-  curl -X DELETE https://api.instanode.dev/cache/$TOKEN
+  # claimed-flow only — anonymous caches just expire at 24h.
+  curl -X DELETE "https://api.instanode.dev/api/v1/resources/$RESOURCE_ID" \
+    -H "Authorization: Bearer $INSTANODE_TOKEN"
   ```
 
 ## Why this works on instanode.dev

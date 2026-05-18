@@ -34,8 +34,8 @@ Build a heartbeat fabric for our worker swarm. Each agent publishes a status hea
 - **Step 1: Provision NATS and Redis.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/queue/new -d '{"stream":"status"}' -H 'Content-Type: application/json'
-  curl -s -X POST https://api.instanode.dev/cache/new
+  curl -s -X POST https://api.instanode.dev/queue/new -d '{"name":"live-agent-status-broadcast-queue","stream":"status"}' -H 'Content-Type: application/json'
+  curl -s -X POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"live-agent-status-broadcast-cache"}'
   ```
 
 - **Step 2: Heartbeat publisher inside each agent.**

@@ -34,7 +34,7 @@ You're running an AutoGen GroupChat with 5 agents (Planner, Coder, Critic, Teste
 - **Step 1: Provision Mongo.**
 
   ```bash
-  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new \
+  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new -H 'Content-Type: application/json' -d '{"name":"autogen-group-chat-history-mongo"}' \
     -H "Authorization: Bearer $T" | jq -r .connection_url)
   ```
 

@@ -34,7 +34,7 @@ Wire LangGraph's PostgresSaver checkpointer so our research workflow survives cr
 - **Step 1: Provision Postgres.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/db/new | jq -r .connection_url > .pg
+  curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"langgraph-state-checkpoints-db"}' | jq -r .connection_url > .pg
   ```
 
 - **Step 2: Install the checkpointer schema.**

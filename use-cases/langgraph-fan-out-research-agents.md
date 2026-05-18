@@ -38,9 +38,9 @@ We'll thread one query — the GLP-1 literature review above — through every s
   ```bash
   NATS=$(curl -sX POST https://api.instanode.dev/queue/new \
            -H 'Content-Type: application/json' \
-           -d '{"stream":"research","subjects":["research.work.*","research.done.*"]}' \
+           -d '{"name":"langgraph-fan-out-research-agents-queue","stream":"research","subjects":["research.work.*","research.done.*"]}' \
          | jq -r .nats_url)
-  PG=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"langgraph-fan-out-research-agents-db"}' | jq -r .connection_url)
   printf "NATS_URL=%s\nPG_URL=%s\n" "$NATS" "$PG" > .env
   ```
 

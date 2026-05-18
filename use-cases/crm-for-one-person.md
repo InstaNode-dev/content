@@ -35,7 +35,7 @@ Build me a personal CRM. Claim Postgres on instanode.dev. Create contacts(name, 
 
   ```bash
   curl -sX POST https://api.instanode.dev/db/new \
-    -H "Content-Type: application/json" -d '{}' | jq
+    -H "Content-Type: application/json" -d '{"name":"crm-for-one-person-db"}' | jq
   ```
 
 - **Step 2: Create the schema.** Simple, two tables, no ORM needed.

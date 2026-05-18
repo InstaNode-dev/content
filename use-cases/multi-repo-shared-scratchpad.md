@@ -34,7 +34,7 @@ Spin up a shared Mongo scratchpad so the four coding agents working across our m
 - **Step 1: Provision Mongo.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/nosql/new | jq -r .connection_url
+  curl -s -X POST https://api.instanode.dev/nosql/new -H 'Content-Type: application/json' -d '{"name":"multi-repo-shared-scratchpad-mongo"}' | jq -r .connection_url
   ```
 
 - **Step 2: Connect and pick a collection per branch.**

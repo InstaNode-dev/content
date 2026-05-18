@@ -1,6 +1,6 @@
 # Status — instanode.dev
 
-> Live operational status for the platform. The same status page is served as JSON at [/api/v1/health](https://api.instanode.dev/api/v1/health) for machine consumption.
+> Live operational status for the platform. The same status page is served as JSON at [/api/v1/status](https://api.instanode.dev/api/v1/status) for machine consumption.
 
 ## Current status
 
@@ -12,7 +12,8 @@ All systems operational. (For the live indicator and per-service uptime metrics,
 - **/cache/new** — Redis provisioning
 - **/nosql/new** — MongoDB provisioning
 - **/queue/new** — NATS provisioning
-- **/storage/new** — MinIO provisioning
+- **/storage/new** — S3-compatible object storage provisioning (DigitalOcean Spaces)
+- **/vector/new** — pgvector-enabled Postgres provisioning
 - **/webhook/new** — Webhook receiver
 - **/deploy/new** — Container deploy build pipeline
 - **/claim** — Anonymous → paid claim flow
@@ -32,6 +33,6 @@ For a chronological list of incidents, see the HTML page. Recent fixes and platf
 
 ## Machine-readable
 
-- Health JSON: `https://api.instanode.dev/api/v1/health`
+- Status JSON: `https://api.instanode.dev/api/v1/status`
 - Per-service metrics (Prometheus format): `https://api.instanode.dev/metrics`
 - OpenAPI spec: `https://api.instanode.dev/openapi.json`

@@ -34,8 +34,8 @@ You're reviewing a 200-page MSA. Claim Postgres + Redis on instanode.dev. Chunk 
 - **Step 1: Provision storage and cache.** Two curls; both return connection URLs in under a second.
 
   ```bash
-  PG=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"contract-redline-cache-db"}' | jq -r .connection_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"contract-redline-cache-cache"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Set up the clause table.** Hash + embedding indexed for fast similarity lookup.

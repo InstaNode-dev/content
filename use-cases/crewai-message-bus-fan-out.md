@@ -34,7 +34,7 @@ Wire a CrewAI crew with a NATS message bus from instanode.dev. Planner publishes
 - **Step 1: Claim a NATS JetStream URL.** One POST returns a server URL + token-scoped credentials.
 
   ```bash
-  NATS_URL=$(curl -sX POST https://api.instanode.dev/queue/new | jq -r .connection_url)
+  NATS_URL=$(curl -sX POST https://api.instanode.dev/queue/new -H 'Content-Type: application/json' -d '{"name":"crewai-message-bus-fan-out-queue"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Create the stream + subjects.** JetStream gives durability; standard NATS would be fire-and-forget.

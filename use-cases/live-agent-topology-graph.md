@@ -34,8 +34,8 @@ Build a live topology graph of our agent fleet. Every spawn or handoff publishes
 - **Step 1: Provision NATS and Postgres.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/queue/new -d '{"stream":"topo"}' -H 'Content-Type: application/json'
-  curl -s -X POST https://api.instanode.dev/db/new
+  curl -s -X POST https://api.instanode.dev/queue/new -d '{"name":"live-agent-topology-graph-queue","stream":"topo"}' -H 'Content-Type: application/json'
+  curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"live-agent-topology-graph-db"}'
   ```
 
 - **Step 2: Edge schema.**

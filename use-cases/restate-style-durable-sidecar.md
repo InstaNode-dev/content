@@ -34,7 +34,7 @@ Stand up a Restate-style durable sidecar in front of this agent. Every outbound 
 - **Step 1: Provision Postgres.**
 
   ```bash
-  curl -X POST https://api.instanode.dev/db/new | tee db.json
+  curl -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"restate-style-durable-sidecar-db"}' | tee db.json
   export DATABASE_URL=$(jq -r .connection_url db.json)
   ```
 

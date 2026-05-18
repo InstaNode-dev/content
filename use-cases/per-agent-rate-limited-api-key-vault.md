@@ -34,8 +34,8 @@ Build a vault that mints scoped, rate-limited API keys for child agents on deman
 - **Step 1: Provision Redis and Postgres.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/cache/new
-  curl -s -X POST https://api.instanode.dev/db/new
+  curl -s -X POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"per-agent-rate-limited-api-key-vau-cache"}'
+  curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"per-agent-rate-limited-api-key-vau-db"}'
   ```
 
 - **Step 2: Billing event schema.**

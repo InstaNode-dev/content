@@ -34,7 +34,7 @@ Supervisor: claim a NATS JetStream on instanode.dev. Enqueue sub-tasks to "tasks
 - **Step 1: Provision the queue.** Single POST.
 
   ```bash
-  NATS=$(curl -sX POST https://api.instanode.dev/queue/new | jq -r .connection_url)
+  NATS=$(curl -sX POST https://api.instanode.dev/queue/new -H 'Content-Type: application/json' -d '{"name":"durable-agent-task-queue-queue"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Configure the stream with DLQ.** Two subjects; one is the dead-letter.

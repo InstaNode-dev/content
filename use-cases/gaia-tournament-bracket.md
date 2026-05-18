@@ -1,7 +1,7 @@
 ---
 title: GAIA tournament bracket
 category: P. Agent benchmarking & evaluation
-services: ["mongo", "minio", "redis"]
+services: ["mongo", "storage", "redis"]
 scenario: A tournament service runs 16 agent variants head-to-head on GAIA tasks; pairings live in Mongo, intermediate transcripts in S3-compatible storage, win counts in Redis sorted sets for the live leaderboard.
 ---
 
@@ -34,9 +34,9 @@ Run a 16-agent GAIA tournament. Claim Mongo + S3-compatible storage + Redis on i
 - **Step 1: Provision all three stores.** Tournament infra in 3 curls.
 
   ```bash
-  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new | jq -r .connection_url)
-  S3=$(curl -sX POST https://api.instanode.dev/storage/new)
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url)
+  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new -H 'Content-Type: application/json' -d '{"name":"gaia-tournament-bracket-mongo"}' | jq -r .connection_url)
+  S3=$(curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"gaia-tournament-bracket-storage"}')
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"gaia-tournament-bracket-cache"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Define bracket.** 16 agents → 8 matches round 1.

@@ -34,8 +34,8 @@ Implement a Magentic-One-style orchestrator: decompose a goal into a DAG of task
 - **Step 1: Provision queue and DB.**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/queue/new -d '{"stream":"dag"}' -H 'Content-Type: application/json'
-  curl -s -X POST https://api.instanode.dev/db/new
+  curl -s -X POST https://api.instanode.dev/queue/new -d '{"name":"magentic-one-dag-executor-queue","stream":"dag"}' -H 'Content-Type: application/json'
+  curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"magentic-one-dag-executor-db"}'
   ```
 
 - **Step 2: DAG and outputs schema.**

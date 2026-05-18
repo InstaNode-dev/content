@@ -34,8 +34,8 @@ You're a Skyvern-style planner. After analyzing a target page, you emit 20 actio
 - **Step 1: Provision the queue + result store.**
 
   ```bash
-  NATS=$(curl -sX POST https://api.instanode.dev/queue/new -H "Authorization: Bearer $T" | jq -r .connection_url)
-  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new -H "Authorization: Bearer $T" | jq -r .connection_url)
+  NATS=$(curl -sX POST https://api.instanode.dev/queue/new -H 'Content-Type: application/json' -d '{"name":"browser-agent-action-pool-queue"}' -H "Authorization: Bearer $T" | jq -r .connection_url)
+  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new -H 'Content-Type: application/json' -d '{"name":"browser-agent-action-pool-mongo"}' -H "Authorization: Bearer $T" | jq -r .connection_url)
   ```
 
 - **Step 2: Planner publishes 20 actions, one subject per action type.**

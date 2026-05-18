@@ -34,8 +34,8 @@ Build a legal agent that drafts personal-injury demand letters from intake files
 - **Step 1: Provision Postgres and a webhook (we'll use it to forward to Clio).**
 
   ```bash
-  curl -s -X POST https://api.instanode.dev/db/new
-  curl -s -X POST https://api.instanode.dev/webhook/new
+  curl -s -X POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"personal-injury-demand-letters-db"}'
+  curl -s -X POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"personal-injury-demand-letters-webhook"}'
   ```
 
 - **Step 2: Letter version schema.**

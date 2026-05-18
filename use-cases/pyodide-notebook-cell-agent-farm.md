@@ -1,7 +1,7 @@
 ---
 title: Pyodide notebook cell agent farm
 category: M. Parallel tool execution
-services: ["minio", "nats"]
+services: ["storage", "nats"]
 scenario: An analyst agent splits a 200-cell notebook across 30 Pyodide workers, each writing intermediate dataframes to S3-compatible storage so the planner can pull only the ones it needs.
 ---
 
@@ -34,14 +34,14 @@ Split notebook.ipynb across 30 Pyodide workers. Each worker should pull its cell
 - **Step 1: Provision the bucket.** One curl for shared intermediate storage.
 
   ```bash
-  curl -X POST https://api.instanode.dev/storage/new | tee storage.json
+  curl -X POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"pyodide-notebook-cell-agent-farm-storage"}' | tee storage.json
   export S3_URL=$(jq -r .connection_url storage.json)
   ```
 
 - **Step 2: Provision NATS for work distribution.** JetStream gives durable, replayable cell assignments.
 
   ```bash
-  curl -X POST https://api.instanode.dev/queue/new | tee nats.json
+  curl -X POST https://api.instanode.dev/queue/new -H 'Content-Type: application/json' -d '{"name":"pyodide-notebook-cell-agent-farm-queue"}' | tee nats.json
   export NATS_URL=$(jq -r .connection_url nats.json)
   ```
 

@@ -34,9 +34,9 @@ Receiver side of x402: provision Redis + Postgres + webhook via instanode.dev. T
 - **Step 1: Provision all three.**
 
   ```bash
-  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new | jq -r .connection_url)
-  DB=$(curl -sX POST https://api.instanode.dev/db/new | jq -r .connection_url)
-  WH=$(curl -sX POST https://api.instanode.dev/webhook/new | jq -r .receive_url)
+  REDIS=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"x402-micropayment-per-tool-call-cache"}' | jq -r .connection_url)
+  DB=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"x402-micropayment-per-tool-call-db"}' | jq -r .connection_url)
+  WH=$(curl -sX POST https://api.instanode.dev/webhook/new -H 'Content-Type: application/json' -d '{"name":"x402-micropayment-per-tool-call-webhook"}' | jq -r .receive_url)
   ```
 
 - **Step 2: Return 402 on unpaid call.**

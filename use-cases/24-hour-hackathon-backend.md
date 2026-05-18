@@ -1,7 +1,7 @@
 ---
 title: 24-hour hackathon backend
 category: I. Hackathon & education
-services: ["pg", "mongo", "minio"]
+services: ["pg", "mongo", "storage"]
 scenario: A team provisions Postgres + Mongo + S3-compatible storage anonymously, ships their demo, and lets the stack expire 24 hours after judging.
 ---
 
@@ -34,9 +34,9 @@ You're scaffolding a 24-hour hackathon project. Provision a Postgres for users +
 - **Step 1: Claim three anonymous resources in parallel.** One curl per service, no auth, no account.
 
   ```bash
-  curl -sX POST https://api.instanode.dev/db/new     > pg.json &
-  curl -sX POST https://api.instanode.dev/nosql/new  > mongo.json &
-  curl -sX POST https://api.instanode.dev/storage/new > minio.json &
+  curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"24-hour-hackathon-backend-db"}'     > pg.json &
+  curl -sX POST https://api.instanode.dev/nosql/new -H 'Content-Type: application/json' -d '{"name":"24-hour-hackathon-backend-mongo"}'  > mongo.json &
+  curl -sX POST https://api.instanode.dev/storage/new -H 'Content-Type: application/json' -d '{"name":"24-hour-hackathon-backend-storage"}' > s3.json &
   wait
   ```
 
@@ -45,7 +45,7 @@ You're scaffolding a 24-hour hackathon project. Provision a Postgres for users +
   ```bash
   export DATABASE_URL=$(jq -r .connection_url pg.json)
   export MONGO_URL=$(jq -r .connection_url mongo.json)
-  export S3_URL=$(jq -r .connection_url minio.json)
+  export S3_URL=$(jq -r .connection_url s3.json)
   ```
 
 - **Step 3: Create the submissions schema.** Standard Postgres, real DB.

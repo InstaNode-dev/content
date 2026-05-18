@@ -34,7 +34,7 @@ I want my assistant's chat history to follow me from phone to laptop to watch. C
 - **Step 1: Claim Mongo.** Single POST; URL persists indefinitely on hobby tier.
 
   ```bash
-  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new | jq -r .connection_url)
+  MONGO=$(curl -sX POST https://api.instanode.dev/nosql/new -H 'Content-Type: application/json' -d '{"name":"cross-device-chat-history-mongo"}' | jq -r .connection_url)
   ```
 
 - **Step 2: Define the collection + indexes.** Compound index for fast per-user scroll.

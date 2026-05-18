@@ -37,8 +37,8 @@ We'll thread one app — **Inboxbird**, a waitlist that takes $29/mo via Stripe 
 
   ```bash
   mkdir inboxbird && cd inboxbird
-  PG=$(curl -sX POST https://api.instanode.dev/db/new      | jq -r .connection_url)
-  RD=$(curl -sX POST https://api.instanode.dev/cache/new   | jq -r .connection_url)
+  PG=$(curl -sX POST https://api.instanode.dev/db/new -H 'Content-Type: application/json' -d '{"name":"one-afternoon-mvp-backend-db"}'      | jq -r .connection_url)
+  RD=$(curl -sX POST https://api.instanode.dev/cache/new -H 'Content-Type: application/json' -d '{"name":"one-afternoon-mvp-backend-cache"}'   | jq -r .connection_url)
   cat > .env <<EOF
   DATABASE_URL=$PG
   REDIS_URL=$RD
@@ -115,9 +115,11 @@ We'll thread one app — **Inboxbird**, a waitlist that takes $29/mo via Stripe 
 
   ```bash
   curl -sX POST https://api.instanode.dev/deploy/new \
-    -H 'Content-Type: application/json' \
-    -d "$(jq -n --arg env "$(cat .env)" \
-          '{dockerfile:"Dockerfile", env:$env, subdomain:"inboxbird"}')" \
+    -H "Authorization: Bearer $INSTANODE_TOKEN" \
+    -F "name=inboxbird" \
+    -F "dockerfile=Dockerfile" \
+    -F "subdomain=inboxbird" \
+    -F "env_vars=$(jq -Rs 'split("\n") | map(select(length>0) | split("=")) | map({(.[0]): (.[1:] | join("="))}) | add' < .env)" \
     | jq -r .url
   # https://inboxbird.instanode.app
   ```
