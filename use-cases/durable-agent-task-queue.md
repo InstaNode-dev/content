@@ -71,6 +71,6 @@ JetStream gives true at-least-once with durable consumers — failed messages su
 
 ## Related cases
 
-- [Browser job queue with retries](/use-cases/browser-job-queue-with-retries.md) — concrete browser-domain instance of the same retry queue
-- [Per-agent dead-letter inspection queue](/use-cases/per-agent-dead-letter-inspection-queue.md) — DLQ side of the same JetStream backoff pattern
-- [CrewAI message bus fan-out](/use-cases/crewai-message-bus-fan-out.md) — uses this kind of durable queue under a CrewAI crew
+- [Browser job queue with retries](/use-cases/browser-job-queue-with-retries) — concrete browser-domain instance of the same retry queue
+- [Per-agent dead-letter inspection queue](/use-cases/per-agent-dead-letter-inspection-queue) — DLQ side of the same JetStream backoff pattern
+- [CrewAI message bus fan-out](/use-cases/crewai-message-bus-fan-out) — uses this kind of durable queue under a CrewAI crew

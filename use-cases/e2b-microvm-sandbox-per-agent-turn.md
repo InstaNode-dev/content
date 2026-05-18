@@ -72,6 +72,6 @@ Sub-second provisioning matches sandbox boot time — neither component is the b
 
 ## Related cases
 
-- [Daytona warm-pool data workspace](/use-cases/daytona-warm-pool-data-workspace.md) — kept-warm alternative to spinning microVMs from cold
-- [Sandboxed test runner per task](/use-cases/sandboxed-test-runner-per-task.md) — the test-runner-specific variant of per-turn sandboxing
-- [Replit-Agent preview backend](/use-cases/replit-agent-preview-backend.md) — preview-deployment sibling with a 24h reaper
+- [Daytona warm-pool data workspace](/use-cases/daytona-warm-pool-data-workspace) — kept-warm alternative to spinning microVMs from cold
+- [Sandboxed test runner per task](/use-cases/sandboxed-test-runner-per-task) — the test-runner-specific variant of per-turn sandboxing
+- [Replit-Agent preview backend](/use-cases/replit-agent-preview-backend) — preview-deployment sibling with a 24h reaper

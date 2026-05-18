@@ -28,8 +28,8 @@ All systems operational. (For the live indicator and per-service uptime metrics,
 
 For a chronological list of incidents, see the HTML page. Recent fixes and platform speed-ups are also documented in build-notes posts on [/blog.md](/blog.md), including:
 
-- [How /db/new dropped from 17s to under a second](/blog/why-pool-makes-curl-instant.md)
-- [Strict-discipline shipping — change → live test → PR → merge](/blog/shipping-with-strict-discipline.md)
+- [How /db/new dropped from 17s to under a second](/blog/why-pool-makes-curl-instant)
+- [Strict-discipline shipping — change → live test → PR → merge](/blog/shipping-with-strict-discipline)
 
 ## Machine-readable
 

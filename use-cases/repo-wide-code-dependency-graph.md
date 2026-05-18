@@ -80,6 +80,6 @@ Postgres recursive CTEs make blast-radius traversal a single query, and provisio
 
 ## Related cases
 
-- [Coding-agent cross-session memory](/use-cases/coding-agent-cross-session-memory.md) — complementary architectural-memory store for the same coding agent
-- [Multi-repo shared scratchpad](/use-cases/multi-repo-shared-scratchpad.md) — cross-repo coordination view layered on top of the graph
-- [SARIF scan-result store](/use-cases/sarif-scan-result-store.md) — uses similar Postgres patterns for cross-commit graph drift
+- [Coding-agent cross-session memory](/use-cases/coding-agent-cross-session-memory) — complementary architectural-memory store for the same coding agent
+- [Multi-repo shared scratchpad](/use-cases/multi-repo-shared-scratchpad) — cross-repo coordination view layered on top of the graph
+- [SARIF scan-result store](/use-cases/sarif-scan-result-store) — uses similar Postgres patterns for cross-commit graph drift

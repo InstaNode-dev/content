@@ -77,6 +77,6 @@ Three resources per tenant, claimed under your factory's token, deploy in second
 
 ## Related cases
 
-- [AgentCore tenant-scoped spawning](/use-cases/agentcore-tenant-scoped-spawning.md) — lighter-weight tenant runtime without the chatbot UI
-- [Cloudflare sub-agent factory per user](/use-cases/cloudflare-sub-agent-factory-per-user.md) — per-user variant of the same factory pattern
-- [Inbox-zero agent fleet](/use-cases/inbox-zero-agent-fleet.md) — per-user durable-agent shape adjacent to per-tenant
+- [AgentCore tenant-scoped spawning](/use-cases/agentcore-tenant-scoped-spawning) — lighter-weight tenant runtime without the chatbot UI
+- [Cloudflare sub-agent factory per user](/use-cases/cloudflare-sub-agent-factory-per-user) — per-user variant of the same factory pattern
+- [Inbox-zero agent fleet](/use-cases/inbox-zero-agent-fleet) — per-user durable-agent shape adjacent to per-tenant

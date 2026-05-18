@@ -81,6 +81,6 @@ JetStream's durable pull-consumers let the investigator fall behind during a fai
 
 ## Related cases
 
-- [Durable agent task queue](/use-cases/durable-agent-task-queue.md) — the main queue whose failures feed this DLQ
-- [Live agent status broadcast](/use-cases/live-agent-status-broadcast.md) — complementary live-success-side view of the same swarm
-- [Agent-resilience chaos lab](/use-cases/agent-resilience-chaos-lab.md) — produces the failures the DLQ inspector ends up clustering
+- [Durable agent task queue](/use-cases/durable-agent-task-queue) — the main queue whose failures feed this DLQ
+- [Live agent status broadcast](/use-cases/live-agent-status-broadcast) — complementary live-success-side view of the same swarm
+- [Agent-resilience chaos lab](/use-cases/agent-resilience-chaos-lab) — produces the failures the DLQ inspector ends up clustering

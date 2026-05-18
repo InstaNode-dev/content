@@ -67,6 +67,6 @@ NATS gives you push semantics — the chat agent finds out about a failed deploy
 
 ## Related cases
 
-- [On-call incident-response agent](/use-cases/on-call-incident-response-agent.md) — consumes the status pings this MCP exposes during incidents
-- [Live agent status broadcast](/use-cases/live-agent-status-broadcast.md) — the agent-fleet variant of the same heartbeat-over-NATS pattern
-- [Pre-commit skill-scanner webhook](/use-cases/pre-commit-skill-scanner-webhook.md) — another developer-tooling webhook surface for MCP-side tooling
+- [On-call incident-response agent](/use-cases/on-call-incident-response-agent) — consumes the status pings this MCP exposes during incidents
+- [Live agent status broadcast](/use-cases/live-agent-status-broadcast) — the agent-fleet variant of the same heartbeat-over-NATS pattern
+- [Pre-commit skill-scanner webhook](/use-cases/pre-commit-skill-scanner-webhook) — another developer-tooling webhook surface for MCP-side tooling

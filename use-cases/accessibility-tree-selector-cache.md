@@ -75,6 +75,6 @@ You don't want to spin up ElastiCache for a 25MB working set. The free anonymous
 
 ## Related cases
 
-- [Browser-session cookie store](/use-cases/browser-session-cookie-store.md) — another Redis cache that keeps a browser agent's per-site state warm
-- [Browser-agent action pool](/use-cases/browser-agent-action-pool.md) — consumes cached selectors when fanning out browser actions
-- [Form-fill state machine](/use-cases/form-fill-state-machine.md) — uses the same selector cache to resume long-running form fills
+- [Browser-session cookie store](/use-cases/browser-session-cookie-store) — another Redis cache that keeps a browser agent's per-site state warm
+- [Browser-agent action pool](/use-cases/browser-agent-action-pool) — consumes cached selectors when fanning out browser actions
+- [Form-fill state machine](/use-cases/form-fill-state-machine) — uses the same selector cache to resume long-running form fills

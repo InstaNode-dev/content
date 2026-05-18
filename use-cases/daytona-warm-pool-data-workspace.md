@@ -76,6 +76,6 @@ Per-sandbox Redis namespaces mean noisy neighbors can't poison each other's reso
 
 ## Related cases
 
-- [E2B microVM sandbox per agent turn](/use-cases/e2b-microvm-sandbox-per-agent-turn.md) — per-turn cold-start alternative to a kept-warm pool
-- [Sandboxed test runner per task](/use-cases/sandboxed-test-runner-per-task.md) — the test-runner equivalent of the same pool idea
-- [Pyodide notebook cell agent farm](/use-cases/pyodide-notebook-cell-agent-farm.md) — another pool of ready-to-run Python workers
+- [E2B microVM sandbox per agent turn](/use-cases/e2b-microvm-sandbox-per-agent-turn) — per-turn cold-start alternative to a kept-warm pool
+- [Sandboxed test runner per task](/use-cases/sandboxed-test-runner-per-task) — the test-runner equivalent of the same pool idea
+- [Pyodide notebook cell agent farm](/use-cases/pyodide-notebook-cell-agent-farm) — another pool of ready-to-run Python workers

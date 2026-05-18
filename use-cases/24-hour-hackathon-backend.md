@@ -73,6 +73,6 @@ Hackathons die from cleanup debt — nobody remembers to tear down the RDS insta
 
 ## Related cases
 
-- [Full dev backend in one curl](/use-cases/full-dev-backend-in-one-curl.md) — the same anonymous-bundle pattern without the 24h hard expiry
-- [Agent-resilience chaos lab](/use-cases/agent-resilience-chaos-lab.md) — another hackathon-flavored stack that adds NATS for chaos tests
-- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend.md) — the paid-tier version of the same ship-by-evening flow
+- [Full dev backend in one curl](/use-cases/full-dev-backend-in-one-curl) — the same anonymous-bundle pattern without the 24h hard expiry
+- [Agent-resilience chaos lab](/use-cases/agent-resilience-chaos-lab) — another hackathon-flavored stack that adds NATS for chaos tests
+- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend) — the paid-tier version of the same ship-by-evening flow

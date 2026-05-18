@@ -80,6 +80,6 @@ pgvector ships in the Postgres you provision, so there is no separate vector sto
 
 ## Related cases
 
-- [Coding-agent cross-session memory](/use-cases/coding-agent-cross-session-memory.md) — same pgvector recall pattern over code instead of notes
-- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory.md) — short-form personal counterpart to the long-form vault
-- [arXiv-and-RSS research feed](/use-cases/arxiv-and-rss-research-feed.md) — an upstream ingestion source that feeds into the vault
+- [Coding-agent cross-session memory](/use-cases/coding-agent-cross-session-memory) — same pgvector recall pattern over code instead of notes
+- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory) — short-form personal counterpart to the long-form vault
+- [arXiv-and-RSS research feed](/use-cases/arxiv-and-rss-research-feed) — an upstream ingestion source that feeds into the vault

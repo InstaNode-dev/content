@@ -80,6 +80,6 @@ AP2 mandates need both fast metadata queries (Postgres) and tamper-proof raw-blo
 
 ## Related cases
 
-- [AP2 mandate broker](/use-cases/ap2-mandate-broker.md) — the live-broker counterpart to this audit-only store
-- [Agent-marketplace escrow](/use-cases/agent-marketplace-escrow.md) — another signed-commitment ledger for agent commerce
-- [x402 micropayment ledger](/use-cases/x402-micropayment-ledger.md) — the micropayment counterpart that this mandate authorizes
+- [AP2 mandate broker](/use-cases/ap2-mandate-broker) — the live-broker counterpart to this audit-only store
+- [Agent-marketplace escrow](/use-cases/agent-marketplace-escrow) — another signed-commitment ledger for agent commerce
+- [x402 micropayment ledger](/use-cases/x402-micropayment-ledger) — the micropayment counterpart that this mandate authorizes

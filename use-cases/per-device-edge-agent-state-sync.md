@@ -87,6 +87,6 @@ The webhook receiver flattens 10k devices into a single buffered ingestion point
 
 ## Related cases
 
-- [Geo-sharded chat-agent fleet](/use-cases/geo-sharded-chat-agent-fleet.md) — region-scoped variant of the same edge-to-central sync idea
-- [Federated-learning aggregator](/use-cases/federated-learning-aggregator.md) — edge-fleet sibling that syncs gradients instead of SQLite deltas
-- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest.md) — similar webhook-batch ingestion at agent-fleet scale
+- [Geo-sharded chat-agent fleet](/use-cases/geo-sharded-chat-agent-fleet) — region-scoped variant of the same edge-to-central sync idea
+- [Federated-learning aggregator](/use-cases/federated-learning-aggregator) — edge-fleet sibling that syncs gradients instead of SQLite deltas
+- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest) — similar webhook-batch ingestion at agent-fleet scale

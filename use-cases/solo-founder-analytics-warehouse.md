@@ -78,6 +78,6 @@ A solo founder doesn't need PostHog, Mixpanel, and Snowflake; they need one plac
 
 ## Related cases
 
-- [Pre-launch waitlist store](/use-cases/pre-launch-waitlist-store.md) — an upstream funnel source that lands in this warehouse
-- [Stripe-event entitlements](/use-cases/stripe-event-entitlements.md) — subscription-state source for cohort analysis in the warehouse
-- [Scraped product-price history](/use-cases/scraped-product-price-history.md) — another time-series Postgres workload for indie founders
+- [Pre-launch waitlist store](/use-cases/pre-launch-waitlist-store) — an upstream funnel source that lands in this warehouse
+- [Stripe-event entitlements](/use-cases/stripe-event-entitlements) — subscription-state source for cohort analysis in the warehouse
+- [Scraped product-price history](/use-cases/scraped-product-price-history) — another time-series Postgres workload for indie founders

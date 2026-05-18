@@ -73,6 +73,6 @@ LangGraph's PostgresSaver only needs a working DSN, which the `/db/new` response
 
 ## Related cases
 
-- [Form-fill state machine](/use-cases/form-fill-state-machine.md) — domain-specific instance of the same crash-resume pattern
-- [Restate-style durable sidecar](/use-cases/restate-style-durable-sidecar.md) — out-of-process alternative to in-graph checkpoints
-- [Long-horizon Temporal agent workflow](/use-cases/long-horizon-temporal-agent-workflow.md) — scales the checkpoint idea to 14-day workflows
+- [Form-fill state machine](/use-cases/form-fill-state-machine) — domain-specific instance of the same crash-resume pattern
+- [Restate-style durable sidecar](/use-cases/restate-style-durable-sidecar) — out-of-process alternative to in-graph checkpoints
+- [Long-horizon Temporal agent workflow](/use-cases/long-horizon-temporal-agent-workflow) — scales the checkpoint idea to 14-day workflows

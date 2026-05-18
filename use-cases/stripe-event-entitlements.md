@@ -74,6 +74,6 @@ The webhook resource gives you Stripe-signature-verified replay history out of t
 
 ## Related cases
 
-- [Pre-launch waitlist store](/use-cases/pre-launch-waitlist-store.md) — the pre-paid signup half of the same indie-founder funnel
-- [Solo-founder analytics warehouse](/use-cases/solo-founder-analytics-warehouse.md) — downstream warehouse that consumes plan-tier events
-- [Stripe-ACP checkout agent](/use-cases/stripe-acp-checkout-agent.md) — upstream agent-checkout flow that fires these webhooks
+- [Pre-launch waitlist store](/use-cases/pre-launch-waitlist-store) — the pre-paid signup half of the same indie-founder funnel
+- [Solo-founder analytics warehouse](/use-cases/solo-founder-analytics-warehouse) — downstream warehouse that consumes plan-tier events
+- [Stripe-ACP checkout agent](/use-cases/stripe-acp-checkout-agent) — upstream agent-checkout flow that fires these webhooks

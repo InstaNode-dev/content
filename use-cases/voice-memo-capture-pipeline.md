@@ -75,6 +75,6 @@ The audio bytes belong in S3-compatible storage (cheap, S3-API), the transcript 
 
 ## Related cases
 
-- [Clinical-scribe note storage](/use-cases/clinical-scribe-note-storage.md) — vertical-AI sibling that turns audio into structured records
-- [Obsidian-vault embedding sync](/use-cases/obsidian-vault-embedding-sync.md) — downstream sink that can index transcripts for recall
-- [arXiv-and-RSS research feed](/use-cases/arxiv-and-rss-research-feed.md) — another personal-AI ingestion pipeline keyed by webhook
+- [Clinical-scribe note storage](/use-cases/clinical-scribe-note-storage) — vertical-AI sibling that turns audio into structured records
+- [Obsidian-vault embedding sync](/use-cases/obsidian-vault-embedding-sync) — downstream sink that can index transcripts for recall
+- [arXiv-and-RSS research feed](/use-cases/arxiv-and-rss-research-feed) — another personal-AI ingestion pipeline keyed by webhook

@@ -88,6 +88,6 @@ Redis' sorted-set sliding windows are the canonical agent-rate-limit primitive, 
 
 ## Related cases
 
-- [Tool-call rate-limit and budget cache](/use-cases/tool-call-rate-limit-and-budget-cache.md) — the in-agent budget cache this vault rolls up into
-- [Token-cost ledger per sub-agent](/use-cases/token-cost-ledger-per-sub-agent.md) — consumes the vault's billing events for tenant-spend rollups
-- [x402 micropayment per tool call](/use-cases/x402-micropayment-per-tool-call.md) — payment-rail alternative to rate-limited keys for paid tools
+- [Tool-call rate-limit and budget cache](/use-cases/tool-call-rate-limit-and-budget-cache) — the in-agent budget cache this vault rolls up into
+- [Token-cost ledger per sub-agent](/use-cases/token-cost-ledger-per-sub-agent) — consumes the vault's billing events for tenant-spend rollups
+- [x402 micropayment per tool call](/use-cases/x402-micropayment-per-tool-call) — payment-rail alternative to rate-limited keys for paid tools

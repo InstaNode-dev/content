@@ -83,6 +83,6 @@ Mandate brokers live or die on atomic budget checks — concurrent buyer agents 
 
 ## Related cases
 
-- [AP2 mandate audit trail](/use-cases/ap2-mandate-audit-trail.md) — the archival half of this live broker
-- [Agent-marketplace escrow](/use-cases/agent-marketplace-escrow.md) — complementary commitment layer for buyer-seller flows
-- [Stripe-ACP checkout agent](/use-cases/stripe-acp-checkout-agent.md) — the Stripe-rail alternative to the AP2 spec
+- [AP2 mandate audit trail](/use-cases/ap2-mandate-audit-trail) — the archival half of this live broker
+- [Agent-marketplace escrow](/use-cases/agent-marketplace-escrow) — complementary commitment layer for buyer-seller flows
+- [Stripe-ACP checkout agent](/use-cases/stripe-acp-checkout-agent) — the Stripe-rail alternative to the AP2 spec

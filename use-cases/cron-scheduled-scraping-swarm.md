@@ -68,6 +68,6 @@ Webhook receivers are real public HTTPS endpoints — no ngrok, no local tunnel 
 
 ## Related cases
 
-- [Browser job queue with retries](/use-cases/browser-job-queue-with-retries.md) — execution primitive each cron tick fans out onto
-- [Scraped product-price history](/use-cases/scraped-product-price-history.md) — longitudinal storage for what these scrapers extract
-- [Overnight dossier fleet](/use-cases/overnight-dossier-fleet.md) — another scheduled background fleet pattern with Mongo+S3-compatible storage outputs
+- [Browser job queue with retries](/use-cases/browser-job-queue-with-retries) — execution primitive each cron tick fans out onto
+- [Scraped product-price history](/use-cases/scraped-product-price-history) — longitudinal storage for what these scrapers extract
+- [Overnight dossier fleet](/use-cases/overnight-dossier-fleet) — another scheduled background fleet pattern with Mongo+S3-compatible storage outputs

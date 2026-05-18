@@ -67,6 +67,6 @@ JetStream is a real durable stream — messages survive broker restarts, agent c
 
 ## Related cases
 
-- [Cross-framework A2A gateway](/use-cases/cross-framework-a2a-gateway.md) — promotes the inbox into a protocol-translating bus
-- [Durable agent task queue](/use-cases/durable-agent-task-queue.md) — same JetStream durability primitive for jobs instead of conversations
-- [A2A agent-card registry](/use-cases/a2a-agent-card-registry.md) — directory that tells agents which inbox to negotiate on
+- [Cross-framework A2A gateway](/use-cases/cross-framework-a2a-gateway) — promotes the inbox into a protocol-translating bus
+- [Durable agent task queue](/use-cases/durable-agent-task-queue) — same JetStream durability primitive for jobs instead of conversations
+- [A2A agent-card registry](/use-cases/a2a-agent-card-registry) — directory that tells agents which inbox to negotiate on

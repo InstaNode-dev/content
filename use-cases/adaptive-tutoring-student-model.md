@@ -83,6 +83,6 @@ Adaptive tutoring needs real SQL for the ranking query (ORDER BY two columns wit
 
 ## Related cases
 
-- [Classroom-per-student sandbox](/use-cases/classroom-per-student-sandbox.md) — the same per-student isolation idea applied to SQL homework
-- [CRM for one person](/use-cases/crm-for-one-person.md) — another Postgres-only per-user model with personalized recall
-- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory.md) — persistent per-user state with sub-second history retrieval
+- [Classroom-per-student sandbox](/use-cases/classroom-per-student-sandbox) — the same per-student isolation idea applied to SQL homework
+- [CRM for one person](/use-cases/crm-for-one-person) — another Postgres-only per-user model with personalized recall
+- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory) — persistent per-user state with sub-second history retrieval

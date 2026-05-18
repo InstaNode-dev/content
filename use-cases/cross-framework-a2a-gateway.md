@@ -73,6 +73,6 @@ A gateway is exactly the kind of "stateless service connecting two stateful syst
 
 ## Related cases
 
-- [A2A agent-card registry](/use-cases/a2a-agent-card-registry.md) — the discovery layer this gateway routes to
-- [Cross-agent shared inbox](/use-cases/cross-agent-shared-inbox.md) — the durable-subject primitive the gateway sits on
-- [OpenAI Agents SDK handoff mesh](/use-cases/openai-agents-sdk-handoff-mesh.md) — one of the framework dialects this gateway bridges
+- [A2A agent-card registry](/use-cases/a2a-agent-card-registry) — the discovery layer this gateway routes to
+- [Cross-agent shared inbox](/use-cases/cross-agent-shared-inbox) — the durable-subject primitive the gateway sits on
+- [OpenAI Agents SDK handoff mesh](/use-cases/openai-agents-sdk-handoff-mesh) — one of the framework dialects this gateway bridges

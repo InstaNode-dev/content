@@ -74,6 +74,6 @@ Spinning up a throwaway Postgres for plan probing used to take an RDS dashboard 
 
 ## Related cases
 
-- [Copy-on-write Postgres for agent migrations](/use-cases/copy-on-write-postgres-for-agent-migrations.md) — the forking primitive this probe runs EXPLAINs against
-- [Ephemeral test database for a risky migration](/use-cases/ephemeral-test-database-for-a-risky-migration.md) — single-clone alternative when you only need one probe
-- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch.md) — same fan-out-and-pick-best shape, applied to model tools
+- [Copy-on-write Postgres for agent migrations](/use-cases/copy-on-write-postgres-for-agent-migrations) — the forking primitive this probe runs EXPLAINs against
+- [Ephemeral test database for a risky migration](/use-cases/ephemeral-test-database-for-a-risky-migration) — single-clone alternative when you only need one probe
+- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch) — same fan-out-and-pick-best shape, applied to model tools

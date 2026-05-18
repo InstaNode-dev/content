@@ -84,6 +84,6 @@ Letters need a complete edit history for malpractice defense; Postgres versionin
 
 ## Related cases
 
-- [Clinical-scribe note storage](/use-cases/clinical-scribe-note-storage.md) — another vertical-AI workflow with versioned per-case docs
-- [Contract redline cache](/use-cases/contract-redline-cache.md) — adjacent legal-AI workflow that caches clause embeddings
-- [AML transaction monitor](/use-cases/aml-transaction-monitor.md) — compliance-flavored sibling with full auditable reasoning trace
+- [Clinical-scribe note storage](/use-cases/clinical-scribe-note-storage) — another vertical-AI workflow with versioned per-case docs
+- [Contract redline cache](/use-cases/contract-redline-cache) — adjacent legal-AI workflow that caches clause embeddings
+- [AML transaction monitor](/use-cases/aml-transaction-monitor) — compliance-flavored sibling with full auditable reasoning trace

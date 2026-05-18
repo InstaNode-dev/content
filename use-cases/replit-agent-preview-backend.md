@@ -70,6 +70,6 @@ Anonymous-tier provisions have a 24-hour TTL baked in — exactly the lifecycle 
 
 ## Related cases
 
-- [Sandbox-per-PR preview deployment](/use-cases/sandbox-per-pr-preview-deployment.md) — PR-scoped variant of the same disposable-preview pattern
-- [E2B microVM sandbox per agent turn](/use-cases/e2b-microvm-sandbox-per-agent-turn.md) — per-turn alternative when previews don't need a share link
-- [Side-project container deploy](/use-cases/side-project-container-deploy.md) — the bare deploy primitive this preview backend wraps
+- [Sandbox-per-PR preview deployment](/use-cases/sandbox-per-pr-preview-deployment) — PR-scoped variant of the same disposable-preview pattern
+- [E2B microVM sandbox per agent turn](/use-cases/e2b-microvm-sandbox-per-agent-turn) — per-turn alternative when previews don't need a share link
+- [Side-project container deploy](/use-cases/side-project-container-deploy) — the bare deploy primitive this preview backend wraps

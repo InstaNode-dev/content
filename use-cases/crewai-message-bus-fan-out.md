@@ -69,6 +69,6 @@ NATS JetStream is a single-curl provision, not a cluster you operate. The server
 
 ## Related cases
 
-- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents.md) — framework-equivalent fan-out pattern with a Postgres reducer
-- [Cross-framework A2A gateway](/use-cases/cross-framework-a2a-gateway.md) — translates CrewAI subjects into other frameworks' protocols
-- [Durable agent task queue](/use-cases/durable-agent-task-queue.md) — the durability-with-retry primitive these CrewAI subjects need
+- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents) — framework-equivalent fan-out pattern with a Postgres reducer
+- [Cross-framework A2A gateway](/use-cases/cross-framework-a2a-gateway) — translates CrewAI subjects into other frameworks' protocols
+- [Durable agent task queue](/use-cases/durable-agent-task-queue) — the durability-with-retry primitive these CrewAI subjects need

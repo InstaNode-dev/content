@@ -71,6 +71,6 @@ Each service maps to exactly its strength: Mongo's flexible schema for bracket s
 
 ## Related cases
 
-- [SWE-bench parallel rollout harness](/use-cases/swe-bench-parallel-rollout-harness.md) — code-eval cousin that scales to 500 isolated tasks
-- [LLM-as-judge consensus pool](/use-cases/llm-as-judge-consensus-pool.md) — judge layer that picks winners between bracket pairs
-- [Adversarial red-team runner](/use-cases/adversarial-red-team-runner.md) — parallel-attacker variant of the same eval-fleet pattern
+- [SWE-bench parallel rollout harness](/use-cases/swe-bench-parallel-rollout-harness) — code-eval cousin that scales to 500 isolated tasks
+- [LLM-as-judge consensus pool](/use-cases/llm-as-judge-consensus-pool) — judge layer that picks winners between bracket pairs
+- [Adversarial red-team runner](/use-cases/adversarial-red-team-runner) — parallel-attacker variant of the same eval-fleet pattern

@@ -62,6 +62,6 @@ This is the canonical instanode flow: no Docker daemon, no `docker compose up`, 
 
 ## Related cases
 
-- [24-hour hackathon backend](/use-cases/24-hour-hackathon-backend.md) — hackathon-flavored variant of the same anonymous-bundle idea
-- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend.md) — paid-tier extension that adds deploy on top
-- [Agent-resilience chaos lab](/use-cases/agent-resilience-chaos-lab.md) — same bundle plus chaos injection for resilience testing
+- [24-hour hackathon backend](/use-cases/24-hour-hackathon-backend) — hackathon-flavored variant of the same anonymous-bundle idea
+- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend) — paid-tier extension that adds deploy on top
+- [Agent-resilience chaos lab](/use-cases/agent-resilience-chaos-lab) — same bundle plus chaos injection for resilience testing

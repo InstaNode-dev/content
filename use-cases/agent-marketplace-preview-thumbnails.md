@@ -79,6 +79,6 @@ Marketplace thumbnails are write-once, read-many, and you don't want to pay R2/S
 
 ## Related cases
 
-- [A2A agent-card registry](/use-cases/a2a-agent-card-registry.md) — the structured-metadata half of the same marketplace listing
-- [Screenshot evidence archive](/use-cases/screenshot-evidence-archive.md) — the same S3-compatible storage-keyed-by-id pattern for QA screenshots
-- [Agent reputation log](/use-cases/agent-reputation-log.md) — ratings that surface next to the thumbnails in the listing UI
+- [A2A agent-card registry](/use-cases/a2a-agent-card-registry) — the structured-metadata half of the same marketplace listing
+- [Screenshot evidence archive](/use-cases/screenshot-evidence-archive) — the same S3-compatible storage-keyed-by-id pattern for QA screenshots
+- [Agent reputation log](/use-cases/agent-reputation-log) — ratings that surface next to the thumbnails in the listing UI

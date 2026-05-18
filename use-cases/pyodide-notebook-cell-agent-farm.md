@@ -70,6 +70,6 @@ NATS JetStream is queue + durable log in one — workers can rejoin mid-run and 
 
 ## Related cases
 
-- [Daytona warm-pool data workspace](/use-cases/daytona-warm-pool-data-workspace.md) — another warm-pool of Python sandboxes for analyst agents
-- [Browser-agent action pool](/use-cases/browser-agent-action-pool.md) — same fan-out shape with browser tabs instead of notebook cells
-- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents.md) — fan-out planner+reducer pattern at the research level
+- [Daytona warm-pool data workspace](/use-cases/daytona-warm-pool-data-workspace) — another warm-pool of Python sandboxes for analyst agents
+- [Browser-agent action pool](/use-cases/browser-agent-action-pool) — same fan-out shape with browser tabs instead of notebook cells
+- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents) — fan-out planner+reducer pattern at the research level

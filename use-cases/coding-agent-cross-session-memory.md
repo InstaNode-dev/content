@@ -137,6 +137,6 @@ Long-running agent memory has been awkwardly served by two opposite camps. The *
 
 ## Related cases
 
-- [Claude Code agent-teams scratchpad](/use-cases/claude-code-agent-teams-scratchpad.md) — the across-siblings counterpart to across-sessions memory
-- [Multi-repo shared scratchpad](/use-cases/multi-repo-shared-scratchpad.md) — scratchpad that spans repos instead of time
-- [Obsidian-vault embedding sync](/use-cases/obsidian-vault-embedding-sync.md) — same pgvector recall pattern over personal notes
+- [Claude Code agent-teams scratchpad](/use-cases/claude-code-agent-teams-scratchpad) — the across-siblings counterpart to across-sessions memory
+- [Multi-repo shared scratchpad](/use-cases/multi-repo-shared-scratchpad) — scratchpad that spans repos instead of time
+- [Obsidian-vault embedding sync](/use-cases/obsidian-vault-embedding-sync) — same pgvector recall pattern over personal notes

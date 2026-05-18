@@ -74,6 +74,6 @@ Run SWE-bench-Verified end-to-end on 500 tasks in parallel. For each task: provi
 
 ## Related cases
 
-- [GAIA tournament bracket](/use-cases/gaia-tournament-bracket.md) — tournament-scoring variant of the same parallel eval fleet
-- [Terminal-Bench shell sandbox grid](/use-cases/terminal-bench-shell-sandbox-grid.md) — shell-task sibling at fleet scale with webhook pass/fail
-- [Trajectory diff regression harness](/use-cases/trajectory-diff-regression-harness.md) — per-PR regression cousin of running the full benchmark
+- [GAIA tournament bracket](/use-cases/gaia-tournament-bracket) — tournament-scoring variant of the same parallel eval fleet
+- [Terminal-Bench shell sandbox grid](/use-cases/terminal-bench-shell-sandbox-grid) — shell-task sibling at fleet scale with webhook pass/fail
+- [Trajectory diff regression harness](/use-cases/trajectory-diff-regression-harness) — per-PR regression cousin of running the full benchmark

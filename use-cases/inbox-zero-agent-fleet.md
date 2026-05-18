@@ -80,6 +80,6 @@ The webhook receiver buffers inbound mail for you, so the triage agent can fall 
 
 ## Related cases
 
-- [Slack/Discord async bot factory](/use-cases/slack-discord-async-bot-factory.md) — chat-platform sibling of this per-user durable-agent pattern
-- [Overnight dossier fleet](/use-cases/overnight-dossier-fleet.md) — another async fleet writing Mongo + S3-compatible storage artifacts
-- [Per-tenant chatbot factory at signup](/use-cases/per-tenant-chatbot-factory-at-signup.md) — tenant-spawning variant of the same per-user idea
+- [Slack/Discord async bot factory](/use-cases/slack-discord-async-bot-factory) — chat-platform sibling of this per-user durable-agent pattern
+- [Overnight dossier fleet](/use-cases/overnight-dossier-fleet) — another async fleet writing Mongo + S3-compatible storage artifacts
+- [Per-tenant chatbot factory at signup](/use-cases/per-tenant-chatbot-factory-at-signup) — tenant-spawning variant of the same per-user idea

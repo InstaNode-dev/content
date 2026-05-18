@@ -79,6 +79,6 @@ The webhook receiver gives the scanner a single ingress URL that every dev's hoo
 
 ## Related cases
 
-- [Adversarial red-team runner](/use-cases/adversarial-red-team-runner.md) — runtime attack-surface counterpart to this static scanner
-- [PR-review bot triggered by webhooks](/use-cases/pr-review-bot-triggered-by-webhooks.md) — another webhook-triggered code-quality bot
-- [SARIF scan-result store](/use-cases/sarif-scan-result-store.md) — Postgres warehouse where scanner findings can land for trends
+- [Adversarial red-team runner](/use-cases/adversarial-red-team-runner) — runtime attack-surface counterpart to this static scanner
+- [PR-review bot triggered by webhooks](/use-cases/pr-review-bot-triggered-by-webhooks) — another webhook-triggered code-quality bot
+- [SARIF scan-result store](/use-cases/sarif-scan-result-store) — Postgres warehouse where scanner findings can land for trends

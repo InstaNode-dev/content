@@ -68,6 +68,6 @@ A real S3-API bucket makes trajectory caching across CI runs trivial — no "did
 
 ## Related cases
 
-- [SWE-bench parallel rollout harness](/use-cases/swe-bench-parallel-rollout-harness.md) — full-benchmark sibling of this per-PR regression check
-- [Cross-agent replay debugger](/use-cases/cross-agent-replay-debugger.md) — manual-replay UI built on the same cached-trajectory pattern
-- [Agent-run lineage store](/use-cases/agent-run-lineage-store.md) — lineage anchor used to attribute diffs to specific runs
+- [SWE-bench parallel rollout harness](/use-cases/swe-bench-parallel-rollout-harness) — full-benchmark sibling of this per-PR regression check
+- [Cross-agent replay debugger](/use-cases/cross-agent-replay-debugger) — manual-replay UI built on the same cached-trajectory pattern
+- [Agent-run lineage store](/use-cases/agent-run-lineage-store) — lineage anchor used to attribute diffs to specific runs

@@ -71,6 +71,6 @@ You're a CS professor running a SQL assignment for 40 students. Provision one ep
 
 ## Related cases
 
-- [24-hour hackathon backend](/use-cases/24-hour-hackathon-backend.md) — another education-flavored ephemeral provisioning pattern
-- [Ephemeral test database for a risky migration](/use-cases/ephemeral-test-database-for-a-risky-migration.md) — the per-task version of the same throwaway-Postgres pattern
-- [Adaptive-tutoring student model](/use-cases/adaptive-tutoring-student-model.md) — pairs naturally as the tutoring layer over per-student sandboxes
+- [24-hour hackathon backend](/use-cases/24-hour-hackathon-backend) — another education-flavored ephemeral provisioning pattern
+- [Ephemeral test database for a risky migration](/use-cases/ephemeral-test-database-for-a-risky-migration) — the per-task version of the same throwaway-Postgres pattern
+- [Adaptive-tutoring student model](/use-cases/adaptive-tutoring-student-model) — pairs naturally as the tutoring layer over per-student sandboxes

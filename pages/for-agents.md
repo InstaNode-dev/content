@@ -43,11 +43,11 @@ Each response includes `connection_url` and `upgrade_jwt`. The agent uses the UR
 
 See [/use-cases.md](/use-cases.md) for 100+ scenarios across 18 archetypes, including paste-ready prompts for vanilla LLMs (no MCP, no install). Highlights:
 
-- [Ephemeral test database for a risky migration](/use-cases/ephemeral-test-database-for-a-risky-migration.md)
-- [Coding-agent cross-session memory](/use-cases/coding-agent-cross-session-memory.md)
-- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents.md)
-- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet.md)
-- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend.md)
+- [Ephemeral test database for a risky migration](/use-cases/ephemeral-test-database-for-a-risky-migration)
+- [Coding-agent cross-session memory](/use-cases/coding-agent-cross-session-memory)
+- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents)
+- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet)
+- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend)
 
 ## MCP server
 

@@ -80,6 +80,6 @@ Claim the token once and the same Postgres URL works from your laptop, phone (vi
 
 ## Related cases
 
-- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory.md) — complementary personal-AI store keyed by day instead of person
-- [Obsidian-vault embedding sync](/use-cases/obsidian-vault-embedding-sync.md) — another single-user Postgres knowledge base
-- [Voice-memo capture pipeline](/use-cases/voice-memo-capture-pipeline.md) — an input pipeline that can feed contact notes into the CRM
+- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory) — complementary personal-AI store keyed by day instead of person
+- [Obsidian-vault embedding sync](/use-cases/obsidian-vault-embedding-sync) — another single-user Postgres knowledge base
+- [Voice-memo capture pipeline](/use-cases/voice-memo-capture-pipeline) — an input pipeline that can feed contact notes into the CRM

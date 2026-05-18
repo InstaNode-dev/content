@@ -78,6 +78,6 @@ Cookie state is small (~10KB per site), hot (read at every run start), and ephem
 
 ## Related cases
 
-- [Accessibility-tree selector cache](/use-cases/accessibility-tree-selector-cache.md) — complementary Redis cache that speeds up the same browser agent
-- [Form-fill state machine](/use-cases/form-fill-state-machine.md) — auth state these cookies provide is what lets form-fill resume
-- [Per-agent rate-limited API key vault](/use-cases/per-agent-rate-limited-api-key-vault.md) — another secrets-in-Redis pattern with scoped access
+- [Accessibility-tree selector cache](/use-cases/accessibility-tree-selector-cache) — complementary Redis cache that speeds up the same browser agent
+- [Form-fill state machine](/use-cases/form-fill-state-machine) — auth state these cookies provide is what lets form-fill resume
+- [Per-agent rate-limited API key vault](/use-cases/per-agent-rate-limited-api-key-vault) — another secrets-in-Redis pattern with scoped access

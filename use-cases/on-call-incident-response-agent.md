@@ -79,6 +79,6 @@ The webhook receiver buffers alerts during a paging storm, so the agent processe
 
 ## Related cases
 
-- [Deploy-status MCP server](/use-cases/deploy-status-mcp-server.md) — live status the on-call agent reads while running a runbook
-- [Slack/Discord async bot factory](/use-cases/slack-discord-async-bot-factory.md) — another webhook-driven durable bot pattern
-- [CI flake-tracker](/use-cases/ci-flake-tracker.md) — consumes the alerts that flaky-test detection often generates
+- [Deploy-status MCP server](/use-cases/deploy-status-mcp-server) — live status the on-call agent reads while running a runbook
+- [Slack/Discord async bot factory](/use-cases/slack-discord-async-bot-factory) — another webhook-driven durable bot pattern
+- [CI flake-tracker](/use-cases/ci-flake-tracker) — consumes the alerts that flaky-test detection often generates

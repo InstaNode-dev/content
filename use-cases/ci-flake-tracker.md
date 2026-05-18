@@ -83,6 +83,6 @@ Flake tracking is two pieces: an HTTP sink for CI to POST to, and SQL to compute
 
 ## Related cases
 
-- [SARIF scan-result store](/use-cases/sarif-scan-result-store.md) — another CI-side Postgres warehouse for tracking drift over time
-- [PR-review bot triggered by webhooks](/use-cases/pr-review-bot-triggered-by-webhooks.md) — consumes the same kind of GitHub webhook firehose
-- [High-volume PR-review pipeline](/use-cases/high-volume-pr-review-pipeline.md) — the at-scale version of the same CI-feedback loop
+- [SARIF scan-result store](/use-cases/sarif-scan-result-store) — another CI-side Postgres warehouse for tracking drift over time
+- [PR-review bot triggered by webhooks](/use-cases/pr-review-bot-triggered-by-webhooks) — consumes the same kind of GitHub webhook firehose
+- [High-volume PR-review pipeline](/use-cases/high-volume-pr-review-pipeline) — the at-scale version of the same CI-feedback loop

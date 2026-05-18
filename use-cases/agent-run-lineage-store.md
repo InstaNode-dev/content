@@ -78,6 +78,6 @@ Lineage is fundamentally relational — recursive CTEs are the right primitive, 
 
 ## Related cases
 
-- [Cross-agent replay debugger](/use-cases/cross-agent-replay-debugger.md) — the same Postgres-index-plus-S3-compatible storage-payload pattern for replay
-- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest.md) — OTel collector that the lineage UI can sit on top of
-- [Trajectory diff regression harness](/use-cases/trajectory-diff-regression-harness.md) — uses lineage edges to anchor diffs across runs
+- [Cross-agent replay debugger](/use-cases/cross-agent-replay-debugger) — the same Postgres-index-plus-S3-compatible storage-payload pattern for replay
+- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest) — OTel collector that the lineage UI can sit on top of
+- [Trajectory diff regression harness](/use-cases/trajectory-diff-regression-harness) — uses lineage edges to anchor diffs across runs

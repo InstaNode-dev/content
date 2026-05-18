@@ -75,6 +75,6 @@ Terminal-Bench needs strict per-task isolation — one shell escaping into anoth
 
 ## Related cases
 
-- [SWE-bench parallel rollout harness](/use-cases/swe-bench-parallel-rollout-harness.md) — code-task sibling at the same fleet scale
-- [Sandboxed test runner per task](/use-cases/sandboxed-test-runner-per-task.md) — single-sandbox primitive this grid replicates 100x
-- [E2B microVM sandbox per agent turn](/use-cases/e2b-microvm-sandbox-per-agent-turn.md) — lighter-weight per-turn sandboxing alternative
+- [SWE-bench parallel rollout harness](/use-cases/swe-bench-parallel-rollout-harness) — code-task sibling at the same fleet scale
+- [Sandboxed test runner per task](/use-cases/sandboxed-test-runner-per-task) — single-sandbox primitive this grid replicates 100x
+- [E2B microVM sandbox per agent turn](/use-cases/e2b-microvm-sandbox-per-agent-turn) — lighter-weight per-turn sandboxing alternative

@@ -75,6 +75,6 @@ Mongo's flexible docs hold the intermediate findings even when sub-agents return
 
 ## Related cases
 
-- [Cron-scheduled scraping swarm](/use-cases/cron-scheduled-scraping-swarm.md) — scheduled producer of the same kind of background research jobs
-- [Inbox-zero agent fleet](/use-cases/inbox-zero-agent-fleet.md) — another async fleet writing Mongo + S3-compatible storage outputs per user
-- [arXiv-and-RSS research feed](/use-cases/arxiv-and-rss-research-feed.md) — an upstream input source for dossier topics
+- [Cron-scheduled scraping swarm](/use-cases/cron-scheduled-scraping-swarm) — scheduled producer of the same kind of background research jobs
+- [Inbox-zero agent fleet](/use-cases/inbox-zero-agent-fleet) — another async fleet writing Mongo + S3-compatible storage outputs per user
+- [arXiv-and-RSS research feed](/use-cases/arxiv-and-rss-research-feed) — an upstream input source for dossier topics

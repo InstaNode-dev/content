@@ -77,6 +77,6 @@ Escrow requires atomic state transitions — exactly one of release/refund/dispu
 
 ## Related cases
 
-- [AP2 mandate broker](/use-cases/ap2-mandate-broker.md) — the user-mandate side of the same agent-commerce loop
-- [x402 micropayment ledger](/use-cases/x402-micropayment-ledger.md) — the per-call settlement layer that complements job-level escrow
-- [Stripe-ACP checkout agent](/use-cases/stripe-acp-checkout-agent.md) — fiat-rail equivalent for agent-to-merchant purchases
+- [AP2 mandate broker](/use-cases/ap2-mandate-broker) — the user-mandate side of the same agent-commerce loop
+- [x402 micropayment ledger](/use-cases/x402-micropayment-ledger) — the per-call settlement layer that complements job-level escrow
+- [Stripe-ACP checkout agent](/use-cases/stripe-acp-checkout-agent) — fiat-rail equivalent for agent-to-merchant purchases

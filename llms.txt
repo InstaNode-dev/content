@@ -95,7 +95,7 @@ Every page has a `.md` mirror at the same path. Examples:
 - [/pricing.md](https://instanode.dev/pricing.md) — tier comparison
 - [/for-agents.md](https://instanode.dev/for-agents.md) — agent-specific guidance
 - [/status.md](https://instanode.dev/status.md) — current status
-- [/docs.md](https://instanode.dev/docs.md) — quickstart + service reference (all 8 sections concatenated)
+- [/docs.md](https://instanode.dev/docs.md) — quickstart + service reference (all 9 sections concatenated)
 - [/blog.md](https://instanode.dev/blog.md) — blog index (post titles + dates + links)
 - [/blog/<slug>.md](https://instanode.dev/blog/) — every post
 - [/use-cases.md](https://instanode.dev/use-cases.md) — catalogue index (all 104 grouped by category)

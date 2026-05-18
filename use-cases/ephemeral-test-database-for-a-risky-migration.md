@@ -101,6 +101,6 @@ The usual options for "test a destructive migration" all fail for an agent. Spin
 
 ## Related cases
 
-- [Copy-on-write Postgres for agent migrations](/use-cases/copy-on-write-postgres-for-agent-migrations.md) — the faster-fork variant of the same throwaway-Postgres pattern
-- [Classroom-per-student sandbox](/use-cases/classroom-per-student-sandbox.md) — per-student version of the same ephemeral-Postgres idea
-- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet.md) — wraps this throwaway DB in a per-issue agent worker
+- [Copy-on-write Postgres for agent migrations](/use-cases/copy-on-write-postgres-for-agent-migrations) — the faster-fork variant of the same throwaway-Postgres pattern
+- [Classroom-per-student sandbox](/use-cases/classroom-per-student-sandbox) — per-student version of the same ephemeral-Postgres idea
+- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet) — wraps this throwaway DB in a per-issue agent worker

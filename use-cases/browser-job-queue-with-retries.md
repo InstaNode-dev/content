@@ -80,6 +80,6 @@ JetStream gives you real durable queues with per-consumer cursors — exactly-on
 
 ## Related cases
 
-- [Durable agent task queue](/use-cases/durable-agent-task-queue.md) — the same NATS-with-backoff pattern at the supervisor level
-- [Browser-agent action pool](/use-cases/browser-agent-action-pool.md) — fans these queued jobs out across parallel tabs
-- [Cron-scheduled scraping swarm](/use-cases/cron-scheduled-scraping-swarm.md) — scheduled producer for the kind of jobs this queue runs
+- [Durable agent task queue](/use-cases/durable-agent-task-queue) — the same NATS-with-backoff pattern at the supervisor level
+- [Browser-agent action pool](/use-cases/browser-agent-action-pool) — fans these queued jobs out across parallel tabs
+- [Cron-scheduled scraping swarm](/use-cases/cron-scheduled-scraping-swarm) — scheduled producer for the kind of jobs this queue runs

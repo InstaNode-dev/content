@@ -72,6 +72,6 @@ The webhook resource captures every ACP event with a queryable history (requests
 
 ## Related cases
 
-- [Agent-marketplace escrow](/use-cases/agent-marketplace-escrow.md) — escrow-rail alternative to direct ACP checkout
-- [AP2 mandate broker](/use-cases/ap2-mandate-broker.md) — AP2-spec equivalent to ACP for agent commerce
-- [Stripe-event entitlements](/use-cases/stripe-event-entitlements.md) — downstream entitlement update after ACP fires its webhook
+- [Agent-marketplace escrow](/use-cases/agent-marketplace-escrow) — escrow-rail alternative to direct ACP checkout
+- [AP2 mandate broker](/use-cases/ap2-mandate-broker) — AP2-spec equivalent to ACP for agent commerce
+- [Stripe-event entitlements](/use-cases/stripe-event-entitlements) — downstream entitlement update after ACP fires its webhook

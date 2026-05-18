@@ -142,6 +142,6 @@ Fan-out research swarms have historically been gated by two costs that look smal
 
 ## Related cases
 
-- [CrewAI parallel-process crew](/use-cases/crewai-parallel-process-crew.md) — framework-equivalent parallel-research pattern
-- [Magentic-One DAG executor](/use-cases/magentic-one-dag-executor.md) — explicit DAG version of fan-out research
-- [Scatter-gather price comparison swarm](/use-cases/scatter-gather-price-comparison-swarm.md) — first-N-wins variant of the same fan-out idea
+- [CrewAI parallel-process crew](/use-cases/crewai-parallel-process-crew) — framework-equivalent parallel-research pattern
+- [Magentic-One DAG executor](/use-cases/magentic-one-dag-executor) — explicit DAG version of fan-out research
+- [Scatter-gather price comparison swarm](/use-cases/scatter-gather-price-comparison-swarm) — first-N-wins variant of the same fan-out idea

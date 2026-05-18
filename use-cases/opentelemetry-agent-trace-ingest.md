@@ -84,6 +84,6 @@ The webhook absorbs bursts when 200 agents flush at once; S3-compatible storage 
 
 ## Related cases
 
-- [Agent-run lineage store](/use-cases/agent-run-lineage-store.md) — uses these spans to build the parent/child run graph
-- [Cross-agent replay debugger](/use-cases/cross-agent-replay-debugger.md) — replays branches of the trace stream this collector ingests
-- [Token-cost ledger per sub-agent](/use-cases/token-cost-ledger-per-sub-agent.md) — spend-aggregation view over the same span firehose
+- [Agent-run lineage store](/use-cases/agent-run-lineage-store) — uses these spans to build the parent/child run graph
+- [Cross-agent replay debugger](/use-cases/cross-agent-replay-debugger) — replays branches of the trace stream this collector ingests
+- [Token-cost ledger per sub-agent](/use-cases/token-cost-ledger-per-sub-agent) — spend-aggregation view over the same span firehose

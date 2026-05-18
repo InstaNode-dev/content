@@ -81,6 +81,6 @@ A2A registries need real relational filtering across array columns — KV stores
 
 ## Related cases
 
-- [Cross-framework A2A gateway](/use-cases/cross-framework-a2a-gateway.md) — consumes these agent cards to route messages between frameworks
-- [Agent reputation log](/use-cases/agent-reputation-log.md) — adds buyer-side ratings on top of the same agent directory
-- [Agent-marketplace preview thumbnails](/use-cases/agent-marketplace-preview-thumbnails.md) — stores the screenshots that the card registry points to
+- [Cross-framework A2A gateway](/use-cases/cross-framework-a2a-gateway) — consumes these agent cards to route messages between frameworks
+- [Agent reputation log](/use-cases/agent-reputation-log) — adds buyer-side ratings on top of the same agent directory
+- [Agent-marketplace preview thumbnails](/use-cases/agent-marketplace-preview-thumbnails) — stores the screenshots that the card registry points to

@@ -75,6 +75,6 @@ AutoGen messages have variable shape — function_call payloads, code blocks, mu
 
 ## Related cases
 
-- [LangGraph state checkpoints](/use-cases/langgraph-state-checkpoints.md) — the framework-native checkpointing alternative in Postgres
-- [Cross-device chat history](/use-cases/cross-device-chat-history.md) — the same Mongo conversation log scoped to a single user
-- [Conversation transcript archive](/use-cases/conversation-transcript-archive.md) — another append-only archive of agent dialogue, just S3-flavored
+- [LangGraph state checkpoints](/use-cases/langgraph-state-checkpoints) — the framework-native checkpointing alternative in Postgres
+- [Cross-device chat history](/use-cases/cross-device-chat-history) — the same Mongo conversation log scoped to a single user
+- [Conversation transcript archive](/use-cases/conversation-transcript-archive) — another append-only archive of agent dialogue, just S3-flavored

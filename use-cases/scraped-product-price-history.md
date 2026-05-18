@@ -77,6 +77,6 @@ Postgres percentile functions handle time-series median cleanly without needing 
 
 ## Related cases
 
-- [Cron-scheduled scraping swarm](/use-cases/cron-scheduled-scraping-swarm.md) — the schedule-and-fan-out producer that fills this time series
-- [Scatter-gather price comparison swarm](/use-cases/scatter-gather-price-comparison-swarm.md) — real-time first-N-wins counterpart to longitudinal price tracking
-- [Solo-founder analytics warehouse](/use-cases/solo-founder-analytics-warehouse.md) — general-purpose Postgres warehouse for similar time series
+- [Cron-scheduled scraping swarm](/use-cases/cron-scheduled-scraping-swarm) — the schedule-and-fan-out producer that fills this time series
+- [Scatter-gather price comparison swarm](/use-cases/scatter-gather-price-comparison-swarm) — real-time first-N-wins counterpart to longitudinal price tracking
+- [Solo-founder analytics warehouse](/use-cases/solo-founder-analytics-warehouse) — general-purpose Postgres warehouse for similar time series

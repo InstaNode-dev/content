@@ -79,6 +79,6 @@ The webhook receiver shields you from GitHub's retry storms when a deploy fails 
 
 ## Related cases
 
-- [High-volume PR-review pipeline](/use-cases/high-volume-pr-review-pipeline.md) — the at-scale queue-and-S3-compatible storage version of the same bot
-- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet.md) — per-issue ephemeral-worker variant with a scratch Postgres
-- [CI flake-tracker](/use-cases/ci-flake-tracker.md) — consumes the same GitHub webhook stream from a different angle
+- [High-volume PR-review pipeline](/use-cases/high-volume-pr-review-pipeline) — the at-scale queue-and-S3-compatible storage version of the same bot
+- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet) — per-issue ephemeral-worker variant with a scratch Postgres
+- [CI flake-tracker](/use-cases/ci-flake-tracker) — consumes the same GitHub webhook stream from a different angle

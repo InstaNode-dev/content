@@ -82,6 +82,6 @@ Multi-agent Claude Code sessions need cheap shared state without standing up a s
 
 ## Related cases
 
-- [Multi-repo shared scratchpad](/use-cases/multi-repo-shared-scratchpad.md) — the Mongo-document version of the same shared-coordination idea
-- [Coding-agent cross-session memory](/use-cases/coding-agent-cross-session-memory.md) — longer-horizon memory that survives across sessions, not just teams
-- [Shared episodic memory store](/use-cases/shared-episodic-memory-store.md) — generalizes the scratchpad table beyond coding agents
+- [Multi-repo shared scratchpad](/use-cases/multi-repo-shared-scratchpad) — the Mongo-document version of the same shared-coordination idea
+- [Coding-agent cross-session memory](/use-cases/coding-agent-cross-session-memory) — longer-horizon memory that survives across sessions, not just teams
+- [Shared episodic memory store](/use-cases/shared-episodic-memory-store) — generalizes the scratchpad table beyond coding agents

@@ -82,6 +82,6 @@ The DAG state lives in Postgres so the orchestrator restarts cleanly, and NATS s
 
 ## Related cases
 
-- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents.md) — framework-specific fan-out without an explicit DAG
-- [CrewAI parallel-process crew](/use-cases/crewai-parallel-process-crew.md) — CrewAI-flavored parallel orchestration
-- [Long-horizon Temporal agent workflow](/use-cases/long-horizon-temporal-agent-workflow.md) — Temporal-backed long-running variant of DAG execution
+- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents) — framework-specific fan-out without an explicit DAG
+- [CrewAI parallel-process crew](/use-cases/crewai-parallel-process-crew) — CrewAI-flavored parallel orchestration
+- [Long-horizon Temporal agent workflow](/use-cases/long-horizon-temporal-agent-workflow) — Temporal-backed long-running variant of DAG execution

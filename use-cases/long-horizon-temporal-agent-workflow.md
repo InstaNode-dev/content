@@ -82,6 +82,6 @@ Temporal handles the 14-day timer; Postgres holds the negotiation audit trail; N
 
 ## Related cases
 
-- [Restate-style durable sidecar](/use-cases/restate-style-durable-sidecar.md) — lighter-weight durability sidecar without a Temporal engine
-- [LangGraph state checkpoints](/use-cases/langgraph-state-checkpoints.md) — in-process checkpoint version of the same resume idea
-- [Magentic-One DAG executor](/use-cases/magentic-one-dag-executor.md) — DAG-shaped orchestration over a shorter horizon
+- [Restate-style durable sidecar](/use-cases/restate-style-durable-sidecar) — lighter-weight durability sidecar without a Temporal engine
+- [LangGraph state checkpoints](/use-cases/langgraph-state-checkpoints) — in-process checkpoint version of the same resume idea
+- [Magentic-One DAG executor](/use-cases/magentic-one-dag-executor) — DAG-shaped orchestration over a shorter horizon

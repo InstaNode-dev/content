@@ -79,6 +79,6 @@ Clinical data needs strict auditability — every edit visible, raw artifacts un
 
 ## Related cases
 
-- [Personal-injury demand letters](/use-cases/personal-injury-demand-letters.md) — another vertical-AI workflow with auditable versioned documents
-- [Voice-memo capture pipeline](/use-cases/voice-memo-capture-pipeline.md) — the audio-capture front end that feeds into structured notes
-- [EHR appointment webhook fan-in](/use-cases/ehr-appointment-webhook-fan-in.md) — the upstream event source that triggers a scribe session
+- [Personal-injury demand letters](/use-cases/personal-injury-demand-letters) — another vertical-AI workflow with auditable versioned documents
+- [Voice-memo capture pipeline](/use-cases/voice-memo-capture-pipeline) — the audio-capture front end that feeds into structured notes
+- [EHR appointment webhook fan-in](/use-cases/ehr-appointment-webhook-fan-in) — the upstream event source that triggers a scribe session

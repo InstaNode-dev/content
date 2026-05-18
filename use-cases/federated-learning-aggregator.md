@@ -68,6 +68,6 @@ Edge devices can't open inbound ports — they have to POST out. instanode's web
 
 ## Related cases
 
-- [Per-device edge-agent state sync](/use-cases/per-device-edge-agent-state-sync.md) — edge-fleet sibling that syncs SQLite deltas instead of gradients
-- [Geo-sharded chat-agent fleet](/use-cases/geo-sharded-chat-agent-fleet.md) — another partial-state-leaves-the-edge replication pattern
-- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest.md) — similar webhook+Postgres+S3-compatible storage ingestion at agent scale
+- [Per-device edge-agent state sync](/use-cases/per-device-edge-agent-state-sync) — edge-fleet sibling that syncs SQLite deltas instead of gradients
+- [Geo-sharded chat-agent fleet](/use-cases/geo-sharded-chat-agent-fleet) — another partial-state-leaves-the-edge replication pattern
+- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest) — similar webhook+Postgres+S3-compatible storage ingestion at agent scale

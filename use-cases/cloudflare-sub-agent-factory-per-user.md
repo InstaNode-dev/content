@@ -82,6 +82,6 @@ Per-user isolation done right needs per-user resources, not per-user schemas ins
 
 ## Related cases
 
-- [AgentCore tenant-scoped spawning](/use-cases/agentcore-tenant-scoped-spawning.md) — tenant-org-scoped variant of the same factory pattern
-- [Per-tenant chatbot factory at signup](/use-cases/per-tenant-chatbot-factory-at-signup.md) — B2B SaaS sibling that adds Mongo+Redis per tenant
-- [Smithery one-MCP-per-skill mint](/use-cases/smithery-one-mcp-per-skill-mint.md) — factory variant that mints one runtime per skill, not per user
+- [AgentCore tenant-scoped spawning](/use-cases/agentcore-tenant-scoped-spawning) — tenant-org-scoped variant of the same factory pattern
+- [Per-tenant chatbot factory at signup](/use-cases/per-tenant-chatbot-factory-at-signup) — B2B SaaS sibling that adds Mongo+Redis per tenant
+- [Smithery one-MCP-per-skill mint](/use-cases/smithery-one-mcp-per-skill-mint) — factory variant that mints one runtime per skill, not per user

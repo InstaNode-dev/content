@@ -82,6 +82,6 @@ NATS' first-reply-wins pattern falls out of the request/wait primitive without e
 
 ## Related cases
 
-- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch.md) — same race-and-collect shape, but across tools instead of models
-- [Speculative agent rollout race](/use-cases/speculative-agent-rollout-race.md) — races temperatures of one model instead of three providers
-- [LLM-as-judge consensus pool](/use-cases/llm-as-judge-consensus-pool.md) — judge variant when you want consensus instead of first-to-win
+- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch) — same race-and-collect shape, but across tools instead of models
+- [Speculative agent rollout race](/use-cases/speculative-agent-rollout-race) — races temperatures of one model instead of three providers
+- [LLM-as-judge consensus pool](/use-cases/llm-as-judge-consensus-pool) — judge variant when you want consensus instead of first-to-win

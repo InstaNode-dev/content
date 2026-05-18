@@ -76,6 +76,6 @@ Chaos testing needs real dependencies — mocked ones never fail the way prod fa
 
 ## Related cases
 
-- [24-hour hackathon backend](/use-cases/24-hour-hackathon-backend.md) — another hackathon-day-shaped stack with a hard expiry
-- [Per-agent dead-letter inspection queue](/use-cases/per-agent-dead-letter-inspection-queue.md) — captures the failures the chaos lab is designed to produce
-- [Full dev backend in one curl](/use-cases/full-dev-backend-in-one-curl.md) — the no-chaos baseline of the same three-service bundle
+- [24-hour hackathon backend](/use-cases/24-hour-hackathon-backend) — another hackathon-day-shaped stack with a hard expiry
+- [Per-agent dead-letter inspection queue](/use-cases/per-agent-dead-letter-inspection-queue) — captures the failures the chaos lab is designed to produce
+- [Full dev backend in one curl](/use-cases/full-dev-backend-in-one-curl) — the no-chaos baseline of the same three-service bundle

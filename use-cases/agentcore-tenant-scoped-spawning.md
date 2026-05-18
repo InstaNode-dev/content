@@ -77,6 +77,6 @@ Multi-tenant agent runtimes need real per-tenant isolation — shared schemas wi
 
 ## Related cases
 
-- [Per-tenant chatbot factory at signup](/use-cases/per-tenant-chatbot-factory-at-signup.md) — the same tenant-isolation pattern with a deploy slot per tenant
-- [Cloudflare sub-agent factory per user](/use-cases/cloudflare-sub-agent-factory-per-user.md) — Durable-Object-style variant that mints per-user (not per-org) runtimes
-- [Smithery one-MCP-per-skill mint](/use-cases/smithery-one-mcp-per-skill-mint.md) — spawns MCP servers per skill rather than per tenant
+- [Per-tenant chatbot factory at signup](/use-cases/per-tenant-chatbot-factory-at-signup) — the same tenant-isolation pattern with a deploy slot per tenant
+- [Cloudflare sub-agent factory per user](/use-cases/cloudflare-sub-agent-factory-per-user) — Durable-Object-style variant that mints per-user (not per-org) runtimes
+- [Smithery one-MCP-per-skill mint](/use-cases/smithery-one-mcp-per-skill-mint) — spawns MCP servers per skill rather than per tenant

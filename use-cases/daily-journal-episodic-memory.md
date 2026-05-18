@@ -73,6 +73,6 @@ Pgvector lives in the same Postgres as your journal — no separate vector DB, n
 
 ## Related cases
 
-- [CRM for one person](/use-cases/crm-for-one-person.md) — complementary personal-AI store keyed by contact
-- [Obsidian-vault embedding sync](/use-cases/obsidian-vault-embedding-sync.md) — the long-form-notes counterpart to short daily entries
-- [Shared episodic memory store](/use-cases/shared-episodic-memory-store.md) — team-scoped variant of the same episodic-memory pattern
+- [CRM for one person](/use-cases/crm-for-one-person) — complementary personal-AI store keyed by contact
+- [Obsidian-vault embedding sync](/use-cases/obsidian-vault-embedding-sync) — the long-form-notes counterpart to short daily entries
+- [Shared episodic memory store](/use-cases/shared-episodic-memory-store) — team-scoped variant of the same episodic-memory pattern

@@ -81,6 +81,6 @@ Reputation has two access patterns — append-only audit log (Postgres) and read
 
 ## Related cases
 
-- [A2A agent-card registry](/use-cases/a2a-agent-card-registry.md) — the directory those ratings annotate
-- [Token-cost ledger per sub-agent](/use-cases/token-cost-ledger-per-sub-agent.md) — another rollup pattern, but on spend instead of reputation
-- [x402 micropayment ledger](/use-cases/x402-micropayment-ledger.md) — reputation tends to gate access to higher-trust paid endpoints
+- [A2A agent-card registry](/use-cases/a2a-agent-card-registry) — the directory those ratings annotate
+- [Token-cost ledger per sub-agent](/use-cases/token-cost-ledger-per-sub-agent) — another rollup pattern, but on spend instead of reputation
+- [x402 micropayment ledger](/use-cases/x402-micropayment-ledger) — reputation tends to gate access to higher-trust paid endpoints

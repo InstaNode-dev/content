@@ -81,6 +81,6 @@ NATS request/reply with a queue group load-balances across judges without you wr
 
 ## Related cases
 
-- [Adversarial red-team runner](/use-cases/adversarial-red-team-runner.md) — complementary parallel-evaluators pattern from the attacker side
-- [GAIA tournament bracket](/use-cases/gaia-tournament-bracket.md) — judges plug into this bracket as the pairing arbiter
-- [Multi-model bake-off router](/use-cases/multi-model-bake-off-router.md) — race-and-pick alternative that doesn't bother with consensus
+- [Adversarial red-team runner](/use-cases/adversarial-red-team-runner) — complementary parallel-evaluators pattern from the attacker side
+- [GAIA tournament bracket](/use-cases/gaia-tournament-bracket) — judges plug into this bracket as the pairing arbiter
+- [Multi-model bake-off router](/use-cases/multi-model-bake-off-router) — race-and-pick alternative that doesn't bother with consensus

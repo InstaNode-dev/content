@@ -85,6 +85,6 @@ NATS gives the swarm a single event bus that any spawning library can publish to
 
 ## Related cases
 
-- [Live agent status broadcast](/use-cases/live-agent-status-broadcast.md) — the heartbeat source this topology graph subscribes to
-- [Agent-run lineage store](/use-cases/agent-run-lineage-store.md) — persistent-history counterpart to the live spawn graph
-- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest.md) — OTel-spans variant of the same span/edge ingestion
+- [Live agent status broadcast](/use-cases/live-agent-status-broadcast) — the heartbeat source this topology graph subscribes to
+- [Agent-run lineage store](/use-cases/agent-run-lineage-store) — persistent-history counterpart to the live spawn graph
+- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest) — OTel-spans variant of the same span/edge ingestion

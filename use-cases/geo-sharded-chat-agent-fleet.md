@@ -72,6 +72,6 @@ Region-pinned Redis keeps per-session reads on the same continent as the user �
 
 ## Related cases
 
-- [Per-device edge-agent state sync](/use-cases/per-device-edge-agent-state-sync.md) — device-scale variant of the same regional-sync pattern
-- [Federated-learning aggregator](/use-cases/federated-learning-aggregator.md) — another partial-state-leaves-the-edge replication shape
-- [Cross-device chat history](/use-cases/cross-device-chat-history.md) — the single-user equivalent of regional chat agents
+- [Per-device edge-agent state sync](/use-cases/per-device-edge-agent-state-sync) — device-scale variant of the same regional-sync pattern
+- [Federated-learning aggregator](/use-cases/federated-learning-aggregator) — another partial-state-leaves-the-edge replication shape
+- [Cross-device chat history](/use-cases/cross-device-chat-history) — the single-user equivalent of regional chat agents

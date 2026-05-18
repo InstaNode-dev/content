@@ -90,6 +90,6 @@ Two curls replace a Mailchimp signup + a Zap + a Google Sheet, and your data liv
 
 ## Related cases
 
-- [Stripe-event entitlements](/use-cases/stripe-event-entitlements.md) — the post-launch payments side of the same indie-founder funnel
-- [AI cofounder spawns a startup](/use-cases/ai-cofounder-spawns-a-startup.md) — agent-driven generator of the landing page this waitlist sits on
-- [Solo-founder analytics warehouse](/use-cases/solo-founder-analytics-warehouse.md) — downstream Postgres where waitlist UTMs end up for analysis
+- [Stripe-event entitlements](/use-cases/stripe-event-entitlements) — the post-launch payments side of the same indie-founder funnel
+- [AI cofounder spawns a startup](/use-cases/ai-cofounder-spawns-a-startup) — agent-driven generator of the landing page this waitlist sits on
+- [Solo-founder analytics warehouse](/use-cases/solo-founder-analytics-warehouse) — downstream Postgres where waitlist UTMs end up for analysis

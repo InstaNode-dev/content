@@ -69,6 +69,6 @@ Mongo's per-field atomic `$set` is exactly right for incremental state-machine p
 
 ## Related cases
 
-- [Browser-session cookie store](/use-cases/browser-session-cookie-store.md) — the auth-state cache that lets the form session resume
-- [Accessibility-tree selector cache](/use-cases/accessibility-tree-selector-cache.md) — the selector layer this state machine fills against
-- [LangGraph state checkpoints](/use-cases/langgraph-state-checkpoints.md) — framework-level version of the same crash-resumable pattern
+- [Browser-session cookie store](/use-cases/browser-session-cookie-store) — the auth-state cache that lets the form session resume
+- [Accessibility-tree selector cache](/use-cases/accessibility-tree-selector-cache) — the selector layer this state machine fills against
+- [LangGraph state checkpoints](/use-cases/langgraph-state-checkpoints) — framework-level version of the same crash-resumable pattern

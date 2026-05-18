@@ -77,6 +77,6 @@ The webhook captures every call even if the ledger consumer is briefly down — 
 
 ## Related cases
 
-- [Per-agent rate-limited API key vault](/use-cases/per-agent-rate-limited-api-key-vault.md) — the vault that emits the spend events this ledger ingests
-- [Tool-call rate-limit and budget cache](/use-cases/tool-call-rate-limit-and-budget-cache.md) — in-agent budget cache the ledger throttles back against
-- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest.md) — trace-collector view over the same per-call firehose
+- [Per-agent rate-limited API key vault](/use-cases/per-agent-rate-limited-api-key-vault) — the vault that emits the spend events this ledger ingests
+- [Tool-call rate-limit and budget cache](/use-cases/tool-call-rate-limit-and-budget-cache) — in-agent budget cache the ledger throttles back against
+- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest) — trace-collector view over the same per-call firehose

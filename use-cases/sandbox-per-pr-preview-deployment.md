@@ -75,6 +75,6 @@ One token per resource means GitHub Actions can pass three opaque strings instea
 
 ## Related cases
 
-- [Cursor background-agent worktree](/use-cases/cursor-background-agent-worktree.md) — IDE-side counterpart that owns the worktree for the same PR
-- [Replit-Agent preview backend](/use-cases/replit-agent-preview-backend.md) — share-link variant of the same disposable-preview pattern
-- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet.md) — agent worker that lands changes inside this preview env
+- [Cursor background-agent worktree](/use-cases/cursor-background-agent-worktree) — IDE-side counterpart that owns the worktree for the same PR
+- [Replit-Agent preview backend](/use-cases/replit-agent-preview-backend) — share-link variant of the same disposable-preview pattern
+- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet) — agent worker that lands changes inside this preview env

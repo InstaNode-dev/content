@@ -67,6 +67,6 @@ S3-compatible storage speaks the S3 API verbatim — every existing tool (aws-cl
 
 ## Related cases
 
-- [AutoGen group-chat history](/use-cases/autogen-group-chat-history.md) — the Mongo-backed online-replay alternative to JSONL archives
-- [Cross-device chat history](/use-cases/cross-device-chat-history.md) — live-state version of the same transcript record
-- [Cross-agent replay debugger](/use-cases/cross-agent-replay-debugger.md) — indexes transcripts like these for deterministic branch replay
+- [AutoGen group-chat history](/use-cases/autogen-group-chat-history) — the Mongo-backed online-replay alternative to JSONL archives
+- [Cross-device chat history](/use-cases/cross-device-chat-history) — live-state version of the same transcript record
+- [Cross-agent replay debugger](/use-cases/cross-agent-replay-debugger) — indexes transcripts like these for deterministic branch replay

@@ -73,6 +73,6 @@ JetStream gives you at-least-once delivery and durable consumers without standin
 
 ## Related cases
 
-- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet.md) — per-issue ephemeral-worker shape of the same review fleet
-- [CI flake-tracker](/use-cases/ci-flake-tracker.md) — consumes the same CI webhook stream this pipeline reviews
-- [PR-review bot triggered by webhooks](/use-cases/pr-review-bot-triggered-by-webhooks.md) — single-bot version of this thousands-of-PRs pipeline
+- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet) — per-issue ephemeral-worker shape of the same review fleet
+- [CI flake-tracker](/use-cases/ci-flake-tracker) — consumes the same CI webhook stream this pipeline reviews
+- [PR-review bot triggered by webhooks](/use-cases/pr-review-bot-triggered-by-webhooks) — single-bot version of this thousands-of-PRs pipeline

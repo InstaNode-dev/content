@@ -76,6 +76,6 @@ Anthropic's parallel tool_use only pays off if your collection layer is faster t
 
 ## Related cases
 
-- [Multi-model bake-off router](/use-cases/multi-model-bake-off-router.md) — the same race-and-collect pattern across models instead of tools
-- [Scatter-gather price comparison swarm](/use-cases/scatter-gather-price-comparison-swarm.md) — scatter/gather with first-N-wins instead of all-blocks
-- [Browser-agent action pool](/use-cases/browser-agent-action-pool.md) — the same fan-out, but actions land on browser tabs
+- [Multi-model bake-off router](/use-cases/multi-model-bake-off-router) — the same race-and-collect pattern across models instead of tools
+- [Scatter-gather price comparison swarm](/use-cases/scatter-gather-price-comparison-swarm) — scatter/gather with first-N-wins instead of all-blocks
+- [Browser-agent action pool](/use-cases/browser-agent-action-pool) — the same fan-out, but actions land on browser tabs

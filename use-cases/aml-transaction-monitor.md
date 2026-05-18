@@ -81,6 +81,6 @@ AML demands two things: durable audit trail (Postgres ACID) and back-pressure-to
 
 ## Related cases
 
-- [SARIF scan-result store](/use-cases/sarif-scan-result-store.md) — another compliance-trail pattern with longitudinal trend drift
-- [Stripe-event entitlements](/use-cases/stripe-event-entitlements.md) — consumes the payment-event stream the AML monitor watches
-- [Personal-injury demand letters](/use-cases/personal-injury-demand-letters.md) — another vertical-AI agent with auditable per-case history
+- [SARIF scan-result store](/use-cases/sarif-scan-result-store) — another compliance-trail pattern with longitudinal trend drift
+- [Stripe-event entitlements](/use-cases/stripe-event-entitlements) — consumes the payment-event stream the AML monitor watches
+- [Personal-injury demand letters](/use-cases/personal-injury-demand-letters) — another vertical-AI agent with auditable per-case history

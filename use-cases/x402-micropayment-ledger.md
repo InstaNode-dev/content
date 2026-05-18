@@ -78,6 +78,6 @@ Postgres transactions guarantee debit + credit land atomically; the UNIQUE const
 
 ## Related cases
 
-- [x402 micropayment per tool call](/use-cases/x402-micropayment-per-tool-call.md) — the per-call settlement layer this ledger reconciles
-- [Agent-marketplace escrow](/use-cases/agent-marketplace-escrow.md) — job-level escrow that complements x402's per-call billing
-- [Agent reputation log](/use-cases/agent-reputation-log.md) — trust signal that often gates access to paid endpoints
+- [x402 micropayment per tool call](/use-cases/x402-micropayment-per-tool-call) — the per-call settlement layer this ledger reconciles
+- [Agent-marketplace escrow](/use-cases/agent-marketplace-escrow) — job-level escrow that complements x402's per-call billing
+- [Agent reputation log](/use-cases/agent-reputation-log) — trust signal that often gates access to paid endpoints

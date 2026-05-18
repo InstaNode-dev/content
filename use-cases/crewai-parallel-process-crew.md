@@ -68,6 +68,6 @@ Anonymous claim gives you both services in the same flow, so the CrewAI `tools/`
 
 ## Related cases
 
-- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents.md) — framework-equivalent parallel-research pattern with NATS
-- [OpenAI Agents SDK handoff mesh](/use-cases/openai-agents-sdk-handoff-mesh.md) — specialist-agent fan-out in the OpenAI SDK shape
-- [Magentic-One DAG executor](/use-cases/magentic-one-dag-executor.md) — explicit DAG variant of the same parallel-crew idea
+- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents) — framework-equivalent parallel-research pattern with NATS
+- [OpenAI Agents SDK handoff mesh](/use-cases/openai-agents-sdk-handoff-mesh) — specialist-agent fan-out in the OpenAI SDK shape
+- [Magentic-One DAG executor](/use-cases/magentic-one-dag-executor) — explicit DAG variant of the same parallel-crew idea

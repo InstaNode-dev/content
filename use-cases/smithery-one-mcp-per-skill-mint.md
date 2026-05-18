@@ -73,6 +73,6 @@ Each skill is fully isolated in its own container, but the shared Redis stream m
 
 ## Related cases
 
-- [AgentCore tenant-scoped spawning](/use-cases/agentcore-tenant-scoped-spawning.md) — tenant-spawning variant of one-runtime-per-X
-- [Cloudflare sub-agent factory per user](/use-cases/cloudflare-sub-agent-factory-per-user.md) — per-user variant of the same factory pattern
-- [Deploy-status MCP server](/use-cases/deploy-status-mcp-server.md) — MCP-flavored deploy-status server adjacent to per-skill mints
+- [AgentCore tenant-scoped spawning](/use-cases/agentcore-tenant-scoped-spawning) — tenant-spawning variant of one-runtime-per-X
+- [Cloudflare sub-agent factory per user](/use-cases/cloudflare-sub-agent-factory-per-user) — per-user variant of the same factory pattern
+- [Deploy-status MCP server](/use-cases/deploy-status-mcp-server) — MCP-flavored deploy-status server adjacent to per-skill mints

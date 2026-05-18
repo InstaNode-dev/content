@@ -66,6 +66,6 @@ Personal-research agents shouldn't need a server. A webhook URL is the inbox, Re
 
 ## Related cases
 
-- [Obsidian-vault embedding sync](/use-cases/obsidian-vault-embedding-sync.md) — downstream sink that indexes the papers this feed pulls in
-- [Voice-memo capture pipeline](/use-cases/voice-memo-capture-pipeline.md) — another personal-AI ingestion pipeline with audio instead of papers
-- [Overnight dossier fleet](/use-cases/overnight-dossier-fleet.md) — consumes the same kind of feed to generate scheduled briefings
+- [Obsidian-vault embedding sync](/use-cases/obsidian-vault-embedding-sync) — downstream sink that indexes the papers this feed pulls in
+- [Voice-memo capture pipeline](/use-cases/voice-memo-capture-pipeline) — another personal-AI ingestion pipeline with audio instead of papers
+- [Overnight dossier fleet](/use-cases/overnight-dossier-fleet) — consumes the same kind of feed to generate scheduled briefings

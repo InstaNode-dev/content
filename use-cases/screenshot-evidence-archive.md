@@ -75,6 +75,6 @@ S3-compatible storage speaks the S3 API so every Playwright-Python-Go-Rust S3 cl
 
 ## Related cases
 
-- [Agent-marketplace preview thumbnails](/use-cases/agent-marketplace-preview-thumbnails.md) — same S3-compatible storage-keyed-by-id pattern for marketplace screenshots
-- [Trajectory diff regression harness](/use-cases/trajectory-diff-regression-harness.md) — diff-on-PR sibling that stores artifacts in S3-compatible storage
-- [Overnight dossier fleet](/use-cases/overnight-dossier-fleet.md) — another S3-compatible storage-as-artifact-store async-fleet pattern
+- [Agent-marketplace preview thumbnails](/use-cases/agent-marketplace-preview-thumbnails) — same S3-compatible storage-keyed-by-id pattern for marketplace screenshots
+- [Trajectory diff regression harness](/use-cases/trajectory-diff-regression-harness) — diff-on-PR sibling that stores artifacts in S3-compatible storage
+- [Overnight dossier fleet](/use-cases/overnight-dossier-fleet) — another S3-compatible storage-as-artifact-store async-fleet pattern

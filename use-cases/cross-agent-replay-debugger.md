@@ -68,6 +68,6 @@ S3-compatible storage stores cheap, fat payload blobs; Mongo carries the cheap, 
 
 ## Related cases
 
-- [Agent-run lineage store](/use-cases/agent-run-lineage-store.md) — the parent/child relation graph this debugger walks
-- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest.md) — OTel collector that ingests the spans being replayed
-- [Trajectory diff regression harness](/use-cases/trajectory-diff-regression-harness.md) — diffs cached replays of the same kind across versions
+- [Agent-run lineage store](/use-cases/agent-run-lineage-store) — the parent/child relation graph this debugger walks
+- [OpenTelemetry agent-trace ingest](/use-cases/opentelemetry-agent-trace-ingest) — OTel collector that ingests the spans being replayed
+- [Trajectory diff regression harness](/use-cases/trajectory-diff-regression-harness) — diffs cached replays of the same kind across versions

@@ -73,6 +73,6 @@ pgvector is preinstalled on instanode Postgres, so two agents sharing memory nee
 
 ## Related cases
 
-- [Claude Code agent-teams scratchpad](/use-cases/claude-code-agent-teams-scratchpad.md) — coding-team variant of the same shared memory table
-- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory.md) — single-user variant of episodic memory recall
-- [Multi-repo shared scratchpad](/use-cases/multi-repo-shared-scratchpad.md) — Mongo-document version of the same coordination idea
+- [Claude Code agent-teams scratchpad](/use-cases/claude-code-agent-teams-scratchpad) — coding-team variant of the same shared memory table
+- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory) — single-user variant of episodic memory recall
+- [Multi-repo shared scratchpad](/use-cases/multi-repo-shared-scratchpad) — Mongo-document version of the same coordination idea

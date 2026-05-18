@@ -76,6 +76,6 @@ NATS fanout is sub-millisecond, so the dashboard reflects the swarm in real time
 
 ## Related cases
 
-- [Live agent-topology graph](/use-cases/live-agent-topology-graph.md) — consumes these heartbeats to draw the parent/child graph
-- [Deploy-status MCP server](/use-cases/deploy-status-mcp-server.md) — broadcast-via-NATS pattern, applied to deploys instead of agents
-- [Per-agent dead-letter inspection queue](/use-cases/per-agent-dead-letter-inspection-queue.md) — complementary failure-side view of the same swarm
+- [Live agent-topology graph](/use-cases/live-agent-topology-graph) — consumes these heartbeats to draw the parent/child graph
+- [Deploy-status MCP server](/use-cases/deploy-status-mcp-server) — broadcast-via-NATS pattern, applied to deploys instead of agents
+- [Per-agent dead-letter inspection queue](/use-cases/per-agent-dead-letter-inspection-queue) — complementary failure-side view of the same swarm

@@ -50,7 +50,7 @@ We're building the engineering-org tier. Not generally available yet.
 
 ## The anonymous-tier philosophy
 
-Most platforms run a 14-day trial. We run a 24-hour anonymous tier. The decision to pay isn't "is this product good enough to justify a trial" — it's "is keeping this specific running thing worth $9/mo." See the blog post [Why anonymous is the trial](/blog/why-anonymous-is-the-trial.md) for the reasoning.
+Most platforms run a 14-day trial. We run a 24-hour anonymous tier. The decision to pay isn't "is this product good enough to justify a trial" — it's "is keeping this specific running thing worth $9/mo." See the blog post [Why anonymous is the trial](/blog/why-anonymous-is-the-trial) for the reasoning.
 
 ## Related
 

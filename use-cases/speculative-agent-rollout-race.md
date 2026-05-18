@@ -72,6 +72,6 @@ NATS request/reply gives synchronous-feeling fan-out across N workers — exactl
 
 ## Related cases
 
-- [Multi-model bake-off router](/use-cases/multi-model-bake-off-router.md) — races across providers instead of temperatures
-- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch.md) — the same race-and-pick shape at the tool level
-- [LLM-as-judge consensus pool](/use-cases/llm-as-judge-consensus-pool.md) — verifier variant that picks via consensus, not first-to-finish
+- [Multi-model bake-off router](/use-cases/multi-model-bake-off-router) — races across providers instead of temperatures
+- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch) — the same race-and-pick shape at the tool level
+- [LLM-as-judge consensus pool](/use-cases/llm-as-judge-consensus-pool) — verifier variant that picks via consensus, not first-to-finish

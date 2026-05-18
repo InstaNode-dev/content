@@ -80,6 +80,6 @@ A real Postgres on one curl removes the awkward step where security tools store 
 
 ## Related cases
 
-- [CI flake-tracker](/use-cases/ci-flake-tracker.md) — another CI-side Postgres warehouse for tracking drift
-- [Pre-commit skill-scanner webhook](/use-cases/pre-commit-skill-scanner-webhook.md) — the inbound scanner that fills a SARIF store
-- [Repo-wide code dependency graph](/use-cases/repo-wide-code-dependency-graph.md) — blast-radius context for findings stored in SARIF
+- [CI flake-tracker](/use-cases/ci-flake-tracker) — another CI-side Postgres warehouse for tracking drift
+- [Pre-commit skill-scanner webhook](/use-cases/pre-commit-skill-scanner-webhook) — the inbound scanner that fills a SARIF store
+- [Repo-wide code dependency graph](/use-cases/repo-wide-code-dependency-graph) — blast-radius context for findings stored in SARIF

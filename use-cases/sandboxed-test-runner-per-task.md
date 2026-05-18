@@ -78,6 +78,6 @@ For each task in tasks.jsonl, deploy a throwaway container via instanode.dev /de
 
 ## Related cases
 
-- [E2B microVM sandbox per agent turn](/use-cases/e2b-microvm-sandbox-per-agent-turn.md) — per-turn variant of the same throwaway-container idea
-- [Daytona warm-pool data workspace](/use-cases/daytona-warm-pool-data-workspace.md) — warm-pool alternative when cold-start cost matters
-- [Terminal-Bench shell sandbox grid](/use-cases/terminal-bench-shell-sandbox-grid.md) — fleet-scale version with 100 parallel sandboxes
+- [E2B microVM sandbox per agent turn](/use-cases/e2b-microvm-sandbox-per-agent-turn) — per-turn variant of the same throwaway-container idea
+- [Daytona warm-pool data workspace](/use-cases/daytona-warm-pool-data-workspace) — warm-pool alternative when cold-start cost matters
+- [Terminal-Bench shell sandbox grid](/use-cases/terminal-bench-shell-sandbox-grid) — fleet-scale version with 100 parallel sandboxes

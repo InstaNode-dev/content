@@ -70,6 +70,6 @@ Redis EVAL is the canonical "compare-and-decrement atomically" primitive for sha
 
 ## Related cases
 
-- [Per-agent rate-limited API key vault](/use-cases/per-agent-rate-limited-api-key-vault.md) — vault that mints the keys this budget cache governs
-- [Token-cost ledger per sub-agent](/use-cases/token-cost-ledger-per-sub-agent.md) — Postgres rollup that this Redis cache feeds
-- [Contract redline cache](/use-cases/contract-redline-cache.md) — another Redis-fronted reuse cache that saves model spend
+- [Per-agent rate-limited API key vault](/use-cases/per-agent-rate-limited-api-key-vault) — vault that mints the keys this budget cache governs
+- [Token-cost ledger per sub-agent](/use-cases/token-cost-ledger-per-sub-agent) — Postgres rollup that this Redis cache feeds
+- [Contract redline cache](/use-cases/contract-redline-cache) — another Redis-fronted reuse cache that saves model spend

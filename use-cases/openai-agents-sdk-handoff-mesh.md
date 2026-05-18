@@ -83,6 +83,6 @@ Postgres' `jsonb || jsonb` makes per-thread message appending atomic, and Redis 
 
 ## Related cases
 
-- [CrewAI parallel-process crew](/use-cases/crewai-parallel-process-crew.md) — framework-equivalent specialist-agent fan-out
-- [Cross-framework A2A gateway](/use-cases/cross-framework-a2a-gateway.md) — translates OpenAI SDK handoffs into other frameworks
-- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents.md) — graph-shaped alternative to a flat handoff mesh
+- [CrewAI parallel-process crew](/use-cases/crewai-parallel-process-crew) — framework-equivalent specialist-agent fan-out
+- [Cross-framework A2A gateway](/use-cases/cross-framework-a2a-gateway) — translates OpenAI SDK handoffs into other frameworks
+- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents) — graph-shaped alternative to a flat handoff mesh

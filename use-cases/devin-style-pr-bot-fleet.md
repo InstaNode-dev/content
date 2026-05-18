@@ -161,6 +161,6 @@ Devin-style fleets all hit the same wall: per-worker isolation is the entire poi
 
 ## Related cases
 
-- [High-volume PR-review pipeline](/use-cases/high-volume-pr-review-pipeline.md) — queue-based equivalent at thousands-of-PRs scale
-- [Cursor background-agent worktree](/use-cases/cursor-background-agent-worktree.md) — IDE-side counterpart that owns a worktree per branch
-- [Sandbox-per-PR preview deployment](/use-cases/sandbox-per-pr-preview-deployment.md) — the preview-env primitive this PR-bot fleet calls into
+- [High-volume PR-review pipeline](/use-cases/high-volume-pr-review-pipeline) — queue-based equivalent at thousands-of-PRs scale
+- [Cursor background-agent worktree](/use-cases/cursor-background-agent-worktree) — IDE-side counterpart that owns a worktree per branch
+- [Sandbox-per-PR preview deployment](/use-cases/sandbox-per-pr-preview-deployment) — the preview-env primitive this PR-bot fleet calls into

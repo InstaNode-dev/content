@@ -80,6 +80,6 @@ Spawning a startup needs the whole bundle in one move — DB + storage + events 
 
 ## Related cases
 
-- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend.md) — the human-driven version of the same end-to-end ship flow
-- [Pre-launch waitlist store](/use-cases/pre-launch-waitlist-store.md) — the landing-page-and-emails piece the founder agent generates
-- [Side-project container deploy](/use-cases/side-project-container-deploy.md) — the bare-deploy primitive the cofounder agent calls under the hood
+- [One-afternoon MVP backend](/use-cases/one-afternoon-mvp-backend) — the human-driven version of the same end-to-end ship flow
+- [Pre-launch waitlist store](/use-cases/pre-launch-waitlist-store) — the landing-page-and-emails piece the founder agent generates
+- [Side-project container deploy](/use-cases/side-project-container-deploy) — the bare-deploy primitive the cofounder agent calls under the hood

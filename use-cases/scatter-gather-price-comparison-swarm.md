@@ -74,6 +74,6 @@ JetStream gives you wildcard subscribe (`shop.reply.*`) and at-least-once delive
 
 ## Related cases
 
-- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch.md) — first-N-wins fan-out at the model-tool level
-- [Multi-model bake-off router](/use-cases/multi-model-bake-off-router.md) — race-and-pick variant across models instead of retailers
-- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents.md) — research-flavored fan-out that waits for all (not first 5)
+- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch) — first-N-wins fan-out at the model-tool level
+- [Multi-model bake-off router](/use-cases/multi-model-bake-off-router) — race-and-pick variant across models instead of retailers
+- [LangGraph fan-out research agents](/use-cases/langgraph-fan-out-research-agents) — research-flavored fan-out that waits for all (not first 5)

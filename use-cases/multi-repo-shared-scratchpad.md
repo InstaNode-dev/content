@@ -77,6 +77,6 @@ Mongo's schemaless collections fit agent notes that drift in shape across repos,
 
 ## Related cases
 
-- [Claude Code agent-teams scratchpad](/use-cases/claude-code-agent-teams-scratchpad.md) — Postgres-table version of the same coordination idea
-- [Coding-agent cross-session memory](/use-cases/coding-agent-cross-session-memory.md) — long-horizon memory across days, not just across repos
-- [Shared episodic memory store](/use-cases/shared-episodic-memory-store.md) — generalizes the scratchpad to non-coding agent pairs
+- [Claude Code agent-teams scratchpad](/use-cases/claude-code-agent-teams-scratchpad) — Postgres-table version of the same coordination idea
+- [Coding-agent cross-session memory](/use-cases/coding-agent-cross-session-memory) — long-horizon memory across days, not just across repos
+- [Shared episodic memory store](/use-cases/shared-episodic-memory-store) — generalizes the scratchpad to non-coding agent pairs

@@ -73,6 +73,6 @@ Provisioning is synchronous and sub-second — the agent gets a usable database 
 
 ## Related cases
 
-- [Ephemeral test database for a risky migration](/use-cases/ephemeral-test-database-for-a-risky-migration.md) — the slower-fork baseline this CoW pattern accelerates
-- [Parallel SQL-plan probe](/use-cases/parallel-sql-plan-probe.md) — uses forked Postgres clones in parallel for EXPLAIN probing
-- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet.md) — wraps this clone-and-test loop in a per-issue agent worker
+- [Ephemeral test database for a risky migration](/use-cases/ephemeral-test-database-for-a-risky-migration) — the slower-fork baseline this CoW pattern accelerates
+- [Parallel SQL-plan probe](/use-cases/parallel-sql-plan-probe) — uses forked Postgres clones in parallel for EXPLAIN probing
+- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet) — wraps this clone-and-test loop in a per-issue agent worker

@@ -71,6 +71,6 @@ Postgres provisioning in one curl makes the durable-sidecar pattern trivially de
 
 ## Related cases
 
-- [LangGraph state checkpoints](/use-cases/langgraph-state-checkpoints.md) — in-graph alternative to this out-of-process sidecar
-- [Long-horizon Temporal agent workflow](/use-cases/long-horizon-temporal-agent-workflow.md) — Temporal-engine alternative when workflows last weeks
-- [Form-fill state machine](/use-cases/form-fill-state-machine.md) — concrete browser-agent instance of the same crash-resume idea
+- [LangGraph state checkpoints](/use-cases/langgraph-state-checkpoints) — in-graph alternative to this out-of-process sidecar
+- [Long-horizon Temporal agent workflow](/use-cases/long-horizon-temporal-agent-workflow) — Temporal-engine alternative when workflows last weeks
+- [Form-fill state machine](/use-cases/form-fill-state-machine) — concrete browser-agent instance of the same crash-resume idea

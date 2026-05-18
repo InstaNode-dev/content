@@ -74,6 +74,6 @@ Same-token provisioning means Postgres and Redis share the same anonymous JWT �
 
 ## Related cases
 
-- [Accessibility-tree selector cache](/use-cases/accessibility-tree-selector-cache.md) — another Redis-fronted embedding/snapshot cache for fast re-runs
-- [Tool-call rate-limit and budget cache](/use-cases/tool-call-rate-limit-and-budget-cache.md) — Redis cache that protects the token budget those redlines burn
-- [Personal-injury demand letters](/use-cases/personal-injury-demand-letters.md) — adjacent legal-AI workflow that benefits from clause caching
+- [Accessibility-tree selector cache](/use-cases/accessibility-tree-selector-cache) — another Redis-fronted embedding/snapshot cache for fast re-runs
+- [Tool-call rate-limit and budget cache](/use-cases/tool-call-rate-limit-and-budget-cache) — Redis cache that protects the token budget those redlines burn
+- [Personal-injury demand letters](/use-cases/personal-injury-demand-letters) — adjacent legal-AI workflow that benefits from clause caching

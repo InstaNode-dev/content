@@ -77,6 +77,6 @@ Red-team transcripts are bursty, unstructured, and need cheap append-only writes
 
 ## Related cases
 
-- [LLM-as-judge consensus pool](/use-cases/llm-as-judge-consensus-pool.md) — the eval-time counterpart that scores agent outputs instead of attacking them
-- [GAIA tournament bracket](/use-cases/gaia-tournament-bracket.md) — another parallel-evaluator pattern with leaderboard scoring
-- [Pre-commit skill-scanner webhook](/use-cases/pre-commit-skill-scanner-webhook.md) — the static-analysis cousin that blocks malicious skills before push
+- [LLM-as-judge consensus pool](/use-cases/llm-as-judge-consensus-pool) — the eval-time counterpart that scores agent outputs instead of attacking them
+- [GAIA tournament bracket](/use-cases/gaia-tournament-bracket) — another parallel-evaluator pattern with leaderboard scoring
+- [Pre-commit skill-scanner webhook](/use-cases/pre-commit-skill-scanner-webhook) — the static-analysis cousin that blocks malicious skills before push

@@ -70,6 +70,6 @@ The Mongo URL is public-internet reachable, so a watch on cell data or a laptop 
 
 ## Related cases
 
-- [AutoGen group-chat history](/use-cases/autogen-group-chat-history.md) — the multi-agent equivalent of this per-user Mongo log
-- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory.md) — adjacent personal-AI Postgres+Redis recall pattern
-- [Conversation transcript archive](/use-cases/conversation-transcript-archive.md) — the team-wide append-only sibling of cross-device history
+- [AutoGen group-chat history](/use-cases/autogen-group-chat-history) — the multi-agent equivalent of this per-user Mongo log
+- [Daily-journal episodic memory](/use-cases/daily-journal-episodic-memory) — adjacent personal-AI Postgres+Redis recall pattern
+- [Conversation transcript archive](/use-cases/conversation-transcript-archive) — the team-wide append-only sibling of cross-device history

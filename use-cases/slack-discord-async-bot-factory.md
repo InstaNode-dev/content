@@ -70,6 +70,6 @@ Stand up a per-workspace Slack bot factory. For each tenant: provision a webhook
 
 ## Related cases
 
-- [Inbox-zero agent fleet](/use-cases/inbox-zero-agent-fleet.md) — email-platform sibling of this per-workspace durable agent
-- [Per-tenant chatbot factory at signup](/use-cases/per-tenant-chatbot-factory-at-signup.md) — tenant-spawning variant with dedicated Mongo+Redis per workspace
-- [On-call incident-response agent](/use-cases/on-call-incident-response-agent.md) — another webhook-driven durable agent pattern
+- [Inbox-zero agent fleet](/use-cases/inbox-zero-agent-fleet) — email-platform sibling of this per-workspace durable agent
+- [Per-tenant chatbot factory at signup](/use-cases/per-tenant-chatbot-factory-at-signup) — tenant-spawning variant with dedicated Mongo+Redis per workspace
+- [On-call incident-response agent](/use-cases/on-call-incident-response-agent) — another webhook-driven durable agent pattern

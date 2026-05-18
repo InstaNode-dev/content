@@ -1,10 +1,10 @@
 ---
-title: The six services
+title: The seven services
 order: 2
 ---
 
-Every endpoint returns a `connection_url` (or `endpoint` / `receive_url`)
-plus an `upgrade_jwt` you can hand to /claim.
+Every endpoint returns a `connection_url` (or `endpoint` / `receive_url` /
+application URL) plus an `upgrade_jwt` you can hand to /claim.
 
 - `POST /db/new` — Postgres (pgvector pre-installed)
 - `POST /cache/new` — Redis (ACL'd, per-token key prefix)
@@ -12,10 +12,11 @@ plus an `upgrade_jwt` you can hand to /claim.
 - `POST /queue/new` — NATS JetStream
 - `POST /storage/new` — S3-compatible (DigitalOcean Spaces, `nyc3`)
 - `POST /webhook/new` — public URL that receives any HTTP method
+- `POST /deploy/new` — container deploy (tarball in, HTTPS URL out)
 
 ## The required `name` field
 
-Every provisioning endpoint above — plus `/deploy/new` and `/stacks/new` —
+Every provisioning endpoint above — plus `/stacks/new` —
 **requires** a `name`. It is the human-readable label shown in the dashboard
 and in `GET /api/v1/resources`.
 

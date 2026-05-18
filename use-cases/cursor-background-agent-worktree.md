@@ -71,6 +71,6 @@ Per-branch isolation is what makes background-agent worktrees safe; instanode's 
 
 ## Related cases
 
-- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet.md) — another per-branch ephemeral-worker pattern with PR webhooks
-- [Sandbox-per-PR preview deployment](/use-cases/sandbox-per-pr-preview-deployment.md) — preview-environment sibling tied to PR lifecycle
-- [Sandboxed test runner per task](/use-cases/sandboxed-test-runner-per-task.md) — the isolated test container the worktree calls into
+- [Devin-style PR-bot fleet](/use-cases/devin-style-pr-bot-fleet) — another per-branch ephemeral-worker pattern with PR webhooks
+- [Sandbox-per-PR preview deployment](/use-cases/sandbox-per-pr-preview-deployment) — preview-environment sibling tied to PR lifecycle
+- [Sandboxed test runner per task](/use-cases/sandboxed-test-runner-per-task) — the isolated test container the worktree calls into

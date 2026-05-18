@@ -75,6 +75,6 @@ You're a Skyvern-style planner. After analyzing a target page, you emit 20 actio
 
 ## Related cases
 
-- [Accessibility-tree selector cache](/use-cases/accessibility-tree-selector-cache.md) — the selector-resolution layer underneath these parallel actions
-- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch.md) — the same fan-out idea applied to model tool_use blocks
-- [Browser job queue with retries](/use-cases/browser-job-queue-with-retries.md) — single-worker queue equivalent for navigation tasks
+- [Accessibility-tree selector cache](/use-cases/accessibility-tree-selector-cache) — the selector-resolution layer underneath these parallel actions
+- [Anthropic parallel tool_use batch](/use-cases/anthropic-parallel-tool-use-batch) — the same fan-out idea applied to model tool_use blocks
+- [Browser job queue with retries](/use-cases/browser-job-queue-with-retries) — single-worker queue equivalent for navigation tasks
