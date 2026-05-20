@@ -64,16 +64,18 @@ After 24 hours the resource expires unless claimed. Claim flow: see `/claim` bel
 RESP=$(curl -X POST https://api.instanode.dev/db/new \
   -H "Content-Type: application/json" \
   -d '{"name":"prod-db"}')
-JWT=$(echo "$RESP" | jq -r .upgrade_jwt)
+TOKEN=$(echo "$RESP" | jq -r .upgrade_jwt)
 
-curl "https://api.instanode.dev/claim/preview?t=$JWT"   # GET, dry-run, no side effects
+curl "https://api.instanode.dev/claim/preview?t=$TOKEN"   # GET, dry-run, no side effects
 
 curl -X POST https://api.instanode.dev/claim \
   -H "Content-Type: application/json" \
-  -d "{\"jwt\":\"$JWT\", \"email\":\"you@example.com\"}"
+  -d "{\"token\":\"$TOKEN\", \"email\":\"you@example.com\"}"
 ```
 
-The `email` field must parse as a valid RFC 5322 address (since 2026-05-20). A non-email string returns `400 {"error":"invalid_email"}` — the claim no longer accepts arbitrary identifiers. A magic link arrives by email. Clicking it sets a session cookie that owns every resource attached to your network fingerprint. Tier starts at Free (24h TTL, same limits as anonymous) — claiming gives you an account, not durability. Resources still expire at 24h until the team upgrades to a paid tier (Hobby $9/mo or above) in the dashboard.
+**`token` is the canonical request field (since 2026-05-20).** The legacy `jwt` field is still accepted as a deprecated alias for backward compatibility with the dashboard, sdk-go, mcp, and existing curl recipes — when both are present, `token` wins. The OpenAPI spec marks `jwt` as `deprecated: true`.
+
+The `email` field must parse as a valid RFC 5322 address (validated via Go `mail.ParseAddress` + 254-char RFC 5321 §4.5.3.1.3 cap + dotted-domain + no-inner-whitespace gates, since 2026-05-20). A non-email string returns `400 {"error":"invalid_email_format"}` — the claim no longer mints users with unreachable addresses. A magic link arrives by email. Clicking it sets a session cookie that owns every resource attached to your network fingerprint. Tier starts at Free (24h TTL, same limits as anonymous) — claiming gives you an account, not durability. Resources still expire at 24h until the team upgrades to a paid tier (Hobby $9/mo or above) in the dashboard.
 
 ## Tiers
 
