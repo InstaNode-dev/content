@@ -72,15 +72,16 @@ A magic link arrives by email. Clicking it sets a session cookie that owns every
 
 ## Tiers
 
-The public, self-serve tiers visible at `/pricing` are: Anonymous, Hobby, Pro, and Team
-(coming soon). Hobby Plus and Growth exist in `plans.yaml` as upsell-only intermediate
-tiers (reachable via dashboard prompts when a Hobby user hits a wall) and are deliberately
-omitted from the public tier ladder to keep the customer-facing comparison simple.
+The public, self-serve tiers visible at `/pricing` are: Anonymous, Hobby, Pro, and Team.
+Hobby Plus and Growth exist in `plans.yaml` as upsell-only intermediate tiers (reachable
+via dashboard prompts when a Hobby user hits a wall) and are deliberately omitted from
+the public tier ladder to keep the customer-facing comparison simple. Both still surface
+on `/api/v1/capabilities` for agent introspection.
 
 - **Anonymous**: free, 24h TTL, the limits above.
 - **Hobby**: $9/mo. 1 GB Postgres, 50 MB Redis, 100 MB Mongo, 512 MB storage, 1 app deploy. No TTL.
-- **Pro**: $49/mo. 10 GB Postgres, 512 MB Redis, 5 GB Mongo, 50 GB storage, 10 medium apps.
-- **Team**: coming soon.
+- **Pro**: $49/mo. 10 GB Postgres, 512 MB Redis, 5 GB Mongo, 50 GB storage, 10 apps.
+- **Team**: $199/mo. Unlimited everything (Postgres / Redis / Mongo / queues / storage / deployments / vault entries), 50 custom domains, 90-day backups with self-serve restore, RBAC + audit log, SSO/SAML, 99.9% SLA. Self-serve assisted-Razorpay path is rolling out — for now contact support@instanode.dev for onboarding.
 
 ## Conventions an LLM should follow when scripting against the platform
 
