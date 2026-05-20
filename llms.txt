@@ -69,11 +69,14 @@ A magic link arrives by email. Clicking it sets a session cookie that owns every
 
 ## Tiers
 
+The public, self-serve tiers visible at `/pricing` are: Anonymous, Hobby, Pro, and Team
+(coming soon). Hobby Plus and Growth exist in `plans.yaml` as upsell-only intermediate
+tiers (reachable via dashboard prompts when a Hobby user hits a wall) and are deliberately
+omitted from the public tier ladder to keep the customer-facing comparison simple.
+
 - **Anonymous**: free, 24h TTL, the limits above.
 - **Hobby**: $9/mo. 1 GB Postgres, 50 MB Redis, 100 MB Mongo, 512 MB storage, 1 app deploy. No TTL.
-- **Hobby Plus**: $19/mo. 1 GB Postgres, 50 MB Redis, 1 GB Mongo, 5 GB storage, 2 app deploys. No TTL.
 - **Pro**: $49/mo. 10 GB Postgres, 512 MB Redis, 5 GB Mongo, 50 GB storage, 10 medium apps.
-- **Growth**: $99/mo. 20 GB Postgres, 1 GB Redis, unlimited Mongo, unlimited storage, 5 app deploys.
 - **Team**: coming soon.
 
 ## Conventions an LLM should follow when scripting against the platform
@@ -130,9 +133,9 @@ Cancel: `DELETE /api/v1/deployments/<id>/confirm-deletion` reverses the pending 
 
 Agent escape hatch: `X-Skip-Email-Confirmation: yes` on the original `DELETE` → immediate destruction. Use only when the agent has explicit user consent on its own side.
 
-Anonymous tier (24h TTL): no email on file, `DELETE` returns 200 immediately. See [/docs/deploy](https://instanode.dev/docs/deploy) for full request/response shapes.
+Anonymous tier (24h TTL): no email on file, `DELETE` returns 200 immediately. See [/docs#deploy](https://instanode.dev/docs#deploy) for full request/response shapes.
 
-- [Deployments](https://instanode.dev/docs/deploy.md): POST /deploy/new + private deploys + custom domains + two-step email-confirmed deletion + 24h-TTL semantics (default; three routes to keep a deploy permanent)
+- [Deployments](https://instanode.dev/docs#deploy): POST /deploy/new + private deploys + custom domains + two-step email-confirmed deletion + 24h-TTL semantics (default; three routes to keep a deploy permanent)
 
 ## How to use this file
 

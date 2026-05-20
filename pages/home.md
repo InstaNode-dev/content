@@ -1,6 +1,6 @@
 # instanode.dev — real infrastructure for AI agents
 
-> Provision real Postgres, Redis, MongoDB, NATS, S3-compatible object storage, webhooks, and container deploys with single HTTP calls. No signup, no API key, no Docker, no cloud account. The first 24 hours are anonymous; claim a resource to keep it past then.
+> Provision real Postgres, Redis, MongoDB, NATS, S3-compatible object storage, webhooks, and container deploys with single HTTP calls. No signup, no API key, no Docker, no cloud account. The first 24 hours are anonymous; claim a resource, then upgrade to a paid tier to keep it past 24 hours.
 
 ## The pitch in one curl
 
@@ -23,8 +23,8 @@ Sub-second response with a real `connection_url` to a dedicated Postgres databas
 ## How it works
 
 - **Anonymous-first.** The first 24 hours of every resource are free with no signup. Try the platform before deciding to pay.
-- **Claim to keep.** When you want to keep a resource past 24 hours, you claim it with the `upgrade_jwt` from the provisioning response. Magic-link email; no password.
-- **Pay from day one of claiming.** Hobby is $9/mo, Pro is $49/mo, Team is $199/mo (coming soon). No trial period on paid tiers — the anonymous slice IS the trial.
+- **Claim, then upgrade to keep.** Claiming the resource (magic-link email; no password) attaches it to an account. The Free tier mirrors the anonymous 24h TTL — to keep resources past 24 hours, upgrade to a paid tier (Hobby $9/mo or above) in the dashboard.
+- **Pay from day one of upgrading.** Hobby is $9/mo, Pro is $49/mo, Team is $199/mo (coming soon). No trial period on paid tiers — the anonymous slice IS the trial.
 
 ## Built for agents
 
