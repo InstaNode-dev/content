@@ -107,6 +107,30 @@ need to behave differently — e.g. when `broker`, never try to write
 directly with `(access_key_id, secret_access_key)` since the response
 won't carry them.
 
+### Broker-mode access: `POST /storage/{token}/presign`
+
+When the `/storage/new` response carries `mode: "broker"`, no long-lived
+credential was issued. Use this endpoint to mint a short-lived signed S3
+URL (≤1h TTL) constrained to the resource's own `prefix/*`:
+
+```
+curl -X POST https://api.instanode.dev/storage/$TOKEN/presign \
+  -H "Content-Type: application/json" \
+  -d '{"operation":"PUT","key":"uploads/photo.jpg","expires_in":600}'
+# => {"ok":true,"url":"https://s3.instanode.dev/...?X-Amz-Signature=...","expires_at":"..."}
+```
+
+- `operation` — `"PUT"` (upload) or `"GET"` (download)
+- `key` — object key, will be prefixed with the resource's `<prefix>/`
+  internally; the path is scoped so a signed URL cannot escape the
+  prefix even if leaked
+- `expires_in` — TTL in seconds, clamped to `[1, 3600]`; values ≤ 0 are
+  rejected with `400 invalid_expires_in`
+
+The URL is signed by the platform master key but enforces the
+tenant's prefix at sign time, so leaked URLs cannot read or write other
+tenants' objects. Rate-limited per token.
+
 ## Operational endpoints
 
 - `GET /healthz` — shallow liveness probe. Returns 200 with `{ok, commit_id, build_time, version}` if the binary is up and can ping its primary platform DB. Use this to verify a deploy SHA matches what you pushed.
