@@ -88,3 +88,27 @@ publish to other tenants' subjects is denied at the server.
 Resources provisioned before the operator-mode cutover (2026-05-20) carry
 `auth_mode: "legacy_open"` and have no `credentials` field; they keep working
 on the unauthenticated path until they recycle.
+
+### Storage isolation mode (2026-05-20+)
+
+The `/storage/new` response also includes a `mode` field that names the
+isolation level the tenant landed on:
+
+| mode | Meaning |
+|---|---|
+| `shared-master-key` | DO Spaces today. Every tenant holds the master key; isolation is by `prefix` convention. |
+| `prefix-scoped` | Backend IAM enforces `s3:prefix` against `<prefix>/*` (R2, S3, MinIO). |
+| `prefix-scoped-temporary` | Same as prefix-scoped but credentials are STS — they expire. |
+| `broker` | No long-lived credential is issued. Use `POST /storage/:token/presign` for short-lived signed URLs (max 1h TTL). |
+
+The mode is decided at boot time by the `OBJECT_STORE_BACKEND` env var and
+the backend's `Capabilities()`. Agents should branch on `mode` if they
+need to behave differently — e.g. when `broker`, never try to write
+directly with `(access_key_id, secret_access_key)` since the response
+won't carry them.
+
+## Operational endpoints
+
+- `GET /healthz` — shallow liveness probe. Returns 200 with `{ok, commit_id, build_time, version}` if the binary is up and can ping its primary platform DB. Use this to verify a deploy SHA matches what you pushed.
+- `GET /readyz` — deep readiness probe (added 2026-05-20). Multi-component upstream-reachability matrix returning per-check status + latency + last_checked timestamp. Per-check criticality decides 200 vs 503. See [Deploying an app](/docs#deploy) for the full envelope shape.
+- `POST /webhooks/brevo/:secret` — Brevo delivery webhook receiver (internal). Authenticated by URL token. Overwrites `forwarder_sent.classification` with the real outcome (`delivered`, `bounced_hard`, `bounced_soft`, `rejected`, `complaint`, `deferred`, `unsubscribed`, `error`) and stamps `delivered_at` on `delivered`. The truth surface for "did the user receive the email" — the worker's 201 from the Brevo API only means the relay accepted the POST; the ledger row's classification (set by this webhook) is the real outcome.

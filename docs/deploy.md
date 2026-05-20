@@ -91,3 +91,27 @@ Anonymous resources (24h TTL) have no email on file. `DELETE` returns
 ### Stacks
 
 Same contract applies to `DELETE /api/v1/stacks/<slug>`.
+
+## Health and readiness probes
+
+The platform exposes two distinct probes on every service (api, worker, provisioner):
+
+- **`GET /healthz`** — shallow liveness. Returns 200 with `{ok, commit_id, build_time, version}` if the binary is up and can ping its primary platform DB. Wired to Kubernetes `livenessProbe`. Use this to verify a deploy actually rolled out (`commit_id` should match the git SHA you pushed).
+- **`GET /readyz`** — deep readiness, added 2026-05-20. A multi-component matrix that walks every upstream the process depends on (platform_db, customer_db, redis-provision, provisioner_grpc, NATS, DO Spaces, Brevo, Razorpay, GeoIP). Per-check criticality decides the HTTP status: `platform_db` and `provisioner_grpc` are CRITICAL (a failed check returns 503 and pulls the pod from k8s rotation); everything else degrades to 200 with `overall=degraded` so a brevo outage degrades email but doesn't blackhole provisioning. Each check runs in parallel behind a 10-15s cache so the `readinessProbe` cycle doesn't self-DoS upstream rate limits.
+
+Response envelope (same shape across all three services):
+
+```json
+{
+  "ok": true,
+  "overall": "ok",
+  "commit_id": "abc1234",
+  "checks": {
+    "platform_db":      {"status": "ok",       "latency_ms":  4, "last_checked": "2026-05-20T..."},
+    "provisioner_grpc": {"status": "ok",       "latency_ms": 12, "last_checked": "2026-05-20T..."},
+    "brevo":            {"status": "degraded", "latency_ms": -1, "last_checked": "2026-05-20T...", "message": "brevo upstream timeout"}
+  }
+}
+```
+
+`overall` is the worst non-degraded status the criticality matrix permits to be surfaced. New Relic alert `readyz_degraded` fires on `overall != "ok"` for 5 consecutive minutes per service.
