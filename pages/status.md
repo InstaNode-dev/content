@@ -34,5 +34,5 @@ For a chronological list of incidents, see the HTML page. Recent fixes and platf
 ## Machine-readable
 
 - Status JSON: `https://api.instanode.dev/api/v1/status`
-- Per-service metrics (Prometheus format): `https://api.instanode.dev/metrics`
+- Per-service metrics (Prometheus format): `https://api.instanode.dev/metrics` (requires a bearer token — not public; returns `401` without it)
 - OpenAPI spec: `https://api.instanode.dev/openapi.json`
