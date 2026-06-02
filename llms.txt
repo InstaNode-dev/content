@@ -99,7 +99,7 @@ on `/api/v1/capabilities` for agent introspection.
 
 > **Upgrading auto-promotes in-flight deployment TTLs.** When a team upgrades to any paid tier (Hobby / Hobby Plus / Pro / Growth / Team), the Razorpay subscription.charged webhook flips the team's `default_deployment_ttl_policy` from `auto_24h` to `permanent` (so every future `POST /deploy/new` defaults to no TTL) AND promotes every existing `auto_24h` non-terminal deploy to permanent (clearing `expires_at`). Per-deploy `ttl_policy='custom'` and `ttl_policy='permanent'` rows are never touched — only the `auto_24h` class is rolled forward. To restore the 24h-default behaviour after an upgrade, `PATCH /api/v1/team/settings {"default_deployment_ttl_policy":"auto_24h"}`.
 - **Pro**: $49/mo. 10 GB Postgres, 512 MB Redis, 5 GB Mongo, 50 GB storage, 10 apps.
-- **Team**: $199/mo. Unlimited everything (Postgres / Redis / Mongo / queues / storage / deployments / vault entries), 50 custom domains, 90-day backups with self-serve restore, RBAC + audit log, SSO/SAML, 99.9% SLA. Self-serve assisted-Razorpay path is rolling out — for now contact support@instanode.dev for onboarding.
+- **Team**: $199/mo. Unlimited everything (Postgres / Redis / Mongo / queues / storage / deployments / vault entries), 50 custom domains, 90-day backups with self-serve restore, RBAC + audit log. SSO/SAML and a 99.9% SLA are coming soon (not yet available). Self-serve assisted-Razorpay path is rolling out — for now contact support@instanode.dev for onboarding.
 
 ## Conventions an LLM should follow when scripting against the platform
 
