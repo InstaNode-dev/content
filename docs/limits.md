@@ -8,7 +8,7 @@ order: 7
 | Anonymous  | 10MB / 2c   | 5MB       | 5MB / 2c     | 24h  | free        |
 | Hobby      | 1GB / 8c    | 50MB      | 100MB / 5c   | none | $9 / mo     |
 | Pro        | 10GB / 20c  | 512MB     | 5GB / 20c    | none | $49 / mo    |
-| Team       | unlimited   | unlimited | unlimited    | none | coming soon |
+| Team       | unlimited   | unlimited | unlimited    | none | $199 / mo   |
 
 "c" = simultaneous connections. The full table is at `/pricing`.
 
@@ -17,11 +17,12 @@ reached via in-dashboard prompts when a Hobby user hits a quota wall. They are
 deliberately omitted from the public tier ladder to keep the customer-facing
 comparison simple.
 
-**Team tier status:** the tier is defined in `plans.yaml` with the limits
-above, but customer-initiated checkout for it is blocked at the API level
-(`POST /api/v1/billing/checkout` returns `400 tier_unavailable` for
-`plan=team`). Email support@instanode.dev for early access. Pro is the
-ceiling for self-serve upgrades today.
+**Team tier status:** Team is live and self-serve at $199/mo (the API no longer
+returns `tier_unavailable` for `plan=team`). Note: self-serve checkout for ALL
+paid tiers (Hobby/Pro/Team) currently depends on the Razorpay recurring-billing
+rollout — until that operator step completes, `POST /api/v1/billing/checkout`
+may return a `502`/`503`; contact support@instanode.dev for assisted onboarding
+in the meantime.
 
 Limits are enforced at the Postgres user level (`CONNECTION LIMIT` on the
 role) and via per-bucket storage quotas. Exceeding a limit returns a 402 with

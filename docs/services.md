@@ -54,10 +54,13 @@ curl -X POST https://api.instanode.dev/webhook/new \
   -d '{"name":"github-webhook"}'
 ```
 
-Every response has the same shape: `{ ok, token, connection_url, internal_url,
+Most responses share the shape `{ ok, token, connection_url, internal_url,
 tier, limits, note, upgrade_jwt }`. `internal_url` is the address to use
 when the caller itself runs inside our cluster (i.e. via /deploy/new) —
-public hostnames don't hairpin reliably from inside.
+public hostnames don't hairpin reliably from inside. Two endpoints differ:
+`/webhook/new` returns `receive_url` (no `connection_url`/`internal_url`), and
+`/storage/new` returns `endpoint`/`prefix`/`mode` (and, in `broker` mode, a
+`presign_url` instead of S3 keys — see Storage isolation below).
 
 ### NATS queue credentials (2026-05-20+)
 
@@ -82,12 +85,18 @@ NATS account credentials (MR-P0-5):
 
 Pass `(nats_jwt, nats_nkey)` to `nats.UserJWTAndSeed()` in the NATS Go client,
 or write `creds_file` to disk and pass the path to `nats.UserCredentials()`.
-The tenant's JWT only permits pub/sub on the `subject_prefix.*` namespace —
-publish to other tenants' subjects is denied at the server.
+When `auth_mode` is `"isolated"`, the tenant's JWT only permits pub/sub on the
+`subject_prefix.*` namespace and cross-tenant publish is denied at the server.
 
-Resources provisioned before the operator-mode cutover (2026-05-20) carry
-`auth_mode: "legacy_open"` and have no `credentials` field; they keep working
-on the unauthenticated path until they recycle.
+> **Current production reality (read this).** Per-tenant account-JWT isolation
+> is wired end-to-end but is **not yet active in production** — prod currently
+> issues `auth_mode: "legacy_open"` for new queues (operator NKey generation is
+> pending). In `legacy_open` there is **no `credentials` block and no
+> server-side cross-tenant enforcement**: connect with just the
+> `connection_url`, and treat the queue as shared-namespace — scope your own
+> subjects under `subject_prefix.*` at the application layer. The `isolated`
+> shape above is what you'll receive once isolation is enabled. Resources
+> provisioned before the 2026-05-20 cutover are also `legacy_open`.
 
 ### Storage isolation mode (2026-05-20+)
 
@@ -96,10 +105,10 @@ isolation level the tenant landed on:
 
 | mode | Meaning |
 |---|---|
-| `shared-master-key` | DO Spaces today. Every tenant holds the master key; isolation is by `prefix` convention. |
-| `prefix-scoped` | Backend IAM enforces `s3:prefix` against `<prefix>/*` (R2, S3, MinIO). |
+| `broker` | **DO Spaces today — what every new tenant receives.** No long-lived credential is issued; the response omits `access_key_id`/`secret_access_key`. Use `POST /storage/:token/presign` for short-lived signed URLs (max 1h TTL). |
+| `shared-master-key` | Legacy DO Spaces rows only (pre-broker). Every tenant held the master key; isolation was by `prefix` convention. New tenants do NOT land here. |
+| `prefix-scoped` | Backend IAM enforces `s3:prefix` against `<prefix>/*` (R2, S3, MinIO target). |
 | `prefix-scoped-temporary` | Same as prefix-scoped but credentials are STS — they expire. |
-| `broker` | No long-lived credential is issued. Use `POST /storage/:token/presign` for short-lived signed URLs (max 1h TTL). |
 
 The mode is decided at boot time by the `OBJECT_STORE_BACKEND` env var and
 the backend's `Capabilities()`. Agents should branch on `mode` if they
