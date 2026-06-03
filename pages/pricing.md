@@ -1,6 +1,6 @@
 # Pricing — instanode.dev
 
-> Self-serve at every tier. No talk-to-sales gate. Anonymous is the funnel; Hobby pays for the side project; Pro lets one product run in production + staging + development; Team (coming soon) is for the company that ships every day.
+> Self-serve at every tier. No talk-to-sales gate. Anonymous is the funnel; Hobby pays for the side project; Pro lets one product run in production + staging + development; Team is for the company that ships every day.
 
 ## Tiers
 
@@ -36,9 +36,14 @@
 - Vault for secrets
 - Priority queue access on the build cluster
 
-### Team — coming soon
+### Team — $199 / month
 
-We're building the engineering-org tier. Not generally available yet.
+- Unlimited Postgres / Redis / MongoDB / queues / storage / deployments / vault entries
+- 50 custom domains
+- 90-day backups with self-serve restore
+- RBAC + audit log
+- SSO / SAML and a 99.9% SLA are coming soon (not yet available)
+- Self-serve assisted-Razorpay checkout is rolling out — for now email support@instanode.dev for onboarding
 
 ## How billing works
 
