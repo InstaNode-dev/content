@@ -24,7 +24,7 @@ Sub-second response with a real `connection_url` to a dedicated Postgres databas
 
 - **Anonymous-first.** The first 24 hours of every resource are free with no signup. Try the platform before deciding to pay.
 - **Claim, then upgrade to keep.** Claiming the resource (magic-link email; no password) attaches it to an account. The Free tier mirrors the anonymous 24h TTL — to keep resources past 24 hours, upgrade to a paid tier (Hobby $9/mo or above) in the dashboard.
-- **Pay from day one of upgrading.** Hobby is $9/mo, Pro is $49/mo, Team is $199/mo (coming soon). No trial period on paid tiers — the anonymous slice IS the trial.
+- **Pay from day one of upgrading.** Hobby is $9/mo, Pro is $49/mo, Team is $199/mo. No trial period on paid tiers — the anonymous slice IS the trial.
 
 ## Built for agents
 
