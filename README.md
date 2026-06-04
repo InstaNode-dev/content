@@ -1,23 +1,34 @@
 # instanode.dev — public content
 
-Source of truth for the marketing site (https://instanode.dev) content.
+Source of truth for the public content of **[instanode.dev](https://instanode.dev)** —
+zero-friction developer infrastructure for AI agents. Provision a real Postgres, pgvector,
+Redis, MongoDB, NATS queue, or S3 bucket (and deploy your app) with a single HTTP call.
+No account, no Docker, no setup. Free anonymous tier.
 
-The dashboard repo (`InstaNode-dev/instanode-web`) clones this repo into
-its `.content/` directory at build time and inlines the markdown into
-the static HTML via Vite's `import.meta.glob` raw imports. The same
-flow runs in `npm run dev` so authors get hot reload on edits in a
-local clone.
+This repo holds the marketing copy, blog posts, use cases, and docs that ship to
+https://instanode.dev — plus **[`llms.txt`](./llms.txt)**, the LLM-friendly index that lets
+AI coding agents (Claude, Cursor, Copilot, Windsurf) discover and use the platform. The live
+copy is served at https://instanode.dev/llms.txt, with a `/.md` mirror of every page and the
+full text at https://instanode.dev/llms-full.txt.
+
+The web app repo (`InstaNode-dev/instanode-web`) clones this repo into its `.content/`
+directory at build time and inlines the markdown into the static HTML via Vite's
+`import.meta.glob` raw imports. The same flow runs in `npm run dev` so authors get hot
+reload on edits in a local clone.
 
 ## Layout
 
 ```
 .
+├── llms.txt               LLM-friendly platform index (served at /llms.txt)
 ├── blog/
-│   ├── <slug>.md          one post per file; filename = URL slug
-│   └── ...
-├── use-cases.json         (slice B — coming)
-└── docs/                  (slice C — coming)
-    └── <section>.md
+│   └── <slug>.md          one post per file; filename = URL slug
+├── use-cases/
+│   └── <slug>.md          one use case per file; filename = URL slug
+├── docs/
+│   └── <section>.md       quickstart, services, deploy, stacks, limits, auth, …
+└── pages/
+    └── <name>.md          top-level marketing pages (home, pricing, for-agents, status)
 ```
 
 ## Blog post format
