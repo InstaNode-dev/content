@@ -1,6 +1,6 @@
 ---
 title: Claim flow (anonymous → paid)
-order: 5
+order: 6
 ---
 
 Anonymous resources expire in 24 hours. To keep them, claim them.

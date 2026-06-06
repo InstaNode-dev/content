@@ -1,6 +1,6 @@
 ---
 title: Authentication
-order: 6
+order: 7
 ---
 
 Resource provisioning is anonymous. Everything else (deploy, vault, billing,

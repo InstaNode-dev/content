@@ -1,6 +1,6 @@
 ---
 title: Tiers and limits
-order: 7
+order: 8
 ---
 
 | Tier       | Postgres    | Redis     | MongoDB      | TTL  | Price       |

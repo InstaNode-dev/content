@@ -1,6 +1,6 @@
 ---
 title: Machine-readable API
-order: 8
+order: 9
 ---
 
 The full API surface is described in OpenAPI 3.1 at:
