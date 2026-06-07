@@ -43,7 +43,7 @@
 - 90-day backups with self-serve restore
 - RBAC + audit log
 - SSO / SAML and a 99.9% SLA are coming soon (not yet available)
-- Self-serve assisted-Razorpay checkout is rolling out — for now email support@instanode.dev for onboarding
+- Self-serve assisted-Razorpay checkout is rolling out — for now email contact@instanode.dev for onboarding
 
 ## How billing works
 
