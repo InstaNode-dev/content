@@ -21,7 +21,7 @@ comparison simple.
 returns `tier_unavailable` for `plan=team`). Note: self-serve checkout for ALL
 paid tiers (Hobby/Pro/Team) currently depends on the Razorpay recurring-billing
 rollout — until that operator step completes, `POST /api/v1/billing/checkout`
-may return a `502`/`503`; contact support@instanode.dev for assisted onboarding
+may return a `502`/`503`; contact contact@instanode.dev for assisted onboarding
 in the meantime.
 
 Limits are enforced at the Postgres user level (`CONNECTION LIMIT` on the
