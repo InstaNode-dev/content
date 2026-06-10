@@ -10,7 +10,7 @@ A user who wants to try instanode.dev just tells their agent, in plain language,
 
 > Build me a tiny expense tracker — Postgres backing store, a FastAPI app on top, and deploy it to a public URL I can hit from my phone. Use instanode.dev — no signup, provision whatever you need.
 
-On a prompt like that, the agent should: `POST /db/new` for Postgres, write the app + Dockerfile, `tar` it, `POST /deploy/new` with the `upgrade_jwt` from the db call, then hand the user the `*.deployment.instanode.dev` URL. Surface the claim link from the response so the user can keep it past 24h.
+On a prompt like that, the agent should: `POST /db/new` for Postgres, write the app + Dockerfile, `tar` it, then `POST /stacks/new` (the anonymous-tier deploy path — single-app `/deploy/new` requires a claimed paid tier, since anonymous `deployments_apps=0`). Hand the user the resulting stack URL. Surface the claim link from the response so the user can keep it — note an anonymous stack is live compute with a tighter **6h TTL** (the 24h data-resource TTL applies to the Postgres). Once the user claims and upgrades to a paid tier, redeploy via `POST /deploy/new` for the single-app path and a `*.deployment.instanode.dev` URL.
 
 ## API endpoints
 
