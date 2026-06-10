@@ -23,7 +23,9 @@ cannot be purchased or claimed today; `POST /api/v1/billing/checkout` and
 When it ships, Team is planned at $199/mo with high finite limits (not unlimited):
 50 GB Postgres / 100 connections, 1.5 GB Redis, 40 GB MongoDB / 50 connections,
 40 GB queues, 300 GB object storage, 30 GB vector, 100 deployment apps, 1000 vault
-entries, 100k webhooks, 50 custom domains, 90-day backups with self-serve restore,
+entries, 100k webhooks, 50 custom domains, 90-day backups with self-serve restore
+(backups cover Postgres, pgvector, MongoDB & Redis; restore is self-serve for
+Postgres/pgvector/MongoDB — Redis is backup-only today, restore coming soon),
 and RBAC + audit log. Capacity beyond these caps (or dedicated/isolated infra,
 multi-region, or compliance such as SOC2/BAA/SSO/SLA/DPA) is Enterprise — contact
 sales@instanode.dev.
