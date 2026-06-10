@@ -50,7 +50,7 @@ Team is **not yet self-serve**: it cannot be purchased or claimed today. Email c
 - 1000 vault entries
 - 100k stored webhooks
 - 50 custom domains
-- 90-day backups with self-serve restore
+- 90-day backups (Postgres, pgvector, MongoDB & Redis) with self-serve restore for Postgres, pgvector & MongoDB — Redis is backup-only today (restore coming soon)
 - RBAC + audit log
 - SSO / SAML and a 99.9% SLA are coming soon (not yet available)
 
