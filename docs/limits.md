@@ -8,7 +8,7 @@ order: 8
 | Anonymous  | 10MB / 2c   | 5MB       | 5MB / 2c     | 24h  | free        |
 | Hobby      | 1GB / 8c    | 50MB      | 100MB / 5c   | none | $9 / mo     |
 | Pro        | 10GB / 20c  | 512MB     | 5GB / 20c    | none | $49 / mo    |
-| Team       | unlimited   | unlimited | unlimited    | none | $199 / mo   |
+| Team       | 50GB / 100c | 1.5GB     | 40GB / 50c   | none | $199 / mo*  |
 
 "c" = simultaneous connections. The full table is at `/pricing`.
 
@@ -17,12 +17,21 @@ reached via in-dashboard prompts when a Hobby user hits a quota wall. They are
 deliberately omitted from the public tier ladder to keep the customer-facing
 comparison simple.
 
-**Team tier status:** Team is live and self-serve at $199/mo (the API no longer
-returns `tier_unavailable` for `plan=team`). Note: self-serve checkout for ALL
-paid tiers (Hobby/Pro/Team) currently depends on the Razorpay recurring-billing
-rollout — until that operator step completes, `POST /api/v1/billing/checkout`
-may return a `502`/`503`; contact contact@instanode.dev for assisted onboarding
-in the meantime.
+**Team tier status (\*):** Team is **launching soon — not yet self-serve**. It
+cannot be purchased or claimed today; `POST /api/v1/billing/checkout` and
+`/change-plan` reject `plan=team`. Contact contact@instanode.dev for onboarding.
+When it ships, Team is planned at $199/mo with high finite limits (not unlimited):
+50 GB Postgres / 100 connections, 1.5 GB Redis, 40 GB MongoDB / 50 connections,
+40 GB queues, 300 GB object storage, 30 GB vector, 100 deployment apps, 1000 vault
+entries, 100k webhooks, 50 custom domains, 90-day backups with self-serve restore,
+and RBAC + audit log. Capacity beyond these caps (or dedicated/isolated infra,
+multi-region, or compliance such as SOC2/BAA/SSO/SLA/DPA) is Enterprise — contact
+sales@instanode.dev.
+
+Note: self-serve checkout for the live paid tiers (Hobby/Pro) currently depends on
+the Razorpay recurring-billing rollout — until that operator step completes,
+`POST /api/v1/billing/checkout` may return a `502`/`503`; contact
+contact@instanode.dev for assisted onboarding in the meantime.
 
 Limits are enforced at the Postgres user level (`CONNECTION LIMIT` on the
 role) and via per-bucket storage quotas. Exceeding a limit returns a 402 with

@@ -1,6 +1,6 @@
 # Pricing — instanode.dev
 
-> Self-serve at every tier. No talk-to-sales gate. Anonymous is the funnel; Hobby pays for the side project; Pro lets one product run in production + staging + development; Team is for the company that ships every day.
+> Anonymous is the funnel; Hobby pays for the side project; Pro lets one product run in production + staging + development. Hobby and Pro are self-serve checkout. Team is launching soon — contact sales for onboarding.
 
 ## Tiers
 
@@ -9,7 +9,7 @@
 - 10 MB Postgres / 2 connections
 - 5 MB Redis
 - 5 MB MongoDB / 2 connections
-- NATS: 1024 MB JetStream storage
+- NATS: 64 MB JetStream storage
 - 10 MB object storage (S3-compatible, DigitalOcean Spaces)
 - Deploy: not available (requires Hobby or above)
 - Webhook: last 100 received payloads
@@ -36,14 +36,25 @@
 - Vault for secrets
 - Priority queue access on the build cluster
 
-### Team — $199 / month
+### Team — $199 / month (launching soon — contact sales)
 
-- Unlimited Postgres / Redis / MongoDB / queues / storage / deployments / vault entries
+Team is **not yet self-serve**: it cannot be purchased or claimed today. Email contact@instanode.dev for onboarding. When it ships, Team is planned with high finite limits (not unlimited):
+
+- 50 GB Postgres / 100 connections
+- 1.5 GB Redis
+- 40 GB MongoDB / 50 connections
+- 40 GB queues
+- 300 GB object storage
+- 30 GB vector
+- 100 deployment apps
+- 1000 vault entries
+- 100k stored webhooks
 - 50 custom domains
 - 90-day backups with self-serve restore
 - RBAC + audit log
 - SSO / SAML and a 99.9% SLA are coming soon (not yet available)
-- Self-serve assisted-Razorpay checkout is rolling out — for now email contact@instanode.dev for onboarding
+
+Need more than these caps — or dedicated/isolated infra, multi-region, or compliance (SOC2 / BAA / SSO / SLA / DPA)? That's Enterprise — contact sales@instanode.dev.
 
 ## How billing works
 
