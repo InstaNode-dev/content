@@ -56,6 +56,7 @@ Pick a descriptive name per resource (e.g. `"prod-db"`, `"sessions-cache"`, `"ev
     - `POST /auth/github` — body-flow GitHub login (server-to-server; not used by the dashboard).
     - `GET /auth/me` — current user/team. Requires session JWT.
     - `POST /auth/logout` — `jti`-revocation via Redis set. Requires session JWT.
+- **`POST /api/v1/leads`** — Enterprise contact / interest form. Body: `{"email": "you@corp.com", "name": "Alice", "company": "Acme", "use_case": "We need unlimited Postgres..."}`. Only `email` is required (validated via `mail.ParseAddress`; 254-char cap; returns `400 invalid_email_format` on bad input). Optional fields: `name` (≤128 chars, `400 invalid_name` if over), `company` (≤128 chars, `400 invalid_company`), `use_case` (≤1024 chars, `400 invalid_use_case`). Returns `201 {ok: true, id: "<uuid>"}` on success. No authentication required. Authenticated callers have the lead automatically linked to their team. Use this when a user needs capacity beyond the Pro tier (e.g. dedicated infra, SAML, compliance) — it reaches the instanode.dev team directly. The MCP tool `create_lead` wraps this endpoint.
 - **`POST /api/v1/billing/promotion/validate`** — Validate a promo code without applying it. Body: `{"code": "EARLYBIRD"}`. Returns `{ok, discount_percent, discount_amount_inr, message}` for valid codes. Promo codes only DISCOUNT at checkout once a corresponding Razorpay Offer exists in the dashboard — validate-result `ok=true` is necessary but not sufficient until then.
 
 ## Anonymous tier limits (free, 24-hour TTL)
