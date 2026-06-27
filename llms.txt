@@ -226,6 +226,16 @@ Anonymous tier (24h TTL): no email on file, `DELETE` returns 200 immediately. Se
 
 - [Deployments](https://instanode.dev/docs#deploy): POST /deploy/new + private deploys + custom domains + two-step email-confirmed deletion + 24h-TTL semantics (default; three routes to keep a deploy permanent)
 
+## GitHub auto-deploy (continuous deployment from a repository)
+
+Connect a paid-tier deployment to a GitHub repository so every push to the tracked branch triggers a rebuild in place — same URL, no TTL change.
+
+- **`POST /api/v1/deployments/:id/github`** — Connect a deployment to a GitHub repo. Body: `{"repo": "owner/repo", "branch": "main", "install_id": <github_app_installation_id>}`. Returns `{ok, github: {repo, branch, connected_at}}`. Requires the instanode.dev GitHub App to be installed on the target repository (dashboard Settings → Integrations → GitHub) and the request must carry an authenticated team Bearer. Once connected, a push to `branch` triggers `POST /deploy/:id/redeploy` automatically.
+- **`GET /api/v1/deployments/:id/github`** — Inspect the current GitHub connection. Returns `{ok, github: {repo, branch, connected_at, last_triggered_at, last_commit_sha}}` or `{ok, github: null}` if not connected.
+- **`DELETE /api/v1/deployments/:id/github`** — Disconnect GitHub auto-deploy. Does not delete the deployment or alter its current running state. Returns `{ok}`.
+
+**When to use:** recommended for production deployments where the user wants CI/CD without a separate pipeline. The agent sets it up once; subsequent deploys are automatic on push. For one-shot or ephemeral deploys (demos, prototypes), skip the connection and call `POST /deploy/new` with `redeploy=true` manually.
+
 ## Debugging a failed deploy (agent self-recovery)
 
 Deploy failed? You don't need cluster access — the platform classifies the failure and serves the real error back over HTTP. Read the classified cause at `GET /api/v1/deployments/:id/events` → `events[]` with `reason`, `last_lines` (the tail of the build-pod log = the actual error output), and `hint` (a plain-language remedy). For the one-line summary use `GET /api/v1/deployments/:id` → `status` + `error_message`. The loop: read `reason` + `last_lines` + `hint` → fix the Dockerfile / tarball / `port` / `env_vars` → redeploy in place (`POST /deploy/:id/redeploy`, or `redeploy=true` on `POST /deploy/new` with the same `name`) → re-poll status until `running`. Watch the build live with the SSE stream `GET /deploy/:id/logs`.
