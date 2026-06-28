@@ -173,6 +173,37 @@ The instanode.dev MCP server wraps the API as tools, so an MCP-capable agent nev
 This means an agent can run the entire arc — provision → deploy → set secrets → presign storage → debug a failure → rotate credentials → pause/resume — without ever leaving the MCP toolset. Every `create_*` tool surfaces the API's `note` + `upgrade` (claim URL) fields so the agent can show the user how to keep a resource past the anonymous TTL.
 
 
+## Go SDK (`github.com/InstaNode-dev/sdk-go`)
+
+The instanode.dev Go SDK wraps the full API surface as typed method calls so Go agents never have to hand-roll HTTP. It mirrors the MCP server's coverage — provision, operate, inspect.
+
+```go
+import instanode "github.com/InstaNode-dev/sdk-go"
+
+c := instanode.NewClient(instanode.WithToken(os.Getenv("INSTANT_TOKEN")))
+
+// Provision
+db, err := c.CreatePostgres(ctx, instanode.CreateParams{Name: "prod-db", Env: "production"})
+// db.ConnectionURL — ready to use
+
+// Deploy
+deploy, err := c.CreateDeploy(ctx, instanode.DeployParams{
+    Name: "my-api", Tarball: tarBytes, Port: 8080, Env: "production",
+})
+
+// Operate
+_, err = c.SetVaultKey(ctx, instanode.VaultKeyParams{Env: "production", Key: "DB_URL", Value: db.ConnectionURL})
+_, err = c.UpdateDeployEnv(ctx, instanode.EnvPatchParams{ID: deploy.ID, EnvVars: map[string]string{"RELOAD": "1"}})
+
+// Inspect
+events, err := c.GetDeploymentEvents(ctx, deploy.ID)
+
+// Enterprise contact
+_, err = c.CreateLead(ctx, instanode.LeadParams{Email: "cto@corp.com", Company: "Acme", UseCase: "..."})
+```
+
+Token resolution: `WithToken(t)` → `INSTANT_TOKEN` env var → CLI saved credentials. All methods return typed structs; error is `*instanode.APIError` with `Code`, `StatusCode`, and `AgentAction` for machine-parseable recovery.
+
 ## Deleting a deployment (paid tiers — two-step, email-confirmed)
 
 Paid customers free a consumed deployment slot via a two-step flow:
