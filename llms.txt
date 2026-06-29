@@ -160,7 +160,7 @@ Aggregate file: [/llms-full.txt](https://instanode.dev/llms-full.txt) — concat
 The instanode.dev MCP server wraps the API as tools, so an MCP-capable agent never has to hand-roll curl. It does more than create resources — it can **operate** the whole bundle.
 
 - **Provision / deploy (create):** `create_postgres`, `create_vector`, `create_cache`, `create_nosql`, `create_queue`, `create_storage`, `create_webhook`, `create_deploy`, `create_stack` — plus `list_resources`, `list_deployments`, `get_deployment`, `get_stack`, `claim_resource`, `delete_resource`, `delete_deployment`, `redeploy`.
-- **Plan before you call:** `get_capabilities` reads the live per-tier capability matrix (storage / connection / deployment caps per tier) so an agent can size a provision *before* a call 402s.
+- **Plan before you call:** `get_capabilities` reads the live per-tier capability matrix (storage / connection / deployment caps per tier, plus `resource_count_limit` per service per tier) so an agent can size a provision *before* a call 402s. Equivalent REST call: `GET /api/v1/capabilities` (no auth required). Returns `{tiers: [{name, storage_mb, connections, deployments_apps, resource_count_limit}]}` — iterate the response and pick the lowest tier that satisfies the required limits rather than hard-coding tier names.
 - **Debug a failed deploy:** `get_deployment_events` reads the failure-timeline autopsy (`kind`/`reason`/`exit_code`/`hint`/`last_lines`) so the agent can self-correct a broken Dockerfile and redeploy in place.
 - **Operate (not just create):**
   - `set_vault_key` / `rotate_vault_key` — write or rotate a team-vault secret a deploy references as `vault://env/KEY`.
