@@ -211,6 +211,28 @@ _, err = c.CreateLead(ctx, instanode.LeadParams{Email: "cto@corp.com", Company: 
 
 Token resolution: `WithToken(t)` → `INSTANT_TOKEN` env var → CLI saved credentials. All methods return typed structs; error is `*instanode.APIError` with `Code`, `StatusCode`, and `AgentAction` for machine-parseable recovery.
 
+## Deployment TTL policies and custom domains
+
+### TTL policy (controlling when a deployment expires)
+
+By default, anonymous-tier deploys expire after 24h and paid-tier deploys are permanent. Three ways to control this:
+
+- **`PATCH /api/v1/team/settings`** — set the team-level default. Body: `{"default_deployment_ttl_policy": "auto_24h" | "permanent"}`. Paid teams default to `permanent`; flip to `auto_24h` to restore the recycling behaviour.
+- **Per-deploy override on creation** — `POST /deploy/new` accepts `ttl_policy` as a multipart form field (`"auto_24h"` | `"permanent"` | `"custom"`) and, for `"custom"`, `ttl_seconds` (an integer). Custom TTL is paid-only.
+- **`POST /api/v1/deployments/:id/ttl`** — change TTL after deployment. Body: `{"ttl_policy": "permanent" | "auto_24h" | "custom", "ttl_seconds": 7200}`. Returns `{ok, expires_at}`.
+- **`POST /api/v1/deployments/:id/promote`** — one-shot promote from `auto_24h` to `permanent`. Equivalent to `PATCH ttl {ttl_policy: "permanent"}` but available on the MCP as `promote_deployment`. Returns `{ok, deployment}`.
+
+When a team upgrades to a paid tier, the platform automatically promotes all existing `auto_24h` deployments to `permanent` — the user's running deploys are not silently reaped.
+
+### Custom domains (Pro+)
+
+Paid-tier deployments get a `*.deployment.instanode.dev` subdomain by default. Pro and above can attach a custom domain:
+
+- **`POST /api/v1/deployments/:id/domains`** — attach a custom domain. Body: `{"domain": "api.example.com"}`. Returns `{ok, domain, cname_target, tls_status: "pending" | "active"}`. Point a `CNAME api.example.com → <cname_target>` in your DNS and cert-manager issues a Let's Encrypt cert automatically (usually ≤90s).
+- **`GET /api/v1/deployments/:id/domains`** — list attached domains with `tls_status`.
+- **`DELETE /api/v1/deployments/:id/domains/:domain`** — detach a domain. The `*.deployment.instanode.dev` URL remains live.
+- The original `*.deployment.instanode.dev` URL always stays valid — custom domains are additional aliases, not replacements.
+
 ## Deleting a deployment (paid tiers — two-step, email-confirmed)
 
 Paid customers free a consumed deployment slot via a two-step flow:
