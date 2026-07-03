@@ -150,6 +150,7 @@ Aggregate file: [/llms-full.txt](https://instanode.dev/llms-full.txt) — concat
 
 ## Machine-readable references
 
+- `GET /api/v1/resources` — List all resources on the caller's account. Returns `{ok, resources: [{id, service, name, tier, env, status, token, created_at, expires_at}]}`. Requires `Authorization: Bearer <INSTANT_TOKEN>`. Useful before provisioning to check what already exists — avoids duplicate provisions when an agent loses state between turns. Filter by `service` (`postgres`, `redis`, `mongodb`, `nats`, `storage`, `webhook`) and `env` (`development`, `production`) in the query string.
 - `https://api.instanode.dev/openapi.json` — OpenAPI 3.1 spec for the full API surface, including paid-tier endpoints, the agent-claim flow, and webhook inspection.
 - `https://github.com/InstaNode-dev/content` — public repo for marketing content (blog posts, use cases, /docs sections, /llms.txt). Edit prose here.
 - `https://github.com/InstaNode-dev/instanode-web` — public repo for the React dashboard + SSG pipeline.
