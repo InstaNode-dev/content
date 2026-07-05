@@ -230,6 +230,27 @@ Deploy failed? You don't need cluster access — the platform classifies the fai
 
 Full guide: [https://instanode.dev/docs#troubleshooting-deploys](https://instanode.dev/docs#troubleshooting-deploys) (markdown mirror: [/docs/troubleshooting-deploys.md](https://instanode.dev/docs/troubleshooting-deploys.md)).
 
+## Quick error-recovery reference for agents
+
+| HTTP status | `error` code | Meaning | Recovery |
+|---|---|---|---|
+| 400 | `name_required` | Missing or empty `name` field | Add `"name": "..."` to the request body |
+| 400 | `invalid_name` | `name` fails `^[A-Za-z0-9][A-Za-z0-9 _-]*$` or >64 chars | Use a valid name |
+| 400 | `invalid_email_format` | Email fails validation on `/claim` or `/api/v1/leads` | Use a valid RFC 5322 address |
+| 400 | `missing_email` | `email` field absent on `/claim` | Add `"email": "..."` |
+| 401 | `unauthorized` | Missing or invalid Bearer token | Set `INSTANT_TOKEN` or run `instant login` |
+| 402 | `free_tier_recycle_requires_claim` | Anonymous resource expired; fingerprint must claim before re-provisioning | Hand user the `claim_url` from the envelope |
+| 402 | `resource_count_limit_exceeded` | Hit the per-service resource count cap for the tier | Upgrade (follow `agent_action`) or delete an existing resource |
+| 402 | `deploy_limit_exceeded` | Hit `deployments_apps` cap for the tier | Upgrade or delete an existing deployment |
+| 402 | `storage_limit_exceeded` | Object write would exceed tier storage quota | Upgrade or prune objects |
+| 404 | `resource_not_found` | Token refers to a deleted or non-existent resource | Re-provision |
+| 409 | `already_claimed` | JWT used for claim was already consumed | Redirect user to dashboard |
+| 409 | `not_ready` | Deployment exists but has no provider id yet | Re-poll in 5s |
+| 413 | `tarball_too_large` | Tarball decoded size >10 MB | Slim the tarball or use a multi-stage Docker build |
+| 503 | `provisioner_unavailable` | Provisioner gRPC backend is down | Retry with exponential back-off (the `retry` field in the envelope gives a suggested delay) |
+
+Every error envelope includes an `agent_action` string when recovery is possible — surface it to the user verbatim. The `retry` field (seconds) signals the server-suggested back-off when present.
+
 ## How to use this file
 
 If you're an LLM helping a user build something, you can:
