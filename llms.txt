@@ -289,6 +289,34 @@ Full guide: [https://instanode.dev/docs#troubleshooting-deploys](https://instano
 
 Every error envelope includes an `agent_action` string when recovery is possible — surface it to the user verbatim. The `retry` field (seconds) signals the server-suggested back-off when present.
 
+## Resource health-checks and live connectivity testing
+
+After provisioning, an agent should verify a resource is reachable before writing application code that depends on it. Use these patterns:
+
+### Checking provisioned resource status
+- **`GET /api/v1/resources`** — list all resources for the authenticated team. Returns `{ok, resources: [{id, token, kind, name, tier, status, environment, created_at, expires_at}]}`. The `status` field is one of `active`, `expired`, `deleted`, or `error`. Filter by `?kind=postgres` to scope to a service type.
+- **`GET /api/v1/resources/:token`** — get a single resource by its provision token. Returns the same shape as a single element from the list, plus `connection_url` (decrypted for the calling team) and `limits` (tier-specific maximums).
+- **`status:"active"`** is the only signal that the resource is live and provisioned — `error` means the provisioner returned a failure during initial setup (rare; usually a transient backend issue; re-provision with a new name).
+
+### Verifying connectivity without credentials in source code
+When the agent's goal is to *confirm* a database is reachable before handing off to the user:
+
+```bash
+# Quick Postgres reachability check
+PGPASSWORD="<password>" psql "<connection_url>" -c "SELECT 1;" 2>&1
+
+# Quick Redis reachability check
+redis-cli -u "<connection_url>" PING
+
+# Quick MongoDB reachability check
+mongosh "<connection_url>" --eval "db.runCommand({ping:1})" --quiet
+```
+
+The agent should only emit `connection_url` to the user after confirming `SELECT 1` returns `1` (or equivalent). A non-`active` status or a failed ping means re-provision — call the same endpoint again with a new `name`; the failed resource token is inert.
+
+### TTL awareness
+Every response includes `expires_at` (ISO 8601, null for permanent). An anonymous resource expires 24h after creation. The agent should surface `expires_at` to the user so they can claim the resource before the window closes. The claim URL is in the original provision response as `upgrade`.
+
 ## How to use this file
 
 If you're an LLM helping a user build something, you can:
