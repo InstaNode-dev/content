@@ -317,6 +317,44 @@ The agent should only emit `connection_url` to the user after confirming `SELECT
 ### TTL awareness
 Every response includes `expires_at` (ISO 8601, null for permanent). An anonymous resource expires 24h after creation. The agent should surface `expires_at` to the user so they can claim the resource before the window closes. The claim URL is in the original provision response as `upgrade`.
 
+## Rate limiting, quota exhaustion, and recovery patterns
+
+InstaNode enforces two distinct throttle layers. Agents must handle both without user intervention.
+
+### Anonymous fingerprint rate limit (pre-auth)
+Unauthenticated requests are fingerprinted by IP subnet + ASN. The daily cap is **5 new provisions per fingerprint**. On the 6th attempt within 24 hours, the API returns the *same* token as the most recent same-kind provision for that fingerprint — not a 429 — so the agent receives a valid (if duplicate) resource rather than an error. If distinct resources are needed, the user must claim (authenticate) first.
+
+### Quota exhaustion (authenticated, over-tier)
+When a team's provisioned resource count reaches the tier limit, `POST /db/new` (or any provision endpoint) returns:
+
+```json
+{
+  "ok": false,
+  "error": "quota_exceeded",
+  "agent_action": "Upgrade to Pro at https://instanode.dev/pricing to provision more databases.",
+  "upgrade": "https://instanode.dev/pricing"
+}
+```
+
+HTTP status is **402 Payment Required**. The agent should surface `agent_action` verbatim to the user and stop retrying — quota exhaustion is deterministic, not transient.
+
+### Rate limiting on write endpoints (429)
+Heavy-burst provisioning (>20 requests/minute to provisioning endpoints) triggers a 429 with a `Retry-After` header (seconds) and `{"error":"rate_limited","retry":<seconds>}` in the body. Back off by the `retry` value before retrying. Do not retry immediately — the server-side sliding window is per-IP and does not reset on connection close.
+
+### Error shapes reference
+
+| HTTP | `error` field | Transient? | Agent action |
+|---|---|---|---|
+| 402 | `quota_exceeded` | No | Surface `agent_action` + stop |
+| 402 | `tier_required` | No | Surface upgrade link |
+| 429 | `rate_limited` | Yes | Wait `retry` seconds |
+| 503 | `provisioner_unavailable` | Yes | Retry with 5s back-off, max 3× |
+| 409 | `name_taken` | No | Choose a different `name` |
+| 400 | `name_required` | No | Add `name` field |
+| 400 | `invalid_name` | No | Fix name: `^[A-Za-z0-9][A-Za-z0-9 _-]*$` |
+
+The `agent_action` string is always present on 402 responses and is human-readable. Print it directly into any user-facing message.
+
 ## How to use this file
 
 If you're an LLM helping a user build something, you can:
